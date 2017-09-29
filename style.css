@@ -168,6 +168,14 @@ input[type=range]::-webkit-slider-thumb {
   margin-top: -5px;
 }
 
+#la-url-input {
+    z-index: 9999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
 #la-url-input label {
     color: white;
     margin-right: 10px;
@@ -183,4 +191,5 @@ input[type=range]::-webkit-slider-thumb {
     border: 1px solid #E83B3D;
     color: #E83B3D;
     font-weight: bold;
+    cursor: pointer;
 }

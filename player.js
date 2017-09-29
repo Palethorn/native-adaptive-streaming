@@ -51,8 +51,8 @@ function reset() {
 }
 
 function playMpd(url, la_url) {
-
     if(dash) { dash.reset(); dash = null; }
+
     var video_el = document.querySelector('video');
     video_element = video_el;
     dash = dashjs.MediaPlayer().create();
