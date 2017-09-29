@@ -1,7 +1,7 @@
 var enabled = true;
 
 chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse){ 
+    function(request, sender, sendResponse){
       if (request == "getState") {
         sendResponse(enabled);
       } else {
@@ -11,9 +11,9 @@ chrome.runtime.onMessage.addListener(
     }
 );
 
-chrome.webRequest.onBeforeRequest.addListener(	
+chrome.webRequest.onBeforeRequest.addListener(
   function(info) {
-    if (enabled && info.url.split("?")[0].split("#")[0].endsWith(".m3u8")) {
+    if (enabled && (info.url.split("?")[0].split("#")[0].endsWith(".m3u8") || info.url.split("?")[0].split("#")[0].endsWith(".mpd"))) {
       var playerUrl = chrome.runtime.getURL('player.html') + "#" + info.url
       if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
         chrome.tabs.update(info.tabId, {url: playerUrl});
@@ -23,6 +23,6 @@ chrome.webRequest.onBeforeRequest.addListener(
       }
     }
   },
-  {urls: ["*://*/*.m3u8*"], types:["main_frame"]},
+  {urls: ["*://*/*.m3u8*", "*://*/*.mpd*"], types:["main_frame"]},
   ["blocking"]
 );

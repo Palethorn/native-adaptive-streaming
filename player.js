@@ -3,6 +3,7 @@ var debug;
 var currentVersion = "0.8.2";
 var supportedVersions = ["0.5.52", "0.6.21","0.7.3","0.7.4", "0.7.7", "0.7.8", "0.7.9", "0.7.10", "0.8.0", "0.8.1", "0.8.2"]
 var recoverDecodingErrorDate,recoverSwapAudioCodecDate;
+var dash;
 
 function handleMediaError(hls) {
   var now = performance.now();
@@ -25,22 +26,55 @@ function handleMediaError(hls) {
   }
 }
 
-function playMpd(url) {
-    var video_el = document.querySelector('video');
-    window.video_element = video_el;
-    window.player = dashjs.MediaPlayer().create();
+function reloadPlayer(e) {
+    la_url = document.querySelector("#la-url").value;
+    console.log(la_url);
+    if(la_url != null && la_url != '') {
+        playMpd(window.location.href.split("#")[1], la_url);
+    } else {
+        playMpd(window.location.href.split("#")[1], null);
+    }
+}
 
-    if(typeof window.player.setLogToBrowserConsole === 'function') {
-        window.player.setLogToBrowserConsole(false);
+function prepareLaUrlInput() {
+    document.querySelector("#la-url-input").style.visibility = 'visible';
+    document.querySelector("#reload-source").addEventListener('click', reloadPlayer);
+}
+
+function reset() {
+
+    if(hls) { hls.destroy(); }
+    if(dash) { dash.reset(); dash = null; }
+
+    document.querySelector("#la-url-input").style.visibility = 'collapse';
+    document.querySelector("#reload-source").removeEventListener('click', reloadPlayer);
+}
+
+function playMpd(url, la_url) {
+
+    if(dash) { dash.reset(); dash = null; }
+    var video_el = document.querySelector('video');
+    video_element = video_el;
+    dash = dashjs.MediaPlayer().create();
+
+    dash.on(dashjs.MediaPlayer.events.ERROR, function (e) {
+        console.error(e.error + ' : ' + e.event.message);
+        if(e.error == 'key_session') {
+            prepareLaUrlInput();
+        }
+    });
+
+    if(la_url != null) {
+        var protData = { "com.widevine.alpha": { "serverURL": la_url}};
+        dash.setProtectionData(protData);
     }
 
-    window.player.initialize();
-    // window.player.reset();
+    dash.initialize();
 
-    window.player.label = "mpd";
-    window.player.attachView(video_el);
-    window.player.setAutoPlay(true);
-    window.player.attachSource(url);
+    dash.label = "mpd";
+    dash.attachView(video_el);
+    dash.setAutoPlay(true);
+    dash.attachSource(url);
 }
 
 function playM3u8(url){
@@ -89,7 +123,8 @@ chrome.storage.local.get({
 }, function(settings) {
   debug = settings.debug;
   native = settings.native;
-  var s = document.createElement('script');
+  var s1 = document.createElement('script');
+  var s2 = document.createElement('script');
   var version = currentVersion
   if (supportedVersions.includes(settings.hlsjs)) {
     version = settings.hlsjs
@@ -97,23 +132,27 @@ chrome.storage.local.get({
 
     var url = window.location.href.split("#")[1];
 
+    s1.src = chrome.runtime.getURL('dash.all.min.js');
+    (document.head || document.documentElement).appendChild(s1);
+
+    s2.src = chrome.runtime.getURL('hls.' + version + '.min.js');
+    (document.head || document.documentElement).appendChild(s2);
+
     if(url.indexOf(".mpd") > -1) {
-        s.src = chrome.runtime.getURL('dash.all.min.js');
-        s.onload = function() { playMpd(url); };
-        (document.head || document.documentElement).appendChild(s);
+        s1.onload = function() { playMpd(url, null); };
     } else {
-        s.src = chrome.runtime.getURL('hls.'+version+'.min.js');
-        s.onload = function() { playM3u8(url); };
-        (document.head || document.documentElement).appendChild(s);
+        s2.onload = function() { playM3u8(url); };
     }
 });
 
 $(window).bind('hashchange', function() {
     var url = window.location.href.split("#")[1];
 
+    reset();
+
     if(url.indexOf(".mpd") > -1) {
-        playMpd(url);
+        playMpd(url, null);
     } else {
-        playM3u8();
+        playM3u8(url);
     }
 });
