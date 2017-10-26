@@ -1,9 +1,10 @@
 var hls;
 var debug;
-var currentVersion = "0.8.2";
-var supportedVersions = ["0.5.52", "0.6.21","0.7.3","0.7.4", "0.7.7", "0.7.8", "0.7.9", "0.7.10", "0.8.0", "0.8.1", "0.8.2"]
+var hlsjsCurrentVersion = "0";
+var dashjsCurrentVersion = "0";
 var recoverDecodingErrorDate,recoverSwapAudioCodecDate;
 var dash;
+var loaded1 = loaded2 = false;
 
 function handleMediaError(hls) {
   var now = performance.now();
@@ -28,7 +29,6 @@ function handleMediaError(hls) {
 
 function reloadPlayer(e) {
     la_url = document.querySelector("#la-url").value;
-    console.log(la_url);
     if(la_url != null && la_url != '') {
         playMpd(window.location.href.split("#")[1], la_url);
     } else {
@@ -107,6 +107,7 @@ function playM3u8(url){
       }
     }
    });
+
   var m3u8Url = decodeURIComponent(url)
   hls.loadSource(m3u8Url);
   hls.attachMedia(video);
@@ -116,38 +117,68 @@ function playM3u8(url){
   document.title = url
 }
 
-chrome.storage.local.get({
-  hlsjs: currentVersion,
-  debug: false,
-  native: false
-}, function(settings) {
-  debug = settings.debug;
-  native = settings.native;
-  var s1 = document.createElement('script');
-  var s2 = document.createElement('script');
-  var version = currentVersion
-  if (supportedVersions.includes(settings.hlsjs)) {
-    version = settings.hlsjs
-  }
+$.ajax('https://data.jsdelivr.com/v1/package/npm/dashjs', {
+    dataType: 'json',
+    success: function(data) {
+        loaded1 = true;
+        dashjsCurrentVersion = data.tags.latest;
+        restoreSettings();
+    },
+    error: function() {
 
-    var url = window.location.href.split("#")[1];
-
-    s1.src = chrome.runtime.getURL('dash.all.min.js');
-    (document.head || document.documentElement).appendChild(s1);
-
-    s2.src = chrome.runtime.getURL('hls.' + version + '.min.js');
-    (document.head || document.documentElement).appendChild(s2);
-
-    if(url.indexOf(".mpd") > -1) {
-        s1.onload = function() { playMpd(url, null); };
-    } else {
-        s2.onload = function() { playM3u8(url); };
     }
 });
 
+$.ajax('https://data.jsdelivr.com/v1/package/npm/hls.js', {
+    dataType: 'json',
+    success: function(data) {
+        loaded2 = true;
+        hlsjsCurrentVersion = data.tags.latest;
+        restoreSettings();
+    },
+    error: function() {
+
+    }
+});
+
+
+function restoreSettings() {
+    if(!loaded1 || !loaded2) {
+        return;
+    }
+
+    chrome.storage.local.get({
+        hlsjs: hlsjsCurrentVersion,
+        dashjs: dashjsCurrentVersion,
+        debug: false,
+        native: false
+    }, function(settings) {
+        debug = settings.debug;
+        native = settings.native;
+        var url = window.location.href.split("#")[1];
+
+        var s1 = document.createElement('script');
+        var s2 = document.createElement('script');
+
+        s1.src = 'https://cdn.jsdelivr.net/npm/hls.js@' + settings.hlsjs + '/dist/hls.min.js';
+        (document.head || document.documentElement).appendChild(s1);
+
+        s2.src = 'https://cdn.jsdelivr.net/npm/dashjs@' + settings.dashjs + '/dist/dash.all.min.js';
+        (document.head || document.documentElement).appendChild(s2);
+
+        if(url.indexOf(".mpd") > -1) {
+            s2.onload = function() { playMpd(url, null); };
+        } else {
+            s1.onload = function() { playM3u8(url); };
+        }
+
+        $('head').append(s1);
+        $('head').append(s2);
+    });
+}
+
 $(window).bind('hashchange', function() {
     var url = window.location.href.split("#")[1];
-
     reset();
 
     if(url.indexOf(".mpd") > -1) {

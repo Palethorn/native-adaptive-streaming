@@ -1,43 +1,37 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Native HLS Settings</title>
-		<style>body: { padding: 10px; }</style>
-	</head>
-	<body>
-		<p>
-		<label for="cbDebug">
-			hls.js version:  
-			<select id="hlsjsSel">
-		     	<option>0.8.2</option>
-		     	<option>0.8.1</option>
-		     	<option>0.8.0</option>
-		     	<option>0.7.10</option>
-		     	<option>0.7.9</option>
-		     	<option>0.7.8</option>
-		     	<option>0.7.7</option>
-		     	<option>0.7.4</option>
-		     	<option>0.7.3</option>
-		     	<option>0.6.21</option>
-		     	<option>0.5.52</option>
-			</select>
-		 </label>
-		 </p>
-		 <p>
-		 <label for="cbDebug">
-		 	hls.js debug:
-			<input type="checkbox" id="cbDebug">
-		 </label>
-		 </p>
-		 <p>
-		 <label for="cbNative">
-		 	Maintain original video size:
-			<input type="checkbox" id="cbNative">
-		 </label>
-		 </p>
-		<button id="saveSettings">Save</button>
-		<span id="status"></span>
-  	</body>
-	<script src="options.js"></script>
+    <head>
+        <title>Native HLS Settings</title>
+        <style>body: { padding: 10px; }</style>
+        <script src="jquery.min.js"></script>
+    </head>
+    <body>
+        <p>
+        <label for="hlsjsSel">
+            hls.js version:
+            <select id="hlsjsSel">
+            </select>
+         </label>
+         <label for="dashjsSel">
+             dashjs version:
+             <select id="dashjsSel">
+             </select>
+          </label>
+         </p>
+         <p>
+         <label for="cbDebug">
+             debug:
+            <input type="checkbox" id="cbDebug">
+         </label>
+         </p>
+         <p>
+         <label for="cbNative">
+             Maintain original video size:
+            <input type="checkbox" id="cbNative">
+         </label>
+         </p>
+        <button id="saveSettings">Save</button>
+        <span id="status"></span>
+      </body>
+    <script src="options.js"></script>
 </html>
-
