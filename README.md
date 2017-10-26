@@ -1,4 +1,4 @@
-Fork of https://github.com/gramk/chrome-hls
+Forked from https://github.com/gramk/chrome-hls and added additional features.
 
 # Native HLS + MPEG-Dash Extension
 
