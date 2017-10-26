@@ -116,7 +116,7 @@ function playM3u8(url) {
         video.play();
     });
 
-    document.title = url:
+    document.title = url;
 }
 
 $.ajax('https://data.jsdelivr.com/v1/package/npm/dashjs', {

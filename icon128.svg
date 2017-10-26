@@ -29,7 +29,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.7236328"
-     inkscape:cx="145.49114"
+     inkscape:cx="46.572159"
      inkscape:cy="13.309003"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -58,13 +58,13 @@
      id="layer1"
      transform="translate(0,-263.13332)">
     <rect
-       style="fill:#808080;stroke-width:0.36918601"
+       style="fill:#ff5555;stroke-width:0.36754519"
        id="rect14"
-       width="34.017857"
-       height="34.017857"
-       x="1.2146933e-006"
-       y="263.17111"
-       ry="6.3289032"
+       width="33.866665"
+       height="33.866665"
+       x="0.075596184"
+       y="263.2467"
+       ry="6.3007751"
        inkscape:export-xdpi="95"
        inkscape:export-ydpi="95" />
     <path
