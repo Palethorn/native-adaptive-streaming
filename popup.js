@@ -19,7 +19,7 @@ document.getElementById('btnSettings').addEventListener('click', function(){
 	chrome.runtime.openOptionsPage();
 });
 
-document.getElementById('btnPlayHlS').addEventListener('click', play_videos);
+/* document.getElementById('btnPlayHlS').addEventListener('click', play_videos);
 
 function play_videos(){
   chrome.tabs.executeScript(null, {
@@ -28,4 +28,4 @@ function play_videos(){
       chrome.tabs.executeScript(null, {file: 'embedded_videos.js'});
       window.close();
   });
-}
+}*/
