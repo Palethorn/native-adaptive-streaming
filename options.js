@@ -1,3 +1,6 @@
+/**
+ * Modifications copyright (C) 2017 David Ćavar
+ */
 var hls_current_version = "0";
 var dashjs_current_version = "0";
 

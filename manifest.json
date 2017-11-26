@@ -1,30 +1,35 @@
 {
-  "name": "Native MPEG-Dash + HLS Playback",
-  "version": "1.0.3",
-  "description": "Allow the browser to play HLS (m3u8) or MPEG-Dash (mpd) video urls 'natively'",
-  "manifest_version": 2,
-  "icons": { "128": "icon128.png" },
-  "background": { "scripts": [ "event.js"] },
-  "content_security_policy": "script-src 'self' https://cdn.jsdelivr.net; object-src 'self'",
-  "permissions": [
-    "tabs",
-    "*://*/*.m3u8*",
-    "*://*/*.mpd*",
-    "webRequest",
-    "webRequestBlocking",
-    "storage"
-  ],
-  "options_ui": {
-    "page": "options.html",
-    "chrome_style": true
-  },
-  "browser_action": {
-      "default_title": "Disable",
-      "default_icon": "icon128.png",
-      "default_popup": "popup.html"
-  },
-  "web_accessible_resources": [
-    "*.js",
-    "*.html"
-  ]
+    "name": "Native MPEG-Dash + HLS Playback",
+    "version": "1.0.3",
+    "description": "Allow the browser to play HLS (m3u8) or MPEG-Dash (mpd) video urls 'natively'",
+    "manifest_version": 2,
+    "applications": {
+        "gecko": {
+            "id": "native-dash-hls@cavar.net"
+        }
+    },
+    "icons": { "128": "icon128.png" },
+    "background": { "scripts": [ "event.js"] },
+    "content_security_policy": "script-src 'self' https://cdn.jsdelivr.net; object-src 'self'",
+    "permissions": [
+        "tabs",
+        "*://*/*.m3u8*",
+        "*://*/*.mpd*",
+        "webRequest",
+        "webRequestBlocking",
+        "storage"
+    ],
+    "options_ui": {
+        "page": "options.html",
+        "chrome_style": true
+    },
+    "browser_action": {
+        "default_title": "Disable",
+        "default_icon": "icon128.png",
+        "default_popup": "popup.html"
+    },
+    "web_accessible_resources": [
+        "*.js",
+        "*.html"
+    ]
 }

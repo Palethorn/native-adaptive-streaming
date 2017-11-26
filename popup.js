@@ -1,3 +1,6 @@
+/**
+ * Modifications copyright (C) 2017 David Ćavar
+ */
 var current_version = "0.8.2"
 
 var btnUpdate = document.getElementById('btnUpdate');

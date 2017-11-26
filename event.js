@@ -1,3 +1,6 @@
+/**
+ * Modifications copyright (C) 2017 David Ćavar
+ */
 var enabled = true;
 
 chrome.runtime.onMessage.addListener(
