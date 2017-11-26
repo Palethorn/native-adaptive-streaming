@@ -1,4 +1,4 @@
-Copyright (c) Gaetan Hervouet
+Copyright (c) David Ćavar
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -23,3 +23,5 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+Follow up license: https://github.com/Palethorn/chrome-native-dash-hls/blob/1f6dc391ca44866b51b63a73915731b93e5af224/LICENSE
