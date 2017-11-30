@@ -34,7 +34,7 @@ function reloadPlayer(e) {
     document.querySelector("#la-url-input").classList.add('fadeOutUp');
     document.querySelector("#reload-source").removeEventListener('click', reloadPlayer);
     la_url = document.querySelector("#la-url").value;
-    
+
     if(la_url != null && la_url != '') {
         playMpd(window.location.href.split("#")[1], la_url);
     } else {
@@ -85,13 +85,6 @@ function playMpd(url, la_url) {
 
 function playM3u8(url) {
     var video = document.getElementById('video');
-    if(native){
-        video.classList.add("native_mode");
-        video.classList.remove("zoomed_mode");
-    } else {
-        video.classList.remove("native_mode");
-        video.classList.add("zoomed_mode");
-    }
 
     if(hls) { hls.destroy(); }
     hls = new Hls({debug:debug});
