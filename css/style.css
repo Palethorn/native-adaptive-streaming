@@ -172,27 +172,41 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 #la-url-input {
-    z-index: 9999;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+    width: 820px;
+    height: 100px;
+    background-color: #405068;
+    margin-left: auto;
+    margin-right: auto;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 
 #la-url-input label {
+    position: relative;
     color: white;
     margin-right: 10px;
+    top: 40%;
+    margin-left: 10px;
 }
 
 #la-url-input input {
+    position: relative;
     width: 80%;
+    top: 40%;
 }
 
 #la-url-input button {
+    position: relative;
     margin-left: 10px;
     border-radius: 16px;
     border: 1px solid #E83B3D;
     color: #E83B3D;
     font-weight: bold;
     cursor: pointer;
+    top: 40%;
+}
+
+.collapsed {
+    visibility: collapse;
 }
