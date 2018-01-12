@@ -8,8 +8,8 @@
             "id": "native-dash-hls@cavar.net"
         }
     },
-    "icons": { "128": "icon128.png" },
-    "background": { "scripts": [ "event.js"] },
+    "icons": { "128": "assets/icon128.png" },
+    "background": { "scripts": [ "js/event.js"] },
     "content_security_policy": "script-src 'self' https://cdn.jsdelivr.net; object-src 'self'",
     "permissions": [
         "tabs",
@@ -25,7 +25,7 @@
     },
     "browser_action": {
         "default_title": "Disable",
-        "default_icon": "icon128.png",
+        "default_icon": "assets/icon128.png",
         "default_popup": "popup.html"
     },
     "web_accessible_resources": [

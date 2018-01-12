@@ -8,9 +8,26 @@ var dashjsCurrentVersion = "0";
 var recoverDecodingErrorDate,recoverSwapAudioCodecDate;
 var dash;
 var loaded1 = loaded2 = false;
+var play_pause = document.querySelector('#play-pause');
+play_pause.addEventListener('click', playPause);
+
+var STATE_PAUSED = 0;
+var STATE_PLAYING = 1;
+var PLAYER_STATE = 0;
+
+function playPause() {
+    var video_el = document.querySelector('video');
+
+    if(PLAYER_STATE == STATE_PAUSED) {
+        video_el.play();
+    } else {
+        video_el.pause();
+    }
+}
 
 function handleMediaError(hls) {
     var now = performance.now();
+
     if(!recoverDecodingErrorDate || (now - recoverDecodingErrorDate) > 3000) {
         recoverDecodingErrorDate = performance.now();
         var msg = "trying to recover from media Error ..."
@@ -63,11 +80,26 @@ function playMpd(url, la_url) {
     video_element = video_el;
     dash = dashjs.MediaPlayer().create();
     dash.getDebug().setLogToBrowserConsole(false);
+    
     dash.on(dashjs.MediaPlayer.events.ERROR, function (e) {
         console.error(e.error + ' : ' + e.event.message);
         if(e.error == 'key_session') {
             prepareLaUrlInput();
         }
+    });
+
+    dash.on(dashjs.MediaPlayer.events.PLAYBACK_PAUSED, function (e) {
+        play_pause.innerText = "play_arrow";
+        PLAYER_STATE = STATE_PAUSED;
+    });
+
+    dash.on(dashjs.MediaPlayer.events.PLAYBACK_PLAYING, function (e) {
+        play_pause.innerText = "pause";
+        PLAYER_STATE = STATE_PLAYING;
+    });
+
+    dash.on(dashjs.MediaPlayer.events.PLAYBACK_ENDED, function (e) {
+
     });
 
     if(la_url != null) {

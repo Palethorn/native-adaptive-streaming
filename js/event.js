@@ -16,7 +16,7 @@ chrome.runtime.onMessage.addListener(
 
 chrome.webRequest.onBeforeRequest.addListener(
   function(info) {
-    if (enabled && (info.url.split("?")[0].split("#")[0].endsWith(".m3u8") || info.url.split("?")[0].split("#")[0].endsWith(".mpd"))) {
+    if ((info.url.split("?")[0].split("#")[0].endsWith(".m3u8") || info.url.split("?")[0].split("#")[0].endsWith(".mpd"))) {
       var playerUrl = chrome.runtime.getURL('player.html') + "#" + info.url
       if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
         chrome.tabs.update(info.tabId, {url: playerUrl});
