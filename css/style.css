@@ -113,8 +113,12 @@ input[type=range]::-webkit-slider-thumb {
     box-shadow: 0 1px 0 0 #ff5555 !important;
 }
 
-.btn{
+.btn {
     background-color: #ff5555 !important;
+}
+
+#settings-popup .btn-flat {
+    width: 100% !important;
 }
 
 .btn:hover {
@@ -157,4 +161,44 @@ input[type=range]::-webkit-slider-thumb {
 
 #controls #play-pause {
     height: 60px;
+}
+
+#volume-popup {
+    position: relative;
+    display: block;
+    width: 50px;
+    height: 200px;
+    background-color: white;
+    top: -270px;
+    left: 35px;
+}
+
+#settings-popup {
+    position: relative;
+    display: block;
+    width: 200px;
+    height: 250px;
+    background-color: white;
+    top: -320px;
+    left: 35px;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.material-icons.tooltip-arrow-vol {
+    position: absolute;
+    top: 163px;
+    left: -11px;
+    color: white;
+    font-size: 56pt;
+}
+
+.material-icons.tooltip-arrow-settings {
+    position: absolute;
+    top: 213px;
+    left: -11px;
+    color: white;
+    font-size: 56pt;
 }

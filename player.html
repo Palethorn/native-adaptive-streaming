@@ -4,6 +4,7 @@
 -->
 <html>
 <head>
+    <meta charset="UTF-8"> 
     <script src="js/jquery.min.js"></script>
     <script src="materialize/js/materialize.js"></script>
     <link rel="stylesheet" href="css/style.css">
@@ -32,11 +33,24 @@
     <div id="controls" class="row white-bg">
             <form class="col s12">
                     <div class="row">
-                            <div id="playback" class="col s1"><a class="waves-effect waves-red btn-flat"><i id="play-pause" class="material-icons control">play_arrow</i></a></div>
-                            <div id="progress" class="col s9"><div id="line"><div id="path"></div><div id="thumb"></div></div></div>
-                            <div id="volume" class="col s1"><a class="waves-effect waves-red btn-flat"><i class="material-icons control">volume_mute</i></a></div>
-                            <div id="settings" class="col s1"><a class="waves-effect waves-red btn-flat"><i class="material-icons control">settings</i></a></div>
-                            <!--<div class="col s6"><i id="play" class="material-icons control">play_arrow</i></div>-->
+                            <div id="playback" class="col s1">
+                                <a class="waves-effect waves-red btn-flat"><i id="play-pause" class="material-icons control">play_arrow</i></a>
+                            </div>
+                            <div id="progress" class="col s8"><div id="line"><div id="path"></div><div id="thumb"></div></div></div>
+                            <div id="volume" class="col s1">
+                                <a id="volume-btn" class="waves-effect waves-red btn-flat"><i class="material-icons control">volume_mute</i></a>
+                                <div id="volume-popup"><i class="material-icons tooltip-arrow-vol">arrow_drop_down</i></div>
+                            </div>
+                            <div id="settings" class="col s1">
+                                <a class="waves-effect waves-red btn-flat"><i class="material-icons control">settings</i></a>
+                                <div id="settings-popup">
+                                    <a class="waves-effect waves-red btn-flat">Change Media URL</a>
+                                    <a class="waves-effect waves-red btn-flat">Change License URL</a>
+                                    <a class="waves-effect waves-red btn-flat">Playback Speed</a>
+                                    <a class="waves-effect waves-red btn-flat">Playback Rate</a>
+                                    <i class="material-icons tooltip-arrow-settings">arrow_drop_down</i>
+                                </div>
+                            </div>
                     </div>
             </form>
     </div>
