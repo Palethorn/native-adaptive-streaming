@@ -15,15 +15,12 @@ body{
 }
 
 #player-container #player {
-    /* Make video to at least 100% wide and tall */
     min-width: 100%; 
     min-height: 100%; 
-  
-    /* Setting width & height to auto prevents the browser from stretching or squishing the video */
+
     width: auto;
     height: auto;
-  
-    /* Center the video */
+
     position: absolute;
     top: 50%;
     left: 50%;
@@ -36,6 +33,16 @@ body{
 	right:0px;
     bottom: 0px;
     height:60px;
+
+    -webkit-animation-duration: 5s;
+    -moz-animation-duration: .3s;
+    animation-duration: .3s;
+}
+
+.animation-delay {
+    -webkit-animation-delay: 3s;
+    -moz-animation-delay: 3s;
+    animation-delay: 3s;
 }
 
 .material-icons.control {
@@ -54,33 +61,6 @@ input[type=range]:focus {
 
 input[type=range] {
 	-webkit-appearance: none;
-}
-
-input[type=range]::-webkit-slider-runnable-track {
-    height: 2px;
-    cursor: pointer;
-    animate: 0.2s;
-    box-shadow: 0px 0px 0px #000000;
-    background: #C9C9C9;
-    border-radius: 0px;
-    border: 0px solid #000000;
-}
-
-#volume-bar::-webkit-slider-runnable-track {
-    background: #0596F7;
-    color: rgba(255, 255, 255, 1);
-}
-
-input[type=range]::-webkit-slider-thumb {
-    box-shadow: 0px 0px 0px #000000;
-    border: 0px;
-    height: 12px;
-    width: 12px;
-    border-radius: 12px;
-    background: #0596F7;
-    cursor: pointer;
-    -webkit-appearance: none;
-    margin-top: -5px;
 }
 
 .collapsed {
@@ -133,6 +113,7 @@ input[type=range]::-webkit-slider-thumb {
     border: 1px solid #d32f2f;
     height: 8px;
     margin-top: 25px;
+    cursor: pointer;
 }
 
 #path {
@@ -151,6 +132,7 @@ input[type=range]::-webkit-slider-thumb {
     float: left;
     margin-top: -6px;
     margin-left: -2px;
+    cursor: pointer;
 }
 
 #controls a{
@@ -171,6 +153,10 @@ input[type=range]::-webkit-slider-thumb {
     background-color: white;
     top: -270px;
     left: 35px;
+
+    -webkit-animation-duration: .3s;
+    -moz-animation-duration: .3s;
+    animation-duration: .3s;
 }
 
 #settings-popup {
@@ -181,6 +167,9 @@ input[type=range]::-webkit-slider-thumb {
     background-color: white;
     top: -320px;
     left: 35px;
+    -webkit-animation-duration: .3s;
+    -moz-animation-duration: .3s;
+    animation-duration: .3s;
 }
 
 .clearfix {
@@ -201,4 +190,12 @@ input[type=range]::-webkit-slider-thumb {
     left: -11px;
     color: white;
     font-size: 56pt;
+}
+
+#volume {
+    height: 60px;
+}
+
+#settings {
+    height: 60px;
 }
