@@ -1,25 +1,36 @@
-var StateMachine = function(transitions, current_state) {
-    this.transitions = transitions;
-    this.current_state = current_state;
-    this.timeout_id = null;
+var StateMachine = function() {
+    this.transitions = {};
 
-    this.transition = function(to) {
-        for(var i = 0; i < this.transitions.length; i++) {
-            var transition = this.transitions[i];
+    this.addTransitions = function (namespace, definitions, state) {
+        this.transitions[namespace] = {};
+        this.transitions[namespace].timeout_id = null;
+        this.transitions[namespace].state = state;
+        this.transitions[namespace].definitions = definitions;
+    }
 
-            if(transition.to == to) {
-                if(transition.from != this.current_state) {
+    this.transition = function(namespace, to) {
+        var transitions = this.transitions[namespace];
+        
+        for(var i = 0; i < transitions.definitions.length; i++) {
+            var definition = transitions.definitions[i];
+
+            if(definition.to == to) {
+                if(definition.from != transitions.state) {
                     continue;
                 }
 
-                console.log(transition);
-                transition.handle(transition);
-                var _self = this;
-                clearTimeout(this.timeout_id);
-                this.timeout_id = setTimeout(function() {
-                    _self.current_state = to;
-                }, transition.delay);
-                
+                console.log(definition);
+                definition.handle(definition);
+                clearTimeout(transitions.timeout_id);
+
+                if(definition.delay != undefined) {
+                    transitions.timeout_id = setTimeout(function() {
+                        transitions.state = to;
+                    }, definition.delay);
+                } else {
+                    transitions.state = to;
+                }
+
                 break;
             }
         }

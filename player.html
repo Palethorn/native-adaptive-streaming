@@ -5,8 +5,10 @@
 <html>
 <head>
     <meta charset="UTF-8"> 
+    <script src="js/state_machine.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="materialize/js/materialize.js"></script>
+    <script src="js/globals.js"></script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="materialize/css/materialize.css">
@@ -14,15 +16,15 @@
 </head>
 <body>
     <div id="player-container"><video id="player"></video></div>
-    <div id="la-url-input" class="row collapsed white-bg">
+    <div id="la-url-form" class="row collapsed white-bg">
         <form class="col s12">
             <div class="row">
                 <div class="input-field col s6">
                     <input type="text" id="la-url">
-                    <label for="la_url">License url</label>
+                    <label for="la-url">License url</label>
                 </div>
                 <div class="input-field col s6">
-                    <button id="reload-source" class="waves-effect waves-light btn" type="submit" name="reload-source">
+                    <button id="reload-source-la-url-btn" class="waves-effect waves-light btn" type="submit">
                         Load
                       <i class="material-icons right">send</i>
                     </button>
@@ -30,6 +32,24 @@
             </div>
         </form>
     </div>
+
+    <div id="media-url-form" class="row collapsed white-bg">
+        <form class="col s12">
+            <div class="row">
+                <div class="input-field col s6">
+                    <input type="text" id="media-url-input">
+                    <label for="media-url-input">Media url</label>
+                </div>
+                <div class="input-field col s6">
+                    <button id="reload-source-media-url-btn" class="waves-effect waves-light btn" type="submit">
+                        Load
+                      <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
     <div id="controls" class="row white-bg animated">
             <form class="col s12">
                     <div class="row">
@@ -44,8 +64,8 @@
                             <div id="settings" class="col s1">
                                 <a class="waves-effect waves-red btn-flat"><i class="material-icons control">settings</i></a>
                                 <div id="settings-popup" class="collapsed">
-                                    <a class="waves-effect waves-red btn-flat">Change Media URL</a>
-                                    <a class="waves-effect waves-red btn-flat">Change License URL</a>
+                                    <a id="media-url-toggle-btn" class="waves-effect waves-red btn-flat">Change Media URL</a>
+                                    <a id="la-url-toggle-btn" class="waves-effect waves-red btn-flat">Change License URL</a>
                                     <a class="waves-effect waves-red btn-flat">Playback Speed</a>
                                     <a class="waves-effect waves-red btn-flat">Playback Rate</a>
                                     <i class="material-icons tooltip-arrow-settings">arrow_drop_down</i>
@@ -54,7 +74,6 @@
                     </div>
             </form>
     </div>
-    <script src="js/state_machine.js"></script>
     <script src="js/ui_mapping.js"></script>
     <script src="js/controls.js"></script>
     <script src="js/player.js"></script>

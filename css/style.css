@@ -51,31 +51,24 @@ body{
     color: #ff5555;
 }
 
-.material-icons.control {
-
-}
-
-input[type=range]:focus {
-    outline: none;
-}
-
-input[type=range] {
-	-webkit-appearance: none;
-}
-
 .collapsed {
     visibility: collapse;
-}
-
-.pastel-red-bg {
-    background-color: #ff5555;
 }
 
 .white-bg {
     background-color: white;
 }
 
+#la-url-form, #media-url-form {
+    position: absolute;
+    width: 100%;
+}
+
 #la-url {
+    border-bottom: 1px solid #ff5555;
+}
+
+#media-url {
     border-bottom: 1px solid #ff5555;
 }
 
@@ -170,10 +163,6 @@ input[type=range] {
     -webkit-animation-duration: .3s;
     -moz-animation-duration: .3s;
     animation-duration: .3s;
-}
-
-.clearfix {
-    clear: both;
 }
 
 .material-icons.tooltip-arrow-vol {

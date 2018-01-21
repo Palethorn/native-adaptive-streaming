@@ -10,23 +10,23 @@ var dash;
 var loaded1 = loaded2 = false;
 
 volume.addEventListener('mouseover', function() {
-    document.querySelector("#volume-popup").classList.remove('collapsed', 'fadeOut');
-    document.querySelector("#volume-popup").classList.add('animated', 'fadeIn');
+    volume_popup.classList.remove('collapsed', 'fadeOut');
+    volume_popup.classList.add('animated', 'fadeIn');
 });
 
 volume.addEventListener('mouseout', function() {
-    document.querySelector("#volume-popup").classList.remove('fadeIn');
-    document.querySelector("#volume-popup").classList.add('animated', 'fadeOut');
+    volume_popup.classList.remove('fadeIn');
+    volume_popup.classList.add('animated', 'fadeOut');
 });
 
 settings.addEventListener('mouseover', function() {
-    document.querySelector("#settings-popup").classList.remove('collapsed', 'fadeOut');
-    document.querySelector("#settings-popup").classList.add('animated', 'fadeIn');
+    settings_popup.classList.remove('collapsed', 'fadeOut');
+    settings_popup.classList.add('animated', 'fadeIn');
 });
 
 settings.addEventListener('mouseout', function() {
-    document.querySelector("#settings-popup").classList.remove('fadeIn');
-    document.querySelector("#settings-popup").classList.add('animated', 'fadeOut');
+    settings_popup.classList.remove('fadeIn');
+    settings_popup.classList.add('animated', 'fadeOut');
 });
 
 
@@ -53,36 +53,30 @@ function handleMediaError(hls) {
 }
 
 function reloadPlayer(e) {
-    document.querySelector("#la-url-input").classList.add('fadeOutUp');
-    document.querySelector("#reload-source").removeEventListener('click', reloadPlayer);
-    la_url = document.querySelector("#la-url").value;
+    state_machine.transition('la_url_form', 'invisible');
+    la_url_val = la_url.value;
 
-    if(la_url != null && la_url != '') {
-        playMpd(window.location.href.split("#")[1], la_url);
+    if(la_url_val != null && la_url_val != '') {
+        playMpd(media_url_input.value, la_url_val);
     } else {
-        playMpd(window.location.href.split("#")[1], null);
+        playMpd(media_url_input.value, null);
     }
 }
 
 function prepareLaUrlInput() {
-    document.querySelector("#la-url-input").classList.remove('collapsed');
-    document.querySelector("#la-url-input").classList.add('animated', 'fadeInDown');
-    document.querySelector("#reload-source").addEventListener('click', reloadPlayer);
+    state_machine.transition('la_url_form', 'visible');
 }
 
 function reset() {
 
     if(hls) { hls.destroy(); }
     if(dash) { dash.reset(); dash = null; }
-    document.querySelector("#la-url-input").classList.add('fadeOutUp');
-    document.querySelector("#reload-source").removeEventListener('click', reloadPlayer);
+    state_machine.transition('la_url_form', 'invisible');
 }
 
 function playMpd(url, la_url) {
     if(dash) { dash.reset(); dash = null; }
 
-    var video_el = document.querySelector('#player');
-    video_element = video_el;
     dash = dashjs.MediaPlayer().create();
     dash.getDebug().setLogToBrowserConsole(false);
     
@@ -105,13 +99,13 @@ function playMpd(url, la_url) {
     dash.initialize();
 
     dash.label = "mpd";
-    dash.attachView(video_el);
+    dash.attachView(player);
     dash.setAutoPlay(true);
     dash.attachSource(url);
 }
 
 function playM3u8(url) {
-    var video = document.querySelector('#player');
+    var video = player;
 
     if(hls) { hls.destroy(); }
     hls = new Hls({debug:debug});
@@ -187,22 +181,24 @@ function restoreSettings() {
     }, function(settings) {
         debug = settings.debug;
         native = settings.native;
+        
         var url = window.location.href.split("#")[1];
+        media_url_input.value = url;
 
         var s1 = document.createElement('script');
         var s2 = document.createElement('script');
-
-        s1.src = 'https://cdn.jsdelivr.net/npm/hls.js@' + settings.hlsjs + '/dist/hls.min.js';
-        (document.head || document.documentElement).appendChild(s1);
-
-        s2.src = 'https://cdn.jsdelivr.net/npm/dashjs@' + settings.dashjs + '/dist/dash.all.min.js';
-        (document.head || document.documentElement).appendChild(s2);
-
+        
         if(url.indexOf(".mpd") > -1) {
             s2.onload = function() { playMpd(url, null); };
         } else {
             s1.onload = function() { playM3u8(url); };
         }
+        
+        s1.src = 'https://cdn.jsdelivr.net/npm/hls.js@' + settings.hlsjs + '/dist/hls.min.js';
+        (document.head || document.documentElement).appendChild(s1);
+
+        s2.src = 'https://cdn.jsdelivr.net/npm/dashjs@' + settings.dashjs + '/dist/dash.all.min.js';
+        (document.head || document.documentElement).appendChild(s2);
 
         $('head').append(s1);
         $('head').append(s2);
@@ -212,10 +208,11 @@ function restoreSettings() {
 $(window).bind('hashchange', function() {
     var url = window.location.href.split("#")[1];
     reset();
+    media_url_input.value = url;
 
     if(url.indexOf(".mpd") > -1) {
-        playMpd(url, null);
+        return playMpd;
     } else {
-        playM3u8(url);
+        return playM3u8;
     }
 });
