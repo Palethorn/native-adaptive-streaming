@@ -8,6 +8,10 @@ var StateMachine = function() {
         this.transitions[namespace].definitions = definitions;
     }
 
+    this.getState = function(namespace) {
+        return this.transitions[namespace].state;
+    }
+
     this.transition = function(namespace, to) {
         var transitions = this.transitions[namespace];
         

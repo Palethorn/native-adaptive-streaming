@@ -2,20 +2,18 @@ state_machine.addTransitions('controls', [
     {from: "visible", to: "invisible", object: controls, handle: function(transition) {
         var o = transition.object;
         o.classList.remove('fadeIn');
-        o.classList.add('animation-delay', 'fadeOut');
-    },  delay: 3000},
+        o.classList.add('fadeOut');
+    }},
     {from: "invisible", to: "visible", object: controls, handle: function(transition) {
         var o = transition.object;
-        o.classList.remove('animation-delay', 'fadeOut');
+        o.classList.remove('fadeOut');
         o.classList.add('fadeIn');
     }},
     {from: "visible", to: "frozen", object: controls, handle: function(transition) {
         var o = transition.object;
-        o.classList.remove('animation-delay', 'fadeOut', 'fadeIn');
+        o.classList.remove('fadeOut', 'fadeIn');
     }},
-    {from: "frozen", to: "invisible", object: controls, handle: function(transition) {
-        var o = transition.object;
-        o.classList.add('animation-delay', 'fadeOut');
+    {from: "frozen", to: "visible", object: controls, handle: function(transition) {
     }}
 ], 'visible');
 
@@ -41,15 +39,17 @@ state_machine.addTransitions('settings_popup', [
     }, delay: 300}
 ], 'visible');
 
-function controlsAnimationEnd() {
-    state_machine.transition('controls', 'invisible');
-}
+var timeout_id;
 
 function playerMouseMove() {
     state_machine.transition('controls', 'visible');
+    clearTimeout(timeout_id);
+
+    timeout_id = setTimeout(function() {
+        state_machine.transition('controls', 'invisible');
+    }, 3000);
 }
 
-controls.addEventListener('animationend', controlsAnimationEnd);
 player.addEventListener('mousemove', playerMouseMove);
 
 controls.addEventListener('mouseover', function() {
@@ -57,14 +57,15 @@ controls.addEventListener('mouseover', function() {
 });
 
 controls.addEventListener('mouseout', function() {
-    state_machine.transition('controls', 'invisible');
+    state_machine.transition('controls', 'visible');
 });
 
-state_machine.transition('controls', 'invisible');
-
+timeout_id = setTimeout(function() {
+    state_machine.transition('controls', 'invisible');
+}, 3000);
 
 player.addEventListener('pause', function () {
-    play_pause_state_machine.transition('play_pause', 'paused');
+    state_machine.transition('play_pause', 'paused');
 });
 
 player.addEventListener('play', function () {
@@ -74,7 +75,7 @@ player.addEventListener('play', function () {
 play_pause.addEventListener('click', playPause);
 
 function playPause() {
-    if(play_pause_state_machine.current_state == 'paused') {
+    if(state_machine.getState('play_pause') == 'paused') {
         player.play();
     } else {
         player.pause();
