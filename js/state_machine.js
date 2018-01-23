@@ -1,5 +1,12 @@
 var StateMachine = function() {
     this.transitions = {};
+    this.debug = false;
+
+    this.log = function(msg) {
+        if(this.debug) {
+            console.log(msg);
+        }
+    }
 
     this.addTransitions = function (namespace, definitions, state) {
         this.transitions[namespace] = {};
@@ -23,7 +30,7 @@ var StateMachine = function() {
                     continue;
                 }
 
-                console.log(definition);
+                this.log(definition);
                 definition.handle(definition);
                 clearTimeout(transitions.timeout_id);
 
@@ -38,5 +45,9 @@ var StateMachine = function() {
                 break;
             }
         }
+    }
+
+    this.setDebug = function(debug) {
+        this.debug = debug;
     }
 }

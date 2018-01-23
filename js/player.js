@@ -54,13 +54,7 @@ function handleMediaError(hls) {
 
 function reloadPlayer(e) {
     state_machine.transition('la_url_form', 'invisible');
-    la_url_val = la_url.value;
-
-    if(la_url_val != null && la_url_val != '') {
-        playMpd(media_url_input.value, la_url_val);
-    } else {
-        playMpd(media_url_input.value, null);
-    }
+    playUrl(media_url_input.value);
 }
 
 function prepareLaUrlInput() {
@@ -74,7 +68,7 @@ function reset() {
     state_machine.transition('la_url_form', 'invisible');
 }
 
-function playMpd(url, la_url) {
+function playMpd(url) {
     if(dash) { dash.reset(); dash = null; }
 
     dash = dashjs.MediaPlayer().create();
@@ -87,12 +81,12 @@ function playMpd(url, la_url) {
         }
     });
 
-    dash.on(dashjs.MediaPlayer.events.PLAYBACK_ENDED, function (e) {
+    var initialized = function() {
 
-    });
+    }
 
-    if(la_url != null) {
-        var protData = { "com.widevine.alpha": { "serverURL": la_url}};
+    if(la_url.value != '' && la_url.value != null) {
+        var protData = { "com.widevine.alpha": { "serverURL": la_url.value}};
         dash.setProtectionData(protData);
     }
 
@@ -189,9 +183,9 @@ function restoreSettings() {
         var s2 = document.createElement('script');
         
         if(url.indexOf(".mpd") > -1) {
-            s2.onload = function() { playMpd(url, null); };
+            s2.onload = function() { playUrl(url); };
         } else {
-            s1.onload = function() { playM3u8(url); };
+            s1.onload = function() { playUrl(url); };
         }
         
         s1.src = 'https://cdn.jsdelivr.net/npm/hls.js@' + settings.hlsjs + '/dist/hls.min.js';
@@ -205,14 +199,18 @@ function restoreSettings() {
     });
 }
 
-$(window).bind('hashchange', function() {
+window.addEventListener("hashchange", function() {
     var url = window.location.href.split("#")[1];
+    playUrl(url);
+}, false);
+
+function playUrl(url) {
     reset();
     media_url_input.value = url;
 
     if(url.indexOf(".mpd") > -1) {
-        return playMpd;
+        playMpd(url);
     } else {
-        return playM3u8;
+        playM3u8(url);;
     }
-});
+}

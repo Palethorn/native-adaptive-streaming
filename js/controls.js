@@ -70,6 +70,23 @@ player.addEventListener('pause', function () {
 
 player.addEventListener('play', function () {
     state_machine.transition('play_pause', 'playing');
+    if(dash) {
+
+        var bitrates = dash.getBitrateInfoListFor("video");
+        console.log(bitrates);
+        var option = document.createElement('option');
+        option.value = -1;
+        option.innerText = "Auto"
+        bitrate_selection.appendChild(option);
+        option.selected = "selected";
+
+        for(var i = 0; i < bitrates.length; i++) {
+            var option = document.createElement('option');
+            option.value = bitrates[i].qualityIndex;
+            option.innerText = bitrates[i].height;
+            bitrate_selection.appendChild(option);
+        }
+    }
 });
 
 play_pause.addEventListener('click', playPause);
@@ -121,4 +138,24 @@ la_url_toggle_btn.addEventListener('click', function() {
 
 media_url_toggle_btn.addEventListener('click', function() {
     state_machine.transition('media_url_form', 'visible');
+});
+
+$('select').material_select();
+
+playback_speed.addEventListener('change', function() {
+    console.log(playback_speed.value);
+    player.playbackRate = playback_speed.value;
+});
+
+bitrate_selection.addEventListener('change', function() {
+    console.log(bitrate_selection.value);
+    
+    if(dash != null) {
+        if(bitrate_selection.value == -1) {
+            dash.setAutoSwitchQuality(false);
+        }
+
+        dash.setAutoSwitchQuality(false);
+        dash.setQualityFor("video", bitrate_selection.value);
+    }
 });

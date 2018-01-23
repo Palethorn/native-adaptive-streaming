@@ -188,3 +188,8 @@ body{
 #settings {
     height: 60px;
 }
+
+#playback-speed-wrapper, #bitrate-selection-wrapper {
+    width: 80%;
+    padding-left: 20%;
+}

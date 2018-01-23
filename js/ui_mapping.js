@@ -14,3 +14,5 @@ var la_url_form = document.querySelector("#la-url-form");
 var media_url_form = document.querySelector("#media-url-form");
 var media_url_toggle_btn = document.querySelector("#media-url-toggle-btn");
 var media_url_input = document.querySelector("#media-url-input");
+var playback_speed = document.querySelector("#playback-speed");
+var bitrate_selection = document.querySelector("#bitrate-selection");
