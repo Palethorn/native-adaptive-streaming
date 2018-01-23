@@ -152,7 +152,8 @@ bitrate_selection.addEventListener('change', function() {
     
     if(dash != null) {
         if(bitrate_selection.value == -1) {
-            dash.setAutoSwitchQuality(false);
+            dash.setAutoSwitchQuality(true);
+            return;
         }
 
         dash.setAutoSwitchQuality(false);
