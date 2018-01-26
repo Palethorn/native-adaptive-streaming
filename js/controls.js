@@ -50,7 +50,7 @@ function playerMouseMove() {
     }, 3000);
 }
 
-player.addEventListener('mousemove', playerMouseMove);
+video_element.addEventListener('mousemove', playerMouseMove);
 
 controls.addEventListener('mouseover', function() {
     state_machine.transition('controls', 'frozen');
@@ -64,13 +64,13 @@ timeout_id = setTimeout(function() {
     state_machine.transition('controls', 'invisible');
 }, 3000);
 
-player.addEventListener('pause', function () {
+video_element.addEventListener('pause', function () {
     state_machine.transition('play_pause', 'paused');
 });
 
-player.addEventListener('play', function () {
+video_element.addEventListener('play', function () {
     state_machine.transition('play_pause', 'playing');
-    if(dash) {
+    /*if(dash) {
 
         var bitrates = dash.getBitrateInfoListFor("video");
         console.log(bitrates);
@@ -86,16 +86,16 @@ player.addEventListener('play', function () {
             option.innerText = bitrates[i].height;
             bitrate_selection.appendChild(option);
         }
-    }
+    }*/
 });
 
 play_pause.addEventListener('click', playPause);
 
 function playPause() {
     if(state_machine.getState('play_pause') == 'paused') {
-        player.play();
+        video_element.play();
     } else {
-        player.pause();
+        video_element.pause();
     }
 }
 
@@ -132,8 +132,24 @@ state_machine.addTransitions('media_url_form', [
     }}
 ], 'invisible');
 
+state_machine.addTransitions('subtitles_url_form', [
+    {from: "visible", to: "invisible", object: subtitles_url_form, handle: function(transition) {
+        subtitles_url_form.classList.add('fadeOutUp');
+        reload_source_media_url_btn.removeEventListener('click', reloadPlayer);
+    }},
+    {from: "invisible", to: "visible", object: subtitles_url_form, handle: function(transition) {
+        subtitles_url_form.classList.remove('collapsed');
+        subtitles_url_form.classList.add('animated', 'fadeInDown');
+        load_subtitles_url_btn.addEventListener('click', loadSubtitles);
+    }}
+], 'invisible');
+
 la_url_toggle_btn.addEventListener('click', function() {
     state_machine.transition('la_url_form', 'visible');
+});
+
+subtitles_toggle_btn.addEventListener('click', function() {
+    state_machine.transition('subtitles_url_form', 'visible');
 });
 
 media_url_toggle_btn.addEventListener('click', function() {
@@ -144,7 +160,7 @@ $('select').material_select();
 
 playback_speed.addEventListener('change', function() {
     console.log(playback_speed.value);
-    player.playbackRate = playback_speed.value;
+    video_element.playbackRate = playback_speed.value;
 });
 
 bitrate_selection.addEventListener('change', function() {
@@ -159,4 +175,24 @@ bitrate_selection.addEventListener('change', function() {
         dash.setAutoSwitchQuality(false);
         dash.setQualityFor("video", bitrate_selection.value);
     }
+});
+
+volume.addEventListener('mouseover', function() {
+    volume_popup.classList.remove('collapsed', 'fadeOut');
+    volume_popup.classList.add('animated', 'fadeIn');
+});
+
+volume.addEventListener('mouseout', function() {
+    volume_popup.classList.remove('fadeIn');
+    volume_popup.classList.add('animated', 'fadeOut');
+});
+
+settings.addEventListener('mouseover', function() {
+    settings_popup.classList.remove('collapsed', 'fadeOut');
+    settings_popup.classList.add('animated', 'fadeIn');
+});
+
+settings.addEventListener('mouseout', function() {
+    settings_popup.classList.remove('fadeIn');
+    settings_popup.classList.add('animated', 'fadeOut');
 });

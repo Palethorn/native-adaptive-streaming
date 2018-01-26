@@ -144,7 +144,7 @@ body{
     width: 50px;
     height: 200px;
     background-color: white;
-    top: -270px;
+    top: -275px;
     left: 35px;
 
     -webkit-animation-duration: .3s;
@@ -156,9 +156,9 @@ body{
     position: relative;
     display: block;
     width: 200px;
-    height: 250px;
+    height: 280px;
     background-color: white;
-    top: -320px;
+    top: -355px;
     left: 35px;
     -webkit-animation-duration: .3s;
     -moz-animation-duration: .3s;
@@ -167,7 +167,7 @@ body{
 
 .material-icons.tooltip-arrow-vol {
     position: absolute;
-    top: 163px;
+    top: 167px;
     left: -11px;
     color: white;
     font-size: 56pt;
@@ -175,7 +175,7 @@ body{
 
 .material-icons.tooltip-arrow-settings {
     position: absolute;
-    top: 213px;
+    top: 249px;
     left: -11px;
     color: white;
     font-size: 56pt;
@@ -186,7 +186,7 @@ body{
 }
 
 #settings {
-    height: 60px;
+    height: 600px;
 }
 
 #playback-speed-wrapper, #bitrate-selection-wrapper {
