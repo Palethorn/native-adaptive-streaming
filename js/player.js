@@ -22,16 +22,17 @@ var DashTech = function(options) {
         this.player.setProtectionData(options.protData);
     }
 
+    var self = this;
     this.player.on(dashjs.MediaPlayer.events.ERROR, function (e) {
         console.error(e.error + ' : ' + e.event.message);
 
         if(e.error == 'key_session') {
-            this.options.onLicenseError();
+            self.options.onLicenseError();
             return;
         }
 
-        this.options.onError();
-        this.destroy();
+        self.options.onError();
+        self.destroy();
     });
 
     this.player.initialize();
@@ -119,12 +120,32 @@ var Player = function(options) {
     this.tech = null;
     this.options = options;
 
+    this.available_events = ["abort", "canplay", "canplaythrough", "durationchange", "emptied", "encrypted", "ended", "error", "interruptbegin", "loadeddata", 
+                             "loadedmetadata", "loadstart", "pause", "play", "playing", "progress", "ratechange", "seeked", "seeking", "stalled", "suspend", 
+                             "timeupdate", "volumechange", "waiting"];
+
     if(options.debug == undefined) {
         options.debug = false;
     }
 
     this.getUrl = function() {
         return this.options.url;
+    }
+
+    this.getTech = function() {
+        return this.tech;
+    }
+
+    this.addEventHandler = function() {
+        for(var i = 0; i < this.available_events.length; i++) {
+            this.options.video_element.addEventListener(this.available_events[i], this.options.event_handler, false);
+        }
+    }
+
+    this.removeEventHandler = function() {
+        for(var i = 0; i < this.available_events.length; i++) {
+            this.options.video_element.removeEventListener(this.available_events[i], this.options.event_handler);
+        }
     }
 
     this.guess = function() {
@@ -177,111 +198,12 @@ var Player = function(options) {
     }
 
     this.destroy = function() {
+        this.removeEventHandler();
         this.tech.destroy();
         this.tech = null;
     }
 
+    this.addEventHandler()
     this.guess();
 }
 
-function reloadPlayer(e) {
-    state_machine.transition('la_url_form', 'invisible');
-    playUrl(media_url_input.value);
-}
-
-function prepareLaUrlInput() {
-    state_machine.transition('la_url_form', 'visible');
-}
-
-function reset() {
-    if(player != null) {
-        player.destroy();
-    }
-
-    player = null;
-    state_machine.transition('la_url_form', 'invisible');
-}
-
-$.ajax('https://data.jsdelivr.com/v1/package/npm/dashjs', {
-    dataType: 'json',
-    success: function(data) {
-        loaded1 = true;
-        dashjsCurrentVersion = data.tags.latest;
-        restoreSettings();
-    },
-    error: function() {
-
-    }
-});
-
-$.ajax('https://data.jsdelivr.com/v1/package/npm/hls.js', {
-    dataType: 'json',
-    success: function(data) {
-        loaded2 = true;
-        hlsjsCurrentVersion = data.tags.latest;
-        restoreSettings();
-    },
-    error: function() {
-
-    }
-});
-
-
-function restoreSettings() {
-    if(!loaded1 || !loaded2) {
-        return;
-    }
-
-    chrome.storage.local.get({
-        hlsjs: hlsjsCurrentVersion,
-        dashjs: dashjsCurrentVersion,
-        debug: false,
-        native: false
-    }, function(settings) {
-        debug = settings.debug;
-        native = settings.native;
-        
-        var url = window.location.href.split("#")[1];
-        media_url_input.value = url;
-
-        var s1 = document.createElement('script');
-        var s2 = document.createElement('script');
-        
-        if(url.indexOf(".mpd") > -1) {
-            s2.onload = function() { playUrl(url); };
-        } else {
-            s1.onload = function() { playUrl(url); };
-        }
-        
-        s1.src = 'https://cdn.jsdelivr.net/npm/hls.js@' + settings.hlsjs + '/dist/hls.min.js';
-        document.querySelector('head').appendChild(s1);
-        s2.src = 'https://cdn.jsdelivr.net/npm/dashjs@' + settings.dashjs + '/dist/dash.all.min.js';
-        document.querySelector('head').appendChild(s2);
-    });
-}
-
-window.addEventListener("hashchange", function() {
-    var url = window.location.href.split("#")[1];
-    playUrl(url);
-    
-}, false);
-
-function playUrl(url) {
-    reset();
-    console.log(url);
-
-    player = new Player({
-        "url": url,
-        "autoplay": true,
-        "video_element": video_element,
-        "protData": {
-            "com.widevine.alpha": {
-                "serverURL": la_url.value
-            }
-        },
-        "onLicenseError": function() {
-            prepareLaUrlInput();
-        },
-        "debug": false
-    });
-}

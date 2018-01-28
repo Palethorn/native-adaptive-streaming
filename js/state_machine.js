@@ -19,6 +19,10 @@ var StateMachine = function() {
         return this.transitions[namespace].state;
     }
 
+    this.setState = function(namespace, state) {
+        this.transitions[namespace].state = state;
+    }
+
     this.transition = function(namespace, to) {
         var transitions = this.transitions[namespace];
         

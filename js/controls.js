@@ -70,6 +70,8 @@ video_element.addEventListener('pause', function () {
 
 video_element.addEventListener('play', function () {
     state_machine.transition('play_pause', 'playing');
+    console.log(video_element.duration);
+    console.log(player.getTech().getPlayer().isDynamic());
     /*if(dash) {
 
         var bitrates = dash.getBitrateInfoListFor("video");
@@ -156,8 +158,6 @@ media_url_toggle_btn.addEventListener('click', function() {
     state_machine.transition('media_url_form', 'visible');
 });
 
-$('select').material_select();
-
 playback_speed.addEventListener('change', function() {
     console.log(playback_speed.value);
     video_element.playbackRate = playback_speed.value;
@@ -196,3 +196,50 @@ settings.addEventListener('mouseout', function() {
     settings_popup.classList.remove('fadeIn');
     settings_popup.classList.add('animated', 'fadeOut');
 });
+
+state_machine.addTransitions('window', [
+    {from: "fullscreen", to: "windowed", object: settings_popup, handle: function(transition) {
+        if(document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if(document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if(document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        }
+    }},
+    {from: "windowed", to: "fullscreen", object: settings_popup, handle: function(transition) {
+        if (body.requestFullscreen) {
+            body.requestFullscreen();
+        }
+        else if (body.mozRequestFullScreen) {
+            body.mozRequestFullScreen();
+        }
+        else if (body.webkitRequestFullscreen) {
+            body.webkitRequestFullscreen();
+        }
+    }}
+], 'windowed');
+
+var fullscreen_clicked = false;
+
+fullscreen_toggle_btn.addEventListener('click', function() {
+    fullscreen_clicked = true;
+
+    if(state_machine.getState('window') == 'windowed') {
+        state_machine.transition('window', 'fullscreen');
+    } else {
+        state_machine.transition('window', 'windowed');
+    }
+});
+
+window.addEventListener('webkitfullscreenchange', fullscreenExitHandler, false);
+window.addEventListener('mozfullscreenchange', fullscreenExitHandler, false);
+window.addEventListener('fullscreenchange', fullscreenExitHandler, false);
+
+function fullscreenExitHandler() {
+    if(body.webkitIsFullScreen || body.mozFullScreen || body.msFullscreenElement !== null && state_machine.getState('window') == 'fullscreen' && !fullscreen_clicked) {
+        state_machine.setState('window', 'windowed');
+    }
+
+    fullscreen_clicked = false;
+}

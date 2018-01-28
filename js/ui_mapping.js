@@ -1,3 +1,4 @@
+var body = document.querySelector('body');
 var controls = document.querySelector('#controls');
 var video_element = document.querySelector('#player');
 var play_pause = document.querySelector('#play-pause');
@@ -19,3 +20,5 @@ var media_url_input = document.querySelector("#media-url-input");
 var subtitles_url_input = document.querySelector("#subtitles-url-input");
 var playback_speed = document.querySelector("#playback-speed");
 var bitrate_selection = document.querySelector("#bitrate-selection");
+var progress_line = document.querySelector("#path");
+var fullscreen_toggle_btn = document.querySelector("#fullscren-toggle-btn");

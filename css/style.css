@@ -48,7 +48,7 @@ body{
 .material-icons.control {
     font-size: 45pt;
     cursor: pointer;
-    color: #ff5555;
+    color: #ff7777;
 }
 
 .collapsed {
@@ -65,29 +65,29 @@ body{
 }
 
 #la-url {
-    border-bottom: 1px solid #ff5555;
+    border-bottom: 1px solid #ff7777;
 }
 
 #media-url {
-    border-bottom: 1px solid #ff5555;
+    border-bottom: 1px solid #ff7777;
 }
 
 .input-field label {
-    color: #ff5555 !important;
+    color: #ff7777 !important;
 }
 
 /* label focus color */
 .input-field input:focus + label {
-    color: #ff5555 !important;
+    color: #ff7777 !important;
 }
 /* label underline focus color */
 .row .input-field input:focus {
-    border-bottom: 1px solid #ff5555 !important;
-    box-shadow: 0 1px 0 0 #ff5555 !important;
+    border-bottom: 1px solid #ff7777 !important;
+    box-shadow: 0 1px 0 0 #ff7777 !important;
 }
 
 .btn {
-    background-color: #ff5555 !important;
+    background-color: #ff7777 !important;
 }
 
 #settings-popup .btn-flat {
@@ -103,7 +103,7 @@ body{
 }
 
 #line {
-    border: 1px solid #d32f2f;
+    border: 1px solid #ff7777;
     height: 8px;
     margin-top: 25px;
     cursor: pointer;
@@ -112,14 +112,13 @@ body{
 #path {
     height: 6px;
     background-color: #ff7777;
-    width: 90%;
     float: left;
 }
 
 #thumb {
     border-radius: 100%;
-    border: 5px solid #d32f2f;
-    background-color: #ff7777;
+    border: 5px solid #ff7777;
+    background-color: white;
     height: 20px;
     width: 20px;
     float: left;
