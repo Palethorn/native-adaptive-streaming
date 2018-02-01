@@ -10,7 +10,7 @@
     },
     "icons": { "128": "assets/icon128.png" },
     "background": { "scripts": [ "js/event.js"] },
-    "content_security_policy": "script-src 'self' https://cdn.jsdelivr.net; object-src 'self'",
+    "content_security_policy": "script-src 'self' https://cdn.jsdelivr.net blob:; object-src 'self'",
     "permissions": [
         "tabs",
         "*://*/*.m3u8*",
