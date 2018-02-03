@@ -20,7 +20,17 @@ var media_url_input = document.querySelector("#media-url-input");
 var subtitles_url_input = document.querySelector("#subtitles-url-input");
 var playback_speed = document.querySelector("#playback-speed");
 var bitrate_selection = document.querySelector("#bitrate-selection");
-var progress_line = document.querySelector("#path");
-var progress = document.querySelector("#progress");
 var fullscreen_toggle_btn = document.querySelector("#fullscren-toggle-btn");
-load_subtitles_url_btn = document.querySelector("#load-subtitles-url-btn");
+var load_subtitles_url_btn = document.querySelector("#load-subtitles-url-btn");
+
+var progress_range = new Range({
+    target: document.querySelector('#progress'),
+    target_classlist: 'col s8 collapsed',
+    type: 'horizontal',
+    min_value: 0,
+    max_value: 100,
+    value: 0,
+    valueChanged: function(value) {
+        video_element.currentTime = video_element.duration * (value / 100);
+    }
+});

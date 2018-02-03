@@ -240,6 +240,10 @@ var Player = function(options) {
         return this.getTech().isLive();
     }
 
+    this.setVolume = function(volume) {
+        this.options.video_element.volume = volume;
+    }
+
     this.destroy = function() {
         this.removeEventHandler();
         this.tech.destroy();
