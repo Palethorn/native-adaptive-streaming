@@ -64,12 +64,7 @@ timeout_id = setTimeout(function() {
     state_machine.transition('controls', 'invisible');
 }, 3000);
 
-video_element.addEventListener('pause', function () {
-    state_machine.transition('play_pause', 'paused');
-});
-
 video_element.addEventListener('play', function () {
-    state_machine.transition('play_pause', 'playing');
     console.log(video_element.duration);
     console.log(player.getTech().getPlayer().isDynamic());
     /*if(dash) {
@@ -244,14 +239,18 @@ function fullscreenExitHandler() {
     fullscreen_clicked = false;
 }
 
-progress.addEventListener('mousedown', function(e) {
-    seek_lock = true;
+var seekMouseUp = function(e) {
+    window.removeEventListener('mouseup', seekMouseUp);
+
+    if(!seek_lock) {
+        return;
+    }
+   
+    seek_lock = false;
+    window.removeEventListener('mousemove', updateProgressPosition);
     var rect = progress.getBoundingClientRect();
-    progress_line.style.width = (((e.clientX - rect.left) / rect.width) * 100) + '%';
-    window.addEventListener('mousemove', updateProgressPosition, false);
-    // player.seek(player.getDuration() * ((e.clientX - rect.left) / rect.width));
-    seek_position = player.getDuration() * ((e.clientX - rect.left) / rect.width);
-}, false);
+    player.seek(seek_position);
+}
 
 function updateProgressPosition(e) {
     var rect = progress.getBoundingClientRect();
@@ -259,9 +258,17 @@ function updateProgressPosition(e) {
     seek_position = player.getDuration() * ((e.clientX - rect.left) / rect.width);
 }
 
-window.addEventListener('mouseup', function(e) {
-    seek_lock = false;
-    window.removeEventListener('mousemove', updateProgressPosition);
+progress.addEventListener('mousedown', function(e) {
+    if(e.which != 1) {
+        return;
+    }
+    
+    seek_lock = true;
     var rect = progress.getBoundingClientRect();
-    player.seek(seek_position);
+    progress_line.style.width = (((e.clientX - rect.left) / rect.width) * 100) + '%';
+    window.addEventListener('mousemove', updateProgressPosition, false);
+    // player.seek(player.getDuration() * ((e.clientX - rect.left) / rect.width));
+    seek_position = player.getDuration() * ((e.clientX - rect.left) / rect.width);
+
+    window.addEventListener('mouseup', seekMouseUp, false);
 }, false);

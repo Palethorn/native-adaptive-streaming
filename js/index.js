@@ -105,8 +105,13 @@ function playUrl(url) {
                 if(!seek_lock) {
                     progress_line.style.width = ((video_element.currentTime / video_element.duration) * 100) + '%';
                 }
+                    break;
                 case 'play':
                     state_machine.transition('play_pause', 'playing');
+                    break;
+                case 'pause':
+                    state_machine.transition('play_pause', 'paused');
+                    break;
             }
         },
         "debug": false
