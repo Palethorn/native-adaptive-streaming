@@ -21,4 +21,5 @@ var subtitles_url_input = document.querySelector("#subtitles-url-input");
 var playback_speed = document.querySelector("#playback-speed");
 var bitrate_selection = document.querySelector("#bitrate-selection");
 var progress_line = document.querySelector("#path");
+var progress = document.querySelector("#progress");
 var fullscreen_toggle_btn = document.querySelector("#fullscren-toggle-btn");

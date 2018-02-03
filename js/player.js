@@ -197,6 +197,15 @@ var Player = function(options) {
         this.options.video_element.pause();
     }
 
+    this.seek = function(seconds) {
+        var v = this.options.video_element;
+        v.currentTime = seconds;
+    }
+
+    this.getDuration = function() {
+        return this.options.video_element.duration;
+    }
+
     this.destroy = function() {
         this.removeEventHandler();
         this.tech.destroy();

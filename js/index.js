@@ -100,10 +100,11 @@ function playUrl(url) {
             prepareLaUrlInput();
         },
         "event_handler": function(event) {
-            console.log(event.type);
             switch(event.type) {
                 case 'timeupdate':
+                if(!seek_lock) {
                     progress_line.style.width = ((video_element.currentTime / video_element.duration) * 100) + '%';
+                }
                 case 'play':
                     state_machine.transition('play_pause', 'playing');
             }
