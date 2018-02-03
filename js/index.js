@@ -101,10 +101,23 @@ function playUrl(url) {
         },
         "event_handler": function(event) {
             switch(event.type) {
+                case "hlsLevelLoaded":
+                    if(event.details != undefined && event.details.type == 'VOD') {
+                        progress.classList.remove('collapsed');
+                    }
+
+                    break;
+                case "manifestLoaded":
+                    if(event.data.type == 'static') {
+                        progress.classList.remove('collapsed');
+                    }
+
+                    break;
                 case 'timeupdate':
-                if(!seek_lock) {
-                    progress_line.style.width = ((video_element.currentTime / video_element.duration) * 100) + '%';
-                }
+                    if(!seek_lock) {
+                        progress_line.style.width = ((video_element.currentTime / video_element.duration) * 100) + '%';
+                    }
+                    
                     break;
                 case 'play':
                     state_machine.transition('play_pause', 'playing');

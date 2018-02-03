@@ -65,8 +65,6 @@ timeout_id = setTimeout(function() {
 }, 3000);
 
 video_element.addEventListener('play', function () {
-    console.log(video_element.duration);
-    console.log(player.getTech().getPlayer().isDynamic());
     /*if(dash) {
 
         var bitrates = dash.getBitrateInfoListFor("video");

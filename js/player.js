@@ -17,15 +17,23 @@ var DashTech = function(options) {
     this.options = options;
     this.player = dashjs.MediaPlayer().create();
     this.player.getDebug().setLogToBrowserConsole(options.debug);
-    
+    this.is_live = undefined;
+
     if(options.protData != undefined) {
         this.player.setProtectionData(options.protData);
     }
 
     var self = this;
-    this.player.on(dashjs.MediaPlayer.events.ERROR, function (e) {
-        console.error(e.error + ' : ' + e.event.message);
 
+    this.player.on(dashjs.MediaPlayer.events.MANIFEST_LOADED, function(e) {
+        if(e.data.type == 'dynamic') {
+            self.is_live = true;
+        }
+
+        self.options.event_handler(e);
+    });
+
+    this.player.on(dashjs.MediaPlayer.events.ERROR, function(e) {
         if(e.error == 'key_session') {
             self.options.onLicenseError();
             return;
@@ -49,6 +57,10 @@ var DashTech = function(options) {
         return this.player;
     }
 
+    this.isLive = function() {
+        return this.is_live;
+    }
+
     this.destroy = function() {
         this.player.reset();
         this.player = null;
@@ -58,17 +70,29 @@ var DashTech = function(options) {
 var HlsTech = function(options) {
     this.options = options;
     this.recover_take = 0;
+    var self = this;
+
     this.player = new Hls({
         debug: options.debug
     });
 
+    this.player.on(Hls.Events.MANIFEST_PARSED, function(event, data) {
+        data.type = event;
+        self.options.event_handler(data);
 
-    if(this.options.autoplay === true) {
-        var self = this;
-        this.player.on(Hls.Events.MANIFEST_PARSED, function() {
+        if(self.options.autoplay === true) {
             self.options.video_element.play();
-        });
-    }
+        }
+    });
+
+    this.player.on(Hls.Events.LEVEL_LOADED, function(event, data) {
+        if(data.details != undefined && data.details.type == 'VOD') {
+            self.is_live = true;
+        }
+
+        data.type = event;
+        self.options.event_handler(data);
+    });
 
     this.player.on(Hls.Events.ERROR, function(event, data) {
         var  msg = "Player error: " + data.type + " - " + data.details;
@@ -110,6 +134,10 @@ var HlsTech = function(options) {
         return this.player;
     }
 
+    this.isLive = function() {
+        return this.is_live;
+    }
+
     this.destroy = function() {
         this.player.destroy();
         this.player = null;
@@ -119,6 +147,8 @@ var HlsTech = function(options) {
 var Player = function(options) {
     this.tech = null;
     this.options = options;
+    this.is_live = false;
+    var self = this;
 
     this.available_events = ["abort", "canplay", "canplaythrough", "durationchange", "emptied", "encrypted", "ended", "error", "interruptbegin", "loadeddata", 
                              "loadedmetadata", "loadstart", "pause", "play", "playing", "progress", "ratechange", "seeked", "seeking", "stalled", "suspend", 
@@ -204,6 +234,10 @@ var Player = function(options) {
 
     this.getDuration = function() {
         return this.options.video_element.duration;
+    }
+
+    this.isLive = function() {
+        return this.getTech().isLive();
     }
 
     this.destroy = function() {

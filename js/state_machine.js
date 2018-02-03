@@ -37,12 +37,12 @@ var StateMachine = function(options) {
                 this.log(definition);
                 definition.handle(definition);
                 clearTimeout(transitions.timeout_id);
+                
                 if(definition.delay != undefined) {
                     transitions.timeout_id = setTimeout(function() {
                         transitions.state = to;
                     }, definition.delay);
                 } else {
-                    console.log("setting state", namespace, to);
                     transitions.state = to;
                 }
 
