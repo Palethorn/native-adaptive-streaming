@@ -107,10 +107,12 @@ settings.addEventListener('mouseout', function() {
 state_machine.addTransitions('la_url_form', [
     {from: "visible", to: "invisible", object: la_url_toggle_btn, handle: function(transition) {
         la_url_form.classList.add('fadeOutUp');
+        la_url_form.classList.remove('fadeInDown');
         reload_source_la_url_btn.removeEventListener('click', reloadPlayer);
     }},
     {from: "invisible", to: "visible", object: la_url_toggle_btn, handle: function(transition) {
         la_url_form.classList.remove('collapsed');
+        la_url_form.classList.remove('fadeOutUp');
         la_url_form.classList.add('animated', 'fadeInDown');
         reload_source_la_url_btn.addEventListener('click', reloadPlayer);
     }}
@@ -120,10 +122,12 @@ state_machine.addTransitions('la_url_form', [
 state_machine.addTransitions('media_url_form', [
     {from: "visible", to: "invisible", object: media_url_form, handle: function(transition) {
         media_url_form.classList.add('fadeOutUp');
+        media_url_form.classList.remove('fadeInDown');
         reload_source_media_url_btn.removeEventListener('click', reloadPlayer);
     }},
     {from: "invisible", to: "visible", object: media_url_form, handle: function(transition) {
         media_url_form.classList.remove('collapsed');
+        media_url_form.classList.remove('fadeOutUp');
         media_url_form.classList.add('animated', 'fadeInDown');
         reload_source_media_url_btn.addEventListener('click', reloadPlayer);
     }}
@@ -132,10 +136,12 @@ state_machine.addTransitions('media_url_form', [
 state_machine.addTransitions('subtitles_url_form', [
     {from: "visible", to: "invisible", object: subtitles_url_form, handle: function(transition) {
         subtitles_url_form.classList.add('fadeOutUp');
+        subtitles_url_form.classList.remove('fadeInDown');
         reload_source_media_url_btn.removeEventListener('click', reloadPlayer);
     }},
     {from: "invisible", to: "visible", object: subtitles_url_form, handle: function(transition) {
         subtitles_url_form.classList.remove('collapsed');
+        subtitles_url_form.classList.remove('fadeOutUp');
         subtitles_url_form.classList.add('animated', 'fadeInDown');
         load_subtitles_url_btn.addEventListener('click', loadSubtitles);
     }}
@@ -272,3 +278,7 @@ progress.addEventListener('mousedown', function(e) {
 
     window.addEventListener('mouseup', seekMouseUp, false);
 }, false);
+
+function loadSubtitles() {
+    
+}

@@ -1,6 +1,6 @@
-var StateMachine = function() {
+var StateMachine = function(options) {
     this.transitions = {};
-    this.debug = false;
+    this.debug = options.debug != undefined && options.debug ? true : false;
 
     this.log = function(msg) {
         if(this.debug) {
@@ -37,12 +37,12 @@ var StateMachine = function() {
                 this.log(definition);
                 definition.handle(definition);
                 clearTimeout(transitions.timeout_id);
-
                 if(definition.delay != undefined) {
                     transitions.timeout_id = setTimeout(function() {
                         transitions.state = to;
                     }, definition.delay);
                 } else {
+                    console.log("setting state", namespace, to);
                     transitions.state = to;
                 }
 

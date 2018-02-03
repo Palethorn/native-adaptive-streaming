@@ -117,3 +117,12 @@ function playUrl(url) {
         "debug": false
     });
 }
+
+var close_input = document.getElementsByClassName('close-input');
+
+for(var i = 0; i < close_input.length; i++) {
+    close_input[i].addEventListener('click', function(e) {
+        console.log(e.target.getAttribute('data-target'));
+        state_machine.transition(e.target.getAttribute('data-target'), 'invisible');
+    }, false);
+}
