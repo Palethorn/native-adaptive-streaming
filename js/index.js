@@ -2,6 +2,15 @@
  * Modifications copyright (C) 2017 David Ćavar
  */
 
+state_machine.addTransitions('loader', [
+    {from: 'visible', to: 'invisible', object: loader, handle: function(transition) {
+        loader.style.visibility = 'collapse';
+    }},
+    {from: 'invisible', to: 'visible', object: loader, handle: function(transition) {
+        loader.style.visibility = 'visible';
+    }}
+], 'visible');
+
 function reset() {
     if(player != null) {
         player.destroy();
@@ -100,7 +109,20 @@ function playUrl(url) {
             prepareLaUrlInput();
         },
         "event_handler": function(event) {
+            if(event.type != 'timeupdate') {
+                console.log(event.type);
+            }
+            var regex1 = /^(seeking)|(waiting)$/g;
+
+            if(event.type.match(regex1) != null) {
+                state_machine.transition('loader', 'visible');
+                return;
+            }
+
             switch(event.type) {
+                case "hlsNetworkError":
+                    state_machine.transition('loader', 'visible');
+                    break;
                 case "hlsLevelLoaded":
                     if(event.details != undefined && event.details.type == 'VOD') {
                         progress.classList.remove('collapsed');
@@ -120,9 +142,10 @@ function playUrl(url) {
                     }
                     
                     break;
-                case 'play':
+                case 'playing':
                     state_machine.transition('play_pause', 'playing');
                     player.setVolume(.5);
+                    state_machine.transition('loader', 'invisible');
                     break;
                 case 'pause':
                     state_machine.transition('play_pause', 'paused');

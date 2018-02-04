@@ -34,6 +34,8 @@ var DashTech = function(options) {
     });
 
     this.player.on(dashjs.MediaPlayer.events.ERROR, function(e) {
+        self.options.event_handler(e);
+
         if(e.error == 'key_session') {
             self.options.onLicenseError();
             return;
@@ -96,27 +98,31 @@ var HlsTech = function(options) {
 
     this.player.on(Hls.Events.ERROR, function(event, data) {
         var  msg = "Player error: " + data.type + " - " + data.details;
+        data.type = event;
 
         if(data.fatal) {
             switch(data.type) {
                 case Hls.ErrorTypes.MEDIA_ERROR: 
                     console.error("Media error");
-                    
-                    if(this.recover_take == 1) {
+                    self.options.event_handler(data);
+
+                    if(self.recover_take == 1) {
                         hls.swapAudioCodec();
                     }
 
                     hls.recoverMediaError();
-                    this.recover_take++;
+                    self.recover_take++;
                     break;
                 case Hls.ErrorTypes.NETWORK_ERROR:
                     console.error("Network error");
+                    self.options.event_handler(data);
                     hls.startLoad();
                     break;
                 default:
                     console.error("Unrecoverable error");
-                    this.options.onError();
-                    this.destroy();
+                    self.options.event_handler(data);
+                    self.options.onError();
+                    self.destroy();
                     break;
               }
         }

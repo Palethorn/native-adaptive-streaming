@@ -22,6 +22,7 @@ var playback_speed = document.querySelector("#playback-speed");
 var bitrate_selection = document.querySelector("#bitrate-selection");
 var fullscreen_toggle_btn = document.querySelector("#fullscren-toggle-btn");
 var load_subtitles_url_btn = document.querySelector("#load-subtitles-url-btn");
+var loader = document.querySelector('#loader');
 
 var progress_range = new Range({
     target: document.querySelector('#progress'),
