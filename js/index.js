@@ -112,6 +112,7 @@ function playUrl(url) {
             if(event.type != 'timeupdate') {
                 console.log(event.type);
             }
+
             var regex1 = /^(seeking)|(waiting)$/g;
 
             if(event.type.match(regex1) != null) {
@@ -123,17 +124,22 @@ function playUrl(url) {
                 case "hlsNetworkError":
                     state_machine.transition('loader', 'visible');
                     break;
+                case 'streamInitialized':
+                    fillBitrates(player.getQualities());
+                    break;
                 case "hlsLevelLoaded":
-                    if(event.details != undefined && event.details.type == 'VOD') {
+                    if(event.details != undefined && event.details.live == false) {
                         progress.classList.remove('collapsed');
                     }
 
+                    fillBitrates(player.getQualities());
                     break;
                 case "manifestLoaded":
                     if(event.data.type == 'static') {
                         progress.classList.remove('collapsed');
                     }
 
+                    fillBitrates(player.getQualities());
                     break;
                 case 'timeupdate':
                     if(!seek_lock) {

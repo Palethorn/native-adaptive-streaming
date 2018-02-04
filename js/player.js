@@ -16,6 +16,7 @@ var SmoothTech = function() {
 var DashTech = function(options) {
     this.options = options;
     this.player = dashjs.MediaPlayer().create();
+    this.player.setFastSwitchEnabled();
     this.player.getDebug().setLogToBrowserConsole(options.debug);
     this.is_live = undefined;
 
@@ -24,6 +25,14 @@ var DashTech = function(options) {
     }
 
     var self = this;
+
+    this.player.on(dashjs.MediaPlayer.events.METRIC_CHANGED, function(e) {
+        self.options.event_handler(e);
+    });
+
+    this.player.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, function(e) {
+        self.options.event_handler(e);
+    });
 
     this.player.on(dashjs.MediaPlayer.events.MANIFEST_LOADED, function(e) {
         if(e.data.type == 'dynamic') {
@@ -61,6 +70,32 @@ var DashTech = function(options) {
 
     this.isLive = function() {
         return this.is_live;
+    }
+
+    this.getQualities = function() {
+        var u = this.player.getBitrateInfoListFor("video");
+        console.log(u);
+        var bitrates = [];
+
+        for(var i = 0; i < u.length; i++) {
+            var b = {};
+            b.index = u[i].qualityIndex;
+            b.bitrate = u[i].bitrate;
+            b.height = u[i].height;
+            bitrates.push(b);
+        }
+
+        return bitrates;
+    }
+
+    this.setQuality = function(index) {
+        if(index == -1) {
+            this.player.setAutoSwitchQuality(true);
+            return;
+        }
+
+        this.player.setAutoSwitchQuality(false);
+        this.player.setQualityFor("video", index);
     }
 
     this.destroy = function() {
@@ -121,7 +156,6 @@ var HlsTech = function(options) {
                 default:
                     console.error("Unrecoverable error");
                     self.options.event_handler(data);
-                    self.options.onError();
                     self.destroy();
                     break;
               }
@@ -144,7 +178,28 @@ var HlsTech = function(options) {
         return this.is_live;
     }
 
+    this.getQualities = function() {
+        var u = this.player.levels;
+        console.log(u);
+        var bitrates = [];
+
+        for(var i = 0; i < u.length; i++) {
+            var b = {};
+            b.index = u[i].level;
+            b.bitrate = u[i].bitrate;
+            b.height = u[i].height;
+            bitrates.push(b);
+        }
+
+        return bitrates;
+    }
+
+    this.setQuality = function(index) {
+        this.player.currentLevel = index;
+    }
+
     this.destroy = function() {
+        console.log("hls destroy")
         this.player.destroy();
         this.player = null;
     }
@@ -244,6 +299,14 @@ var Player = function(options) {
 
     this.isLive = function() {
         return this.getTech().isLive();
+    }
+
+    this.getQualities = function() {
+        return this.getTech().getQualities();
+    }
+
+    this.setQuality = function(index) {
+        this.getTech().setQuality(index);
     }
 
     this.setVolume = function(volume) {

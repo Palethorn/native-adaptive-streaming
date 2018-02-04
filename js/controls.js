@@ -69,23 +69,19 @@ video_element.addEventListener('play', function () {
 });
 
 var fillBitrates = function(bitrates) {
-    /*if(dash) {
+    bitrate_selection.innerHTML = '';
+    var option = document.createElement('option');
+    option.value = -1;
+    option.innerText = "Auto"
+    bitrate_selection.appendChild(option);
+    option.selected = "selected";
 
-        var bitrates = dash.getBitrateInfoListFor("video");
-        console.log(bitrates);
+    for(var i = 0; i < bitrates.length; i++) {
         var option = document.createElement('option');
-        option.value = -1;
-        option.innerText = "Auto"
+        option.value = bitrates[i].index;
+        option.innerText = bitrates[i].height;
         bitrate_selection.appendChild(option);
-        option.selected = "selected";
-
-        for(var i = 0; i < bitrates.length; i++) {
-            var option = document.createElement('option');
-            option.value = bitrates[i].qualityIndex;
-            option.innerText = bitrates[i].height;
-            bitrate_selection.appendChild(option);
-        }
-    }*/
+    }
 }
 
 play_pause.addEventListener('click', playPause);
@@ -167,17 +163,7 @@ playback_speed.addEventListener('change', function() {
 });
 
 bitrate_selection.addEventListener('change', function() {
-    console.log(bitrate_selection.value);
-    
-    if(dash != null) {
-        if(bitrate_selection.value == -1) {
-            dash.setAutoSwitchQuality(true);
-            return;
-        }
-
-        dash.setAutoSwitchQuality(false);
-        dash.setQualityFor("video", bitrate_selection.value);
-    }
+    player.setQuality(bitrate_selection.value);
 });
 
 volume.addEventListener('mouseover', function() {
