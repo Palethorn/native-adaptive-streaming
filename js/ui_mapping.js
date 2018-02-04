@@ -35,3 +35,15 @@ var progress_range = new Range({
         video_element.currentTime = video_element.duration * (value / 100);
     }
 });
+
+var volume_range = new Range({
+    target: document.querySelector('#volume-control-container'),
+    target_classlist: '',
+    type: 'vertical',
+    min_value: 0,
+    max_value: 100,
+    value: 0,
+    valueChanged: function(value) {
+        video_element.volume = value / 100;
+    }
+});

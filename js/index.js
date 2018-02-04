@@ -150,6 +150,9 @@ function playUrl(url) {
                 case 'pause':
                     state_machine.transition('play_pause', 'paused');
                     break;
+                case 'volumechange':
+                    volume_range.setValue(video_element.volume * 100);
+                    break;
             }
         },
         "debug": false

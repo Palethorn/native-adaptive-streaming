@@ -65,6 +65,10 @@ timeout_id = setTimeout(function() {
 }, 3000);
 
 video_element.addEventListener('play', function () {
+
+});
+
+var fillBitrates = function(bitrates) {
     /*if(dash) {
 
         var bitrates = dash.getBitrateInfoListFor("video");
@@ -82,7 +86,7 @@ video_element.addEventListener('play', function () {
             bitrate_selection.appendChild(option);
         }
     }*/
-});
+}
 
 play_pause.addEventListener('click', playPause);
 

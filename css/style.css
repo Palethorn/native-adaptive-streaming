@@ -112,6 +112,7 @@ body{
 
 #progress {
     height: 60px;
+    margin-top: 25px;
 }
 
 #line {
@@ -155,9 +156,8 @@ body{
     width: 50px;
     height: 200px;
     background-color: white;
-    top: -275px;
+    top: -277px;
     left: 35px;
-
     -webkit-animation-duration: .3s;
     -moz-animation-duration: .3s;
     animation-duration: .3s;
@@ -169,7 +169,7 @@ body{
     width: 200px;
     height: 280px;
     background-color: white;
-    top: -355px;
+    top: -356px;
     left: 35px;
     -webkit-animation-duration: .3s;
     -moz-animation-duration: .3s;
@@ -178,7 +178,7 @@ body{
 
 .material-icons.tooltip-arrow-vol {
     position: absolute;
-    top: 167px;
+    top: 168px;
     left: -11px;
     color: white;
     font-size: 56pt;
@@ -186,7 +186,7 @@ body{
 
 .material-icons.tooltip-arrow-settings {
     position: absolute;
-    top: 249px;
+    top: 247px;
     left: -11px;
     color: white;
     font-size: 56pt;
@@ -203,4 +203,11 @@ body{
 #playback-speed-wrapper, #bitrate-selection-wrapper {
     width: 80%;
     padding-left: 20%;
+}
+
+#volume-control-container {
+    position: absolute;
+    height: 80%;
+    margin-left: 21px;
+    margin-top: 25px;
 }
