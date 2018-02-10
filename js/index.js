@@ -20,60 +20,17 @@ function reset() {
     state_machine.transition('la_url_form', 'invisible');
 }
 
-$.ajax('https://data.jsdelivr.com/v1/package/npm/dashjs', {
-    dataType: 'json',
-    success: function(data) {
-        loaded1 = true;
-        dashjsCurrentVersion = data.tags.latest;
-        restoreSettings();
-    },
-    error: function() {
-
-    }
-});
-
-$.ajax('https://data.jsdelivr.com/v1/package/npm/hls.js', {
-    dataType: 'json',
-    success: function(data) {
-        loaded2 = true;
-        hlsjsCurrentVersion = data.tags.latest;
-        restoreSettings();
-    },
-    error: function() {
-
-    }
-});
-
 function restoreSettings() {
-    if(!loaded1 || !loaded2) {
-        return;
-    }
 
     chrome.storage.local.get({
-        hlsjs: hlsjsCurrentVersion,
-        dashjs: dashjsCurrentVersion,
         debug: false,
         native: false
     }, function(settings) {
         debug = settings.debug;
         native = settings.native;
-        
         var url = window.location.href.split("#")[1];
         media_url_input.value = url;
-
-        var s1 = document.createElement('script');
-        var s2 = document.createElement('script');
-        
-        if(url.indexOf(".mpd") > -1) {
-            s2.onload = function() { playUrl(url); };
-        } else {
-            s1.onload = function() { playUrl(url); };
-        }
-        
-        s1.src = 'https://cdn.jsdelivr.net/npm/hls.js@' + settings.hlsjs + '/dist/hls.min.js';
-        document.querySelector('head').appendChild(s1);
-        s2.src = 'https://cdn.jsdelivr.net/npm/dashjs@' + settings.dashjs + '/dist/dash.all.min.js';
-        document.querySelector('head').appendChild(s2);
+        playUrl(url);
     });
 }
 
@@ -173,3 +130,5 @@ for(var i = 0; i < close_input.length; i++) {
         state_machine.transition(e.target.getAttribute('data-target'), 'invisible');
     }, false);
 }
+
+restoreSettings();
