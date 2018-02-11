@@ -2,17 +2,19 @@
 <html>
 <head>
     <meta charset="UTF-8"> 
-    <script src="js/state_machine.js"></script>
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/dash.all.min.js"></script>
-    <script src="js/hls.min.js"></script>
-    <script src="materialize/js/materialize.min.js"></script>
-    <script src="js/range.js"></script>
-    <script src="js/globals.js"></script>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/animate.css">
-    <link rel="stylesheet" href="materialize/css/materialize.min.css">
-    <link rel="stylesheet" href="materialize/css/icons.css">
+    <script src="state_machine.js"></script>
+    <script src="libs/jquery-3.3.1.min.js"></script>
+    <!-- {% if config['target'] == 'firefox' %} -->
+    <script src="libs/dash.all.min.js"></script>
+    <script src="libs/hls.min.js"></script>
+    <!-- {% endif %} -->
+    <script src="libs/materialize/js/materialize.min.js"></script>
+    <script src="range.js"></script>
+    <script src="globals.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="libs/animate.css">
+    <link rel="stylesheet" href="libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" href="libs/materialize/css/icons.css">
 </head>
 <body>
     <div id="player-container">
@@ -121,9 +123,9 @@
                     </div>
             </form>
     </div>
-    <script src="js/ui_mapping.js"></script>
-    <script src="js/controls.js"></script>
-    <script src="js/player.js"></script>
-    <script src="js/index.js"></script>
+    <script src="ui_mapping.js"></script>
+    <script src="controls.js"></script>
+    <script src="player.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>

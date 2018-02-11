@@ -3,14 +3,24 @@
     "version": "1.0.3",
     "description": "Allow the browser to play HLS (m3u8) or MPEG-Dash (mpd) video urls 'natively'",
     "manifest_version": 2,
+    
+    {% if config['target'] == 'firefox' %}
     "applications": {
         "gecko": {
             "id": "native-dash-hls@cavar.net"
         }
     },
+    {% endif %}
+
     "icons": { "128": "assets/icon128.png" },
-    "background": { "scripts": [ "js/event.js"] },
+    "background": { "scripts": [ "event.js"] },
+    
+    {% if config['target'] == 'firefox' %}
     "content_security_policy": "script-src 'self' blob:; object-src 'self'",
+    {% elif config['target'] == 'chrome' %}
+    "content_security_policy": "script-src 'self' https://cdn.jsdelivr.net blob:; object-src 'self'",
+    {% endif %}
+    
     "permissions": [
         "tabs",
         "*://*/*.m3u8*",
@@ -29,38 +39,6 @@
         "default_popup": "popup.html"
     },
     "web_accessible_resources": [
-        "index.html",
-        "options.html",
-        "popup.html",
-        "js/controls.js",
-        "js/event.js",
-        "js/globals.js",
-        "js/index.js",
-        "js/jquery-3.3.1.min.js",
-        "js/options.js",
-        "js/player.js",
-        "js/popup.js",
-        "js/range.js",
-        "js/dash.all.min.js",
-        "js/dash.all.min.js.map",
-        "js/hls.min.js",
-        "state_machine.js",
-        "ui_mapping.js",
-        "css/animate.css",
-        "css/style.css",
-        "materialize/fonts/materialize-icons.woff2",
-        "materialize/css/materialize.min.css",
-        "materialize/css/icons.css",
-        "materialize/js/materialize.min.js",
-        "materialize/fonts/roboto/Roboto-Bold.woff",
-        "materialize/fonts/roboto/Roboto-Bold.woff2",
-        "materialize/fonts/roboto/Roboto-Light.woff",
-        "materialize/fonts/roboto/Roboto-Light.woff2",
-        "materialize/fonts/roboto/Roboto-Medium.woff",
-        "materialize/fonts/roboto/Roboto-Medium.woff2",
-        "materialize/fonts/roboto/Roboto-Regular.woff",
-        "materialize/fonts/roboto/Roboto-Regular.woff2",
-        "materialize/fonts/roboto/Roboto-Thin.woff",
-        "materialize/fonts/roboto/Roboto-Thin.woff2"
+        {{ config['web_accessible_resources'] }}
     ]
 }
