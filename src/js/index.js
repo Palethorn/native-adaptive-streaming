@@ -64,9 +64,11 @@ function restoreSettings() {
 
     chrome.storage.local.get({
         // {% if config['target'] == 'chrome' %}
+
         hlsjs_version: "0.8.9",
         dashjs_version: "2.6.5",
         // {% endif %}
+
         debug: false,
         native: false
     }, function(settings) {
@@ -75,8 +77,10 @@ function restoreSettings() {
         var url = window.location.href.split("#")[1];
         media_url_input.value = url;
         // {% if config['target'] == 'firefox' %}
+
         playUrl(url);
         // {% elif config['target'] == 'chrome' %}
+
         hlsjs_version = settings.hlsjs_version;
         dashjs_version = settings.dashjs_version;
         loadLibs(url);

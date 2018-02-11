@@ -313,7 +313,22 @@ var Player = function(options) {
         this.options.video_element.volume = volume;
     }
 
+    this.loadSubtitles = function(url) {
+        this.clearVideoElement();
+        var track = document.createElement('track');
+        track.label = 'Subtitle';
+        track.kind = 'subtitles';
+        track.default = 'default';
+        track.src = url;
+        this.options.video_element.appendChild(track);
+    }
+
+    this.clearVideoElement = function() {
+        this.options.video_element.innerHTML = '';
+    }
+
     this.destroy = function() {
+        this.clearVideoElement();
         this.removeEventHandler();
         this.tech.destroy();
         this.tech = null;

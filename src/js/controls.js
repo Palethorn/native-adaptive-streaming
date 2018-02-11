@@ -50,7 +50,12 @@ function playerMouseMove() {
     }, 3000);
 }
 
+function playerClick() {
+    state_machine.transition('controls', 'invisible');
+}
+
 video_element.addEventListener('mousemove', playerMouseMove);
+video_element.addEventListener('click', playerClick);
 
 controls.addEventListener('mouseover', function() {
     state_machine.transition('controls', 'frozen');
@@ -135,7 +140,7 @@ state_machine.addTransitions('subtitles_url_form', [
     {from: "visible", to: "invisible", object: subtitles_url_form, handle: function(transition) {
         subtitles_url_form.classList.add('fadeOutUp');
         subtitles_url_form.classList.remove('fadeInDown');
-        reload_source_media_url_btn.removeEventListener('click', reloadPlayer);
+        reload_source_media_url_btn.removeEventListener('click', loadSubtitles);
     }},
     {from: "invisible", to: "visible", object: subtitles_url_form, handle: function(transition) {
         subtitles_url_form.classList.remove('collapsed');
@@ -211,7 +216,7 @@ state_machine.addTransitions('window', [
 
 var fullscreen_clicked = false;
 
-fullscreen_toggle_btn.addEventListener('click', function() {
+function switchToFullscreen() {
     fullscreen_clicked = true;
 
     if(state_machine.getState('window') == 'windowed') {
@@ -219,7 +224,10 @@ fullscreen_toggle_btn.addEventListener('click', function() {
     } else {
         state_machine.transition('window', 'windowed');
     }
-});
+}
+
+fullscreen_toggle_btn.addEventListener('click', switchToFullscreen, false);
+video_element.addEventListener('dblclick', switchToFullscreen);
 
 window.addEventListener('webkitfullscreenchange', fullscreenExitHandler, false);
 window.addEventListener('mozfullscreenchange', fullscreenExitHandler, false);
@@ -234,5 +242,5 @@ function fullscreenExitHandler() {
 }
 
 function loadSubtitles() {
-    
+    player.loadSubtitles(subtitles_url_input.value);
 }
