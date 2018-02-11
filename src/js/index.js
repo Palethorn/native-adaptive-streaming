@@ -2,6 +2,46 @@
  * Modifications copyright (C) 2017 David Ćavar
  */
 
+// {% if config['target'] == 'chrome' %}
+
+var hlsjs_version = 0;
+var dashjs_version = 0;
+
+var hlsjs_loaded = false;
+var dashjs_loaded = false;
+
+function loadLibs(url) {
+    var s1 = document.createElement('script');
+    var s2 = document.createElement('script');
+
+    s2.onload = function() {
+        dashjs_loaded = true;
+        if (dashjs_loaded && hlsjs_loaded) { 
+            console.log("dash");
+            playUrl(url); 
+        }
+    };
+
+    s1.onload = function() {
+        hlsjs_loaded = true;
+        if (dashjs_loaded && hlsjs_loaded) {
+            console.log("hls");
+            playUrl(url); 
+        }
+
+        
+    }
+
+    s1.src = 'https://cdn.jsdelivr.net/npm/hls.js@' + hlsjs_version + '/dist/hls.min.js';
+    document.querySelector('head').appendChild(s1);
+    s2.src = 'https://cdn.jsdelivr.net/npm/dashjs@' + dashjs_version + '/dist/dash.all.min.js';
+    document.querySelector('head').appendChild(s2);
+}
+
+// {% elif config['target'] == 'firefox' %}
+
+// {% endif %}
+
 state_machine.addTransitions('loader', [
     {from: 'visible', to: 'invisible', object: loader, handle: function(transition) {
         loader.style.visibility = 'collapse';
@@ -23,6 +63,10 @@ function reset() {
 function restoreSettings() {
 
     chrome.storage.local.get({
+        // {% if config['target'] == 'chrome' %}
+        hlsjs_version: "0.8.9",
+        dashjs_version: "2.6.5",
+        // {% endif %}
         debug: false,
         native: false
     }, function(settings) {
@@ -30,7 +74,14 @@ function restoreSettings() {
         native = settings.native;
         var url = window.location.href.split("#")[1];
         media_url_input.value = url;
+        // {% if config['target'] == 'firefox' %}
         playUrl(url);
+        // {% elif config['target'] == 'chrome' %}
+        hlsjs_version = settings.hlsjs_version;
+        dashjs_version = settings.dashjs_version;
+        loadLibs(url);
+        // {% endif %}
+    
     });
 }
 
