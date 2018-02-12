@@ -33,7 +33,10 @@ def build_file(env, config, f):
         f3 = os.path.basename(f2)
         target_file = open(os.path.join(config['path'], 'dist', env['environment'], config['target'], f3), "w")
         output = j2_env.get_template(f2).render(config=config).encode("utf-8")
-        output = re.sub('console.log\(.*\);', '', output)
+
+        if env['environment'] == 'release':
+            output = re.sub('console.log\(.*\);', '', output)
+
         target_file.write(output)
         target_file.close()
 
