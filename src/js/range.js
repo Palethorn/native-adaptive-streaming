@@ -1,4 +1,8 @@
 var Range = function(options) {
+    if(options.min_value > options.max_value) {
+        throw "max_value must be larger than min_value";
+    }
+
     var self = this;
     this.seek_lock = false;
     this.options = options;
