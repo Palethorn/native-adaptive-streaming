@@ -3,6 +3,10 @@ var Range = function(options) {
         throw "max_value must be larger than min_value";
     }
 
+    if(options.value > options.max_value || options.value < options.min_value) {
+        throw "Default value out of range";
+    }
+
     var self = this;
     this.seek_lock = false;
     this.options = options;
