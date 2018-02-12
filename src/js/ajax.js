@@ -1,16 +1,17 @@
 function Ajax() {
+
     this.get = function(options) {
-        this.options = options;
-        this.xhttp = new XMLHttpRequest();
+        var xhttp = new XMLHttpRequest();
         self = this;
 
-        this.xhttp.onreadystatechange = function() {
+        xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                self.options.success(this.responseText);
+                console.log(self);
+                options.success(this.responseText);
             }
         };
 
-        this.xhttp.open("GET", this.options.url, true);
-        this.xhttp.send();
+        xhttp.open("GET", options.url, true);
+        xhttp.send();
     }
 }

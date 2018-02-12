@@ -4,7 +4,7 @@
 
 // {% if config['target'] == 'chrome' %}
 
-var hlss_version = "0.8.9";
+var hlsjs_version = "0.8.9";
 var dashjs_version = "2.6.5";
 // {% endif %}
 
@@ -16,17 +16,17 @@ function save_options() {
   // {% endif %}
 
   var dbg = document.getElementById('cbDebug').checked;
-  var ntv = document.getElementById('cbNative').checked;
+
   chrome.storage.local.set({
     // {% if config['target'] == 'chrome' %}
+    
     hlsjs_version: hlsjs_version,
     dashjs_version: dashjs_version,
     // {% endif %}
 
-    debug: dbg,
-    native: ntv
-    
+    debug: dbg
   }, function() {
+      console.log(hlsjs_version, dashjs_version);
     var status = document.getElementById('status');
     status.textContent = 'Options saved.';
     setTimeout(function() {
@@ -39,17 +39,16 @@ function restore_options() {
   chrome.storage.local.get({
     // {% if config['target'] == 'chrome' %}
     
-    hlsjs_version: hls_current_version,
-    dashjs_version: dashjs_current_version,
+    hlsjs_version: hlsjs_version,
+    dashjs_version: dashjs_version,
     // {% endif %}
 
     debug: false,
-    native: false
   }, function(items) {
-    document.getElementById('hlsjsSel').value = items.hlsjs;
-    document.getElementById('dashjsSel').value = items.dashjs;
+      console.log(items);
+    document.getElementById('hlsjsSel').value = items.hlsjs_version;
+    document.getElementById('dashjsSel').value = items.dashjs_version;
     document.getElementById('cbDebug').checked = items.debug;
-    document.getElementById('cbNative').checked = items.native;
   });
 }
 
@@ -77,10 +76,8 @@ ajax1.get({
     success: function(data) {
         loaded1 = true;
         data = JSON.parse(data);
-        dashjs_version = data.tags.latest;
-
         document.querySelector('#dashjsSel').innerHTML = '';
-    
+
         for(var i = 0; i < data.versions.length; i++) {
             var option = document.createElement('option');
             option.value = data.versions[i];
@@ -88,6 +85,7 @@ ajax1.get({
             document.querySelector('#dashjsSel').appendChild(option);
         }
 
+        document.querySelector('#dashjsSel').value = dashjs_version;
         attachEventListeners();
     }
 });
@@ -99,9 +97,8 @@ ajax2.get({
     success: function(data) {
         loaded2 = true;
         data = JSON.parse(data);
-        hls_current_version = data.tags.latest;
-
         document.querySelector('#hlsjsSel').innerHTML = '';
+
         for(var i = 0; i < data.versions.length; i++) {
             var option = document.createElement('option');
             option.value = data.versions[i];
@@ -109,10 +106,8 @@ ajax2.get({
             document.querySelector('#hlsjsSel').appendChild(option);
         }
 
+        document.querySelector('#hlsjsSel').value = hlsjs_version;
         attachEventListeners();
-    },
-    error: function() {
-
     }
 });
 

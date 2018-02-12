@@ -5,6 +5,8 @@ from jinja2 import Environment, FileSystemLoader
 import shutil
 import yaml
 import ntpath
+import re
+
 PATH = os.path.dirname(os.path.abspath(__file__))
 DS = os.path.sep
 parser = argparse.ArgumentParser()
@@ -30,7 +32,9 @@ def build_file(env, config, f):
         f2 = f.replace('\\', '/')
         f3 = os.path.basename(f2)
         target_file = open(os.path.join(config['path'], 'dist', env['environment'], config['target'], f3), "w")
-        target_file.write(j2_env.get_template(f2).render(config=config).encode("utf-8"))
+        output = j2_env.get_template(f2).render(config=config).encode("utf-8")
+        output = re.sub('console.log\(.*\);', '', output)
+        target_file.write(output)
         target_file.close()
 
 

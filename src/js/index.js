@@ -18,7 +18,7 @@ function loadLibs(url) {
         dashjs_loaded = true;
         if (dashjs_loaded && hlsjs_loaded) { 
             console.log("dash");
-            playUrl(url); 
+            playUrl(url);
         }
     };
 

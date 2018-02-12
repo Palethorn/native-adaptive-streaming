@@ -74,7 +74,6 @@ var DashTech = function(options) {
 
     this.getQualities = function() {
         var u = this.player.getBitrateInfoListFor("video");
-        console.log(u);
         var bitrates = [];
 
         for(var i = 0; i < u.length; i++) {
@@ -89,6 +88,8 @@ var DashTech = function(options) {
     }
 
     this.setQuality = function(index) {
+        index = parseInt(index);
+
         if(index == -1) {
             this.player.setAutoSwitchQuality(true);
             return;
@@ -110,15 +111,15 @@ var HlsTech = function(options) {
     var self = this;
 
     this.player = new Hls({
-        debug: options.debug,
         // {% if config['target'] == 'chrome' %}
         
-        enableWorker: true
+        enableWorker: true,
         // {% elif config['target'] == 'firefox' %}
 
-        enableWorker: false
+        enableWorker: false,
         // {% endif %}
         
+        debug: options.debug
     });
 
     this.player.on(Hls.Events.MANIFEST_PARSED, function(event, data) {
@@ -142,6 +143,7 @@ var HlsTech = function(options) {
     this.player.on(Hls.Events.ERROR, function(event, data) {
         var  msg = "Player error: " + data.type + " - " + data.details;
         data.type = event;
+        console.error(event, data);
 
         if(data.fatal) {
             switch(data.type) {
@@ -188,7 +190,6 @@ var HlsTech = function(options) {
 
     this.getQualities = function() {
         var u = this.player.levels;
-        console.log(u);
         var bitrates = [];
 
         for(var i = 0; i < u.length; i++) {
@@ -203,11 +204,13 @@ var HlsTech = function(options) {
     }
 
     this.setQuality = function(index) {
+        index = parseInt(index);
         this.player.currentLevel = index;
+        this.player.nextLevel = index;
+        this.player.loadLevel = index;
     }
 
     this.destroy = function() {
-        console.log("hls destroy")
         this.player.destroy();
         this.player = null;
     }
