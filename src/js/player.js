@@ -110,7 +110,15 @@ var HlsTech = function(options) {
     var self = this;
 
     this.player = new Hls({
-        debug: options.debug
+        debug: options.debug,
+        // {% if config['target'] == 'chrome' %}
+        
+        enableWorker: true
+        // {% elif config['target'] == 'firefox' %}
+
+        enableWorker: false
+        // {% endif %}
+        
     });
 
     this.player.on(Hls.Events.MANIFEST_PARSED, function(event, data) {

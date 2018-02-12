@@ -14,11 +14,9 @@
 
     "icons": { "128": "assets/icon128.png" },
     "background": { "scripts": [ "event.js"] },
-    
-    {% if config['target'] == 'firefox' %}
-    "content_security_policy": "script-src 'self' blob:; object-src 'self'",
-    {% elif config['target'] == 'chrome' %}
-    "content_security_policy": "script-src 'self' https://cdn.jsdelivr.net blob:; object-src 'self'",
+
+    {% if config['target'] == 'chrome' %}
+    "content_security_policy": "script-src 'self' https://cdn.jsdelivr.net; object-src 'self'",
     {% endif %}
     
     "permissions": [
