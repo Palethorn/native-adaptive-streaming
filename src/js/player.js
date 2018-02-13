@@ -50,7 +50,6 @@ var DashTech = function(options) {
             return;
         }
 
-        self.options.onError();
         self.destroy();
     });
 
