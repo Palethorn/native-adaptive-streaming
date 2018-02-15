@@ -75,6 +75,9 @@ body{
 #la-url-form, #media-url-form, #subtitles-url-form {
     position: absolute;
     width: 100%;
+    top: 0;
+    left: 0;
+    height: 70px;
 }
 
 #la-url {
@@ -211,4 +214,8 @@ body{
     height: 80%;
     margin-left: 21px;
     margin-top: 25px;
+}
+
+#reload-source-la-url-btn, #reload-source-media-url-btn, #reload-source-subtitles-url-btn {
+    margin-top: 8px;
 }

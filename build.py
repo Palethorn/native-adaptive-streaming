@@ -77,10 +77,6 @@ def build_all(env, config):
     config['web_accessible_resources'] =  ','.join(web_accessible_resources)
     build_manifest(env, config)
 
-
-if os.path.exists(dist_dir) and env['environment'] == 'release':
-    shutil.rmtree(dist_dir)
-
 if not os.path.exists(dist_dir):
     os.makedirs(dist_dir)
 
