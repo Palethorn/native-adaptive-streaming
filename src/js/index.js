@@ -17,7 +17,6 @@ function loadLibs(url) {
     s2.onload = function() {
         dashjs_loaded = true;
         if (dashjs_loaded && hlsjs_loaded) { 
-            console.log("dash");
             playUrl(url);
         }
     };
@@ -25,7 +24,6 @@ function loadLibs(url) {
     s1.onload = function() {
         hlsjs_loaded = true;
         if (dashjs_loaded && hlsjs_loaded) {
-            console.log("hls");
             playUrl(url); 
         }
 
@@ -106,7 +104,6 @@ window.addEventListener("hashchange", function() {
 
 function playUrl(url) {
     reset();
-    console.log(url);
 
     player = new Player({
         "url": url,
@@ -121,9 +118,6 @@ function playUrl(url) {
             prepareLaUrlInput();
         },
         "event_handler": function(event) {
-            if(event.type != 'timeupdate') {
-                console.log(event.type);
-            }
 
             var regex1 = /^(seeking)|(waiting)$/g;
 
@@ -133,6 +127,14 @@ function playUrl(url) {
             }
 
             switch(event.type) {
+                case "loadeddata":
+                    fillBitrates(player.getQualities());
+
+                    if(!player.isLive()) {
+                        progress.classList.remove('collapsed');
+                    }
+
+                    break;
                 case "hlsNetworkError":
                     state_machine.transition('loader', 'visible');
                     break;

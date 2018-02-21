@@ -68,7 +68,6 @@ var Range = function(options) {
         }
 
         if(value > this.max_value && value < this.min_value) {
-            console.log('Value out of range');
             return;
         }
         

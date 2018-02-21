@@ -1,14 +1,14 @@
 /**
  * Modifications copyright (C) 2017 David Ćavar
  */
-body{
+
+ body{
     margin-top: 0px; 
     margin-bottom: 0px; 
     margin-left: 0px; 
     margin-right: 0px;
     padding: 0;
     color: black;
-    
     background-color: black;
 }
 
@@ -46,7 +46,7 @@ body{
 	right:0px;
     bottom: 0px;
     height:60px;
-
+    margin: 0;
     -webkit-animation-duration: 5s;
     -moz-animation-duration: .3s;
     animation-duration: .3s;
@@ -150,7 +150,7 @@ body{
     line-height: 60px;
 }
 
-#controls #play-pause {
+#controls .control {
     height: 60px;
 }
 
@@ -218,4 +218,8 @@ body{
 
 #reload-source-la-url-btn, #reload-source-media-url-btn, #reload-source-subtitles-url-btn {
     margin-top: 8px;
+}
+
+.close-input {
+    height: 60px;
 }

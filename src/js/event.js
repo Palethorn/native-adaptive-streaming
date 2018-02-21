@@ -13,8 +13,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     enabled ? chrome.browserAction.setIcon({path: "assets/icon128.png" }) : chrome.browserAction.setIcon({ path:"assets/icon128grey.png" });
 });
 
-chrome.webRequest.onBeforeRequest.addListener(function(info) {
-    if (!info.url.split("?")[0].split("#")[0].endsWith(".m3u8") && !info.url.split("?")[0].split("#")[0].endsWith(".mpd")) {
+chrome.webRequest.onBeforeRequest.addListener(function(info) { 
+    if (!info.url.split("?")[0].split("#")[0].endsWith(".m3u8") && !info.url.split("?")[0].split("#")[0].endsWith(".mpd") && !info.url.split("?")[0].split("#")[0].endsWith("Manifest")) {
         return null;
     }
 
@@ -26,4 +26,4 @@ chrome.webRequest.onBeforeRequest.addListener(function(info) {
     }
         
     return { redirectUrl:  playerUrl };
-}, {urls: ["*://*/*.m3u8*", "*://*/*.mpd*"], types:["main_frame"]}, ["blocking"]);
+}, {urls: ["*://*/*.m3u8*", "*://*/*.mpd*", "*://*/*/Manifest*"], types:["main_frame"]}, ["blocking"]);

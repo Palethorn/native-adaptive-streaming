@@ -26,7 +26,6 @@ function save_options() {
 
     debug: dbg
   }, function() {
-      console.log(hlsjs_version, dashjs_version);
     var status = document.getElementById('status');
     status.textContent = 'Options saved.';
     setTimeout(function() {
@@ -45,7 +44,6 @@ function restore_options() {
 
     debug: false,
   }, function(items) {
-      console.log(items);
     document.getElementById('hlsjsSel').value = items.hlsjs_version;
     document.getElementById('dashjsSel').value = items.dashjs_version;
     document.getElementById('cbDebug').checked = items.debug;

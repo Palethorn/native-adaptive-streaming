@@ -19,10 +19,10 @@ state_machine.addTransitions('controls', [
 
 state_machine.addTransitions('play_pause', [
     {from: "playing", to: "paused", object: play_pause, handle: function(transition) {
-        transition.object.innerText = "play_arrow";
+        transition.object.querySelector('i').innerText = "play_arrow";
     }},
     {from: "paused", to: "playing", object: play_pause, handle: function(transition) {
-        transition.object.innerText = "pause";
+        transition.object.querySelector('i').innerText = "pause";
     }}
 ], 'paused');
 
@@ -31,12 +31,14 @@ state_machine.addTransitions('settings_popup', [
         var o = transition.object;
         o.classList.remove('fadeIn');
         o.classList.add('fadeOut');
-    },  delay: 300},
+        playback_speed.blur();
+        bitrate_selection.blur();
+    }},
     {from: "invisible", to: "visible", object: settings_popup, handle: function(transition) {
         var o = transition.object;
         o.classList.remove('fadeOut');
         o.classList.add('fadeIn');
-    }, delay: 300}
+    }}
 ], 'visible');
 
 var timeout_id;
@@ -69,10 +71,6 @@ timeout_id = setTimeout(function() {
     state_machine.transition('controls', 'invisible');
 }, 3000);
 
-video_element.addEventListener('play', function () {
-
-});
-
 var fillBitrates = function(bitrates) {
     bitrate_selection.innerHTML = '';
     var option = document.createElement('option');
@@ -98,14 +96,6 @@ function playPause() {
         video_element.pause();
     }
 }
-
-settings.addEventListener('mouseover', function() {
-    state_machine.transition('settings_popup', 'visible');
-});
-
-settings.addEventListener('mouseout', function() {
-    state_machine.transition('settings_popup', 'invisible');
-});
 
 state_machine.addTransitions('la_url_form', [
     {from: "visible", to: "invisible", object: la_url_toggle_btn, handle: function(transition) {
@@ -163,7 +153,6 @@ media_url_toggle_btn.addEventListener('click', function() {
 });
 
 playback_speed.addEventListener('change', function() {
-    console.log(playback_speed.value);
     video_element.playbackRate = playback_speed.value;
 });
 
@@ -171,28 +160,42 @@ bitrate_selection.addEventListener('change', function() {
     player.setQuality(bitrate_selection.value);
 });
 
+var volumePopupTransitionEnd = function() {
+    volume_popup.removeEventListener('animationend', volumePopupTransitionEnd);
+    volume_popup.classList.add('collapsed');
+}
+
+var settingsPopupTransitionEnd = function() {
+    settings_popup.removeEventListener('animationend', settingsPopupTransitionEnd);
+    settings_popup.classList.add('collapsed');
+}
+
 volume.addEventListener('mouseover', function() {
+    volume_popup.removeEventListener('animationend', volumePopupTransitionEnd);
     volume_popup.classList.remove('collapsed', 'fadeOut');
     volume_popup.classList.add('animated', 'fadeIn');
 });
 
 volume.addEventListener('mouseout', function() {
+    volume_popup.addEventListener('animationend', volumePopupTransitionEnd, false);
     volume_popup.classList.remove('fadeIn');
     volume_popup.classList.add('animated', 'fadeOut');
 });
 
 settings.addEventListener('mouseover', function() {
+    settings_popup.removeEventListener('animationend', settingsPopupTransitionEnd);
     settings_popup.classList.remove('collapsed', 'fadeOut');
     settings_popup.classList.add('animated', 'fadeIn');
-});
+}, false);
 
 settings.addEventListener('mouseout', function() {
+    settings_popup.addEventListener('animationend', settingsPopupTransitionEnd, false);
     settings_popup.classList.remove('fadeIn');
     settings_popup.classList.add('animated', 'fadeOut');
-});
+}, false);
 
 state_machine.addTransitions('window', [
-    {from: "fullscreen", to: "windowed", object: settings_popup, handle: function(transition) {
+    {from: "fullscreen", to: "windowed", object: null, handle: function(transition) {
         if(document.exitFullscreen) {
             document.exitFullscreen();
         } else if(document.mozCancelFullScreen) {
@@ -201,7 +204,7 @@ state_machine.addTransitions('window', [
             document.webkitExitFullscreen();
         }
     }},
-    {from: "windowed", to: "fullscreen", object: settings_popup, handle: function(transition) {
+    {from: "windowed", to: "fullscreen", object: null, handle: function(transition) {
         if (body.requestFullscreen) {
             body.requestFullscreen();
         }
@@ -244,3 +247,54 @@ function fullscreenExitHandler() {
 function loadSubtitles() {
     player.loadSubtitles(subtitles_url_input.value);
 }
+
+window.addEventListener('keypress', function(e) {
+    console.log(e);
+    if(e.key == 'f') {
+        switchToFullscreen();
+        return;
+    }
+
+    if(e.key == ' ') {
+        playPause();
+        return;
+    }
+
+    if(e.key == 'ArrowUp') {
+        if(video_element.volume + .1 > 1) {
+            video_element.volume = 1;
+            return;
+        }
+
+        video_element.volume += .1;
+        return;
+    }
+
+    if(e.key == 'ArrowDown') {
+        if(video_element.volume - .1 < 0) {
+            video_element.volume = 0;
+            return;
+        }
+
+        video_element.volume -= .1;
+    }
+
+    if(e.key == 'ArrowLeft') {
+        if(video_element.currentTime - 10 < 0) {
+            video_element.currentTime = 0;
+            return;
+        }
+
+        video_element.currentTime -= 10;
+    }
+
+    if(e.key == 'ArrowRight') {
+        if(video_element.currentTime + 10 > video_element.duration) {
+            video_element.currentTime = video_element.duration;
+            return;
+        }
+
+        video_element.currentTime += 10;
+    }
+
+}, false);

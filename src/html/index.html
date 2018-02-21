@@ -7,7 +7,9 @@
     <!-- {% if config['target'] == 'firefox' %} -->
     <script src="libs/dash.all.min.js"></script>
     <script src="libs/hls.min.js"></script>
+
     <!-- {% endif %} -->
+    <script src="libs/hasplayer.min.js"></script>
     <script src="libs/materialize/js/materialize.min.js"></script>
     <script src="range.js"></script>
     <script src="globals.js"></script>
@@ -21,34 +23,15 @@
         <video id="player"></video>
         <img id="loader" src="assets/loader.svg" alt="Loading...">
     </div>
-    <div id="la-url-form" class="row collapsed white-bg">
-        <form class="col s12">
-            <div class="row">
-                <div class="input-field col s5">
-                    <input type="text" id="la-url">
-                    <label for="la-url">License url</label>
-                </div>
-                <div class="input-field col s5">
-                    <button id="reload-source-la-url-btn" class="waves-effect waves-light btn" type="submit">
-                        Load
-                      <i class="material-icons right">send</i>
-                    </button>
-                </div>
-                <div class="input-field col s1">
-                    <a data-target="la_url_form" class="close-input waves-effect waves-red btn-flat"><i data-target="la_url_form" class="material-icons right control">keyboard_arrow_up</i></a>
-                </div>
-            </div>
-        </form>
-    </div>
 
     <div id="media-url-form" class="row collapsed white-bg">
         <form class="col s12">
             <div class="row">
-                <div class="input-field col s5">
+                <div class="input-field col s10">
                     <input type="text" id="media-url-input">
                     <label for="media-url-input">Media url</label>
                 </div>
-                <div class="input-field col s5">
+                <div class="input-field col s1">
                     <button id="reload-source-media-url-btn" class="waves-effect waves-light btn" type="submit">
                         Load
                       <i class="material-icons right">send</i>
@@ -64,11 +47,11 @@
     <div id="subtitles-url-form" class="row collapsed white-bg">
         <form class="col s12">
             <div class="row">
-                <div class="input-field col s5">
+                <div class="input-field col s10">
                     <input type="text" id="subtitles-url-input">
                     <label for="subtitles-url-input">Subtitles url</label>
                 </div>
-                <div class="input-field col s5">
+                <div class="input-field col s1">
                     <button id="load-subtitles-url-btn" class="waves-effect waves-light btn" type="submit">
                         Load
                       <i class="material-icons right">send</i>
@@ -81,11 +64,30 @@
         </form>
     </div>
 
+    <div id="la-url-form" class="row collapsed white-bg">
+        <form class="col s12">
+            <div class="row">
+                <div class="input-field col s10">
+                    <input type="text" id="la-url">
+                    <label for="la-url">License url</label>
+                </div>
+                <div class="input-field col s1">
+                    <button id="reload-source-la-url-btn" class="waves-effect waves-light btn" type="submit">
+                        Load
+                      <i class="material-icons right">send</i>
+                    </button>
+                </div>
+                <div class="input-field col s1">
+                    <a data-target="la_url_form" class="close-input waves-effect waves-red btn-flat"><i data-target="la_url_form" class="material-icons right control">keyboard_arrow_up</i></a>
+                </div>
+            </div>
+        </form>
+    </div>
     <div id="controls" class="row white-bg animated">
             <form class="col s12">
                     <div class="row">
                             <div id="playback" class="col s1">
-                                <a class="waves-effect waves-red btn-flat"><i id="play-pause" class="material-icons control">play_arrow</i></a>
+                                <a id="play-pause" class="waves-effect waves-red btn-flat"><i class="material-icons control">play_arrow</i></a>
                             </div>
                             <div id="progress"></div>
                             <div id="volume" class="col s1">
@@ -93,7 +95,7 @@
                                 <div id="volume-popup" class="collapsed"><div id="volume-control-container"></div><i class="material-icons tooltip-arrow-vol">arrow_drop_down</i></div>
                             </div>
                             <div id="settings" class="col s1">
-                                <a class="waves-effect waves-red btn-flat"><i class="material-icons control">settings</i></a>
+                                <a id="settings-btn" class="waves-effect waves-red btn-flat"><i class="material-icons control">settings</i></a>
                                 <div id="settings-popup" class="collapsed">
                                     <a id="media-url-toggle-btn" class="waves-effect waves-red btn-flat">Change Media URL</a>
                                     <a id="subtitles-toggle-btn" class="waves-effect waves-red btn-flat">Link Subtitles</a>
