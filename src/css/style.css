@@ -180,6 +180,12 @@
     animation-duration: .3s;
 }
 
+.material-icons {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
 .material-icons.tooltip-arrow-vol {
     position: absolute;
     top: 168px;

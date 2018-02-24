@@ -67,7 +67,7 @@ var SmoothTech = function(options) {
 var DashTech = function(options) {
     this.options = options;
     this.player = dashjs.MediaPlayer().create();
-    this.player.setFastSwitchEnabled();
+    this.player.setFastSwitchEnabled(true);
     this.player.getDebug().setLogToBrowserConsole(options.debug);
     this.is_live = undefined;
 
