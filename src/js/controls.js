@@ -42,13 +42,11 @@ state_machine.addTransitions('volume_popup', [
 state_machine.addTransitions('settings_form', [
     {from: "visible", to: "invisible", object: settings_form, handle: function(transition) {
         var o = transition.object;
-        console.log("safasg");
         o.classList.remove('fadeInRight');
         o.classList.add('fadeOutRight');
     }},
     {from: "invisible", to: "visible", object: settings_form, handle: function(transition) {
         var o = transition.object;
-        console.log("safasg");
         o.classList.remove('collapsed', 'fadeOutRight');
         o.classList.add('fadeInRight');
     }}
@@ -253,7 +251,6 @@ function loadSubtitles() {
 }
 
 window.addEventListener('keypress', function(e) {
-    console.log(e);
     if(e.key == 'f') {
         switchToFullscreen();
         return;

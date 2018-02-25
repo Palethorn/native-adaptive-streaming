@@ -241,12 +241,13 @@ var HlsTech = function(options) {
     }
 
     this.getQualities = function() {
+        console.log("Levels", this.player.levels);
         var u = this.player.levels;
         var bitrates = [];
 
         for(var i = 0; i < u.length; i++) {
             var b = {};
-            b.index = u[i].level;
+            b.index = u[i].level != undefined ? u[i].level : i;
             b.bitrate = u[i].bitrate;
             b.height = u[i].height;
             bitrates.push(b);

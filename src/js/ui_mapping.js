@@ -1,6 +1,7 @@
 var body = document.querySelector('body');
 var controls = document.querySelector('#controls');
 var video_element = document.querySelector('#player');
+var player_container = document.querySelector('#player-container');
 var play_pause = document.querySelector('#play-pause');
 var volume = document.querySelector('#volume');
 var settings = document.querySelector('#settings');

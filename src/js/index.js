@@ -189,3 +189,12 @@ for(var i = 0; i < close_input.length; i++) {
 }
 
 restoreSettings();
+
+window.addEventListener('resize', function() {
+    console.log(window.innerWidth);
+    player_container.style.width = window.innerWidth + 'px';
+    video_element.style.width = window.innerWidth + 'px';
+});
+
+player_container.style.width = window.innerWidth -  + 'px';
+video_element.style.width = window.innerWidth + 'px';
