@@ -83,6 +83,34 @@
             </div>
         </form>
     </div>
+    <div id="settings-form" class="animated white-bg">
+        <div class="row">
+            <a id="media-url-toggle-btn" class="waves-effect waves-red btn-flat">Change Media URL</a>
+        </div>
+        <div class="row">
+            <a id="subtitles-toggle-btn" class="waves-effect waves-red btn-flat">Link Subtitles</a>
+        </div>            
+        <div class="row">
+            <a id="la-url-toggle-btn" class="waves-effect waves-red btn-flat">Change License URL</a>
+        </div>
+        <div id="playback-speed-wrapper" class="row">
+            <select id="playback-speed" class="browser-default">
+                <option value="0.25">x0.25</option>
+                <option value="0.5">x0.5</option>
+                <option value="0.75">x0.75</option>
+                <option selected value="1">x1</option>
+                <option value="1.25">x1.25</option>
+                <option value="1.5">x1.5</option>
+                <option value="1.75">x1.75</option>
+                <option value="2.0">x2</option>
+            </select>
+        </div>
+        <div id="bitrate-selection-wrapper" class="row">
+            <select id="bitrate-selection" class="browser-default">
+            </select>
+        </div>
+        </div>
+    </div>
     <div id="controls" class="row white-bg animated">
             <form class="col s12">
                     <div class="row">
@@ -94,30 +122,8 @@
                                 <a id="volume-btn" class="waves-effect waves-red btn-flat"><i class="material-icons control">volume_mute</i></a>
                                 <div id="volume-popup" class="collapsed"><div id="volume-control-container"></div><i class="material-icons tooltip-arrow-vol">arrow_drop_down</i></div>
                             </div>
-                            <div id="settings" class="col s1">
+                            <div class="col s1">
                                 <a id="settings-btn" class="waves-effect waves-red btn-flat"><i class="material-icons control">settings</i></a>
-                                <div id="settings-popup" class="collapsed">
-                                    <a id="media-url-toggle-btn" class="waves-effect waves-red btn-flat">Change Media URL</a>
-                                    <a id="subtitles-toggle-btn" class="waves-effect waves-red btn-flat">Link Subtitles</a>
-                                    <a id="la-url-toggle-btn" class="waves-effect waves-red btn-flat">Change License URL</a>
-                                    <div id="playback-speed-wrapper">
-                                        <select id="playback-speed" class="browser-default">
-                                            <option value="0.25">x0.25</option>
-                                            <option value="0.5">x0.5</option>
-                                            <option value="0.75">x0.75</option>
-                                            <option selected value="1">x1</option>
-                                            <option value="1.25">x1.25</option>
-                                            <option value="1.5">x1.5</option>
-                                            <option value="1.75">x1.75</option>
-                                            <option value="2.0">x2</option>
-                                        </select>
-                                    </div>
-                                    <div id="bitrate-selection-wrapper">
-                                            <select id="bitrate-selection" class="browser-default">
-                                            </select>
-                                        </div>
-                                    <i class="material-icons tooltip-arrow-settings">arrow_drop_down</i>
-                                </div>
                             </div>
                             <div id="fullscreen" class="col s1">
                                 <a id="fullscren-toggle-btn" class="waves-effect waves-red btn-flat"><i class="material-icons control">fullscreen</i></a>

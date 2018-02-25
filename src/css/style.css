@@ -65,7 +65,7 @@
 }
 
 .collapsed {
-    visibility: collapse;
+    visibility: hidden;
 }
 
 .white-bg {
@@ -78,6 +78,14 @@
     top: 0;
     left: 0;
     height: 70px;
+}
+
+#settings-form {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 220px;
+    background-color: white;
 }
 
 #la-url {
@@ -212,7 +220,6 @@
 
 #playback-speed-wrapper, #bitrate-selection-wrapper {
     width: 80%;
-    padding-left: 20%;
 }
 
 #volume-control-container {

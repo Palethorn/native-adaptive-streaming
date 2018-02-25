@@ -15,6 +15,11 @@ var StateMachine = function(options) {
         this.transitions[namespace].definitions = definitions;
     }
 
+    this.lock = function(namespace, state) {
+        this.transition(namespace, state);
+        this.transitions[namespace].locked = true;
+    }
+
     this.getState = function(namespace) {
         return this.transitions[namespace].state;
     }
@@ -26,6 +31,10 @@ var StateMachine = function(options) {
     this.transition = function(namespace, to) {
         var transitions = this.transitions[namespace];
         
+        if(transitions.locked != undefined && transitions.locked) {
+            return
+        }
+
         for(var i = 0; i < transitions.definitions.length; i++) {
             var definition = transitions.definitions[i];
 

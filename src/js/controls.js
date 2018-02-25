@@ -26,20 +26,34 @@ state_machine.addTransitions('play_pause', [
     }}
 ], 'paused');
 
-state_machine.addTransitions('settings_popup', [
-    {from: "visible", to: "invisible", object: settings_popup, handle: function(transition) {
+state_machine.addTransitions('volume_popup', [
+    {from: "visible", to: "invisible", object: volume_popup, handle: function(transition) {
         var o = transition.object;
         o.classList.remove('fadeIn');
         o.classList.add('fadeOut');
-        playback_speed.blur();
-        bitrate_selection.blur();
     }},
-    {from: "invisible", to: "visible", object: settings_popup, handle: function(transition) {
+    {from: "invisible", to: "visible", object: volume_popup, handle: function(transition) {
         var o = transition.object;
-        o.classList.remove('fadeOut');
+        o.classList.remove('collapsed', 'fadeOut');
         o.classList.add('fadeIn');
     }}
+], 'invisible');
+
+state_machine.addTransitions('settings_form', [
+    {from: "visible", to: "invisible", object: settings_form, handle: function(transition) {
+        var o = transition.object;
+        console.log("safasg");
+        o.classList.remove('fadeInRight');
+        o.classList.add('fadeOutRight');
+    }},
+    {from: "invisible", to: "visible", object: settings_form, handle: function(transition) {
+        var o = transition.object;
+        console.log("safasg");
+        o.classList.remove('collapsed', 'fadeOutRight');
+        o.classList.add('fadeInRight');
+    }}
 ], 'visible');
+
 
 var timeout_id;
 
@@ -54,6 +68,15 @@ function playerMouseMove() {
 
 function playerClick() {
     state_machine.transition('controls', 'invisible');
+}
+
+function toggleSettings() {
+    if(state_machine.getState('settings_form') == 'visible') {
+        state_machine.transition('settings_form', 'invisible');
+        return;
+    }
+
+    state_machine.transition('settings_form', 'visible');
 }
 
 video_element.addEventListener('mousemove', playerMouseMove);
@@ -165,34 +188,15 @@ var volumePopupTransitionEnd = function() {
     volume_popup.classList.add('collapsed');
 }
 
-var settingsPopupTransitionEnd = function() {
-    settings_popup.removeEventListener('animationend', settingsPopupTransitionEnd);
-    settings_popup.classList.add('collapsed');
-}
-
 volume.addEventListener('mouseover', function() {
     volume_popup.removeEventListener('animationend', volumePopupTransitionEnd);
-    volume_popup.classList.remove('collapsed', 'fadeOut');
-    volume_popup.classList.add('animated', 'fadeIn');
+    state_machine.transition('volume_popup', 'visible');
 });
 
 volume.addEventListener('mouseout', function() {
     volume_popup.addEventListener('animationend', volumePopupTransitionEnd, false);
-    volume_popup.classList.remove('fadeIn');
-    volume_popup.classList.add('animated', 'fadeOut');
+    state_machine.transition('volume_popup', 'invisible');
 });
-
-settings.addEventListener('mouseover', function() {
-    settings_popup.removeEventListener('animationend', settingsPopupTransitionEnd);
-    settings_popup.classList.remove('collapsed', 'fadeOut');
-    settings_popup.classList.add('animated', 'fadeIn');
-}, false);
-
-settings.addEventListener('mouseout', function() {
-    settings_popup.addEventListener('animationend', settingsPopupTransitionEnd, false);
-    settings_popup.classList.remove('fadeIn');
-    settings_popup.classList.add('animated', 'fadeOut');
-}, false);
 
 state_machine.addTransitions('window', [
     {from: "fullscreen", to: "windowed", object: null, handle: function(transition) {
@@ -298,3 +302,6 @@ window.addEventListener('keypress', function(e) {
     }
 
 }, false);
+
+settings_btn.addEventListener('click', toggleSettings);
+state_machine.lock('controls', 'visible');
