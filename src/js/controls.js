@@ -44,13 +44,15 @@ state_machine.addTransitions('settings_form', [
         var o = transition.object;
         o.classList.remove('fadeInRight');
         o.classList.add('fadeOutRight');
+        playback_speed.blur();
+        bitrate_selection.blur();
     }},
     {from: "invisible", to: "visible", object: settings_form, handle: function(transition) {
         var o = transition.object;
         o.classList.remove('collapsed', 'fadeOutRight');
         o.classList.add('fadeInRight');
     }}
-], 'visible');
+], 'invisible');
 
 
 var timeout_id;
@@ -301,4 +303,4 @@ window.addEventListener('keypress', function(e) {
 }, false);
 
 settings_btn.addEventListener('click', toggleSettings);
-state_machine.lock('controls', 'visible');
+// state_machine.lock('controls', 'visible');
