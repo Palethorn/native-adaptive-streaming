@@ -102,6 +102,30 @@ window.addEventListener("hashchange", function() {
     
 }, false);
 
+var formatTimeFromSeconds = function(val) {
+    var hours = Math.floor(val / 3600);
+
+    if((hours + '').length == 1) {
+        hours = '0' + hours;
+    }
+
+    var minutes = Math.floor(val / 60);
+    minutes = minutes < 60 ? minutes :  (Math.floor(val / 60) - hours * 60);
+    
+    if((minutes + '').length == 1) {
+        minutes = '0' + minutes;
+    }
+
+    var seconds = val < 60 ? val : val - ((hours * 3600) + (minutes * 60));
+    seconds = Math.floor(seconds);
+
+    if((seconds + '').length == 1) {
+        seconds = '0' + seconds;
+    }
+
+    return hours + ':' + minutes + ':' + seconds;
+}
+
 function playUrl(url) {
     reset();
 
@@ -132,6 +156,9 @@ function playUrl(url) {
 
                     if(!player.isLive()) {
                         progress.classList.remove('collapsed');
+                        time.classList.remove('collapsed');
+                        duration.classList.remove('collapsed');
+                        duration.innerHTML = formatTimeFromSeconds(video_element.duration);
                     }
 
                     break;
@@ -144,6 +171,9 @@ function playUrl(url) {
                 case "hlsLevelLoaded":
                     if(event.details != undefined && event.details.live == false) {
                         progress.classList.remove('collapsed');
+                        time.classList.remove('collapsed');
+                        duration.classList.remove('collapsed');
+                        duration.innerHTML = formatTimeFromSeconds(video_element.duration);
                     }
 
                     fillBitrates(player.getQualities());
@@ -151,6 +181,9 @@ function playUrl(url) {
                 case "manifestLoaded":
                     if(event.data.type == 'static') {
                         progress.classList.remove('collapsed');
+                        time.classList.remove('collapsed');
+                        duration.classList.remove('collapsed');
+                        duration.innerHTML = formatTimeFromSeconds(video_element.duration);
                     }
 
                     fillBitrates(player.getQualities());
@@ -161,6 +194,7 @@ function playUrl(url) {
                         progress_range.setValue(val);
                     }
                     
+                    time.innerHTML = '<span>' + formatTimeFromSeconds(video_element.currentTime) + '</span>';
                     break;
                 case 'playing':
                     state_machine.transition('play_pause', 'playing');

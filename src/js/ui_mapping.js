@@ -24,10 +24,12 @@ var bitrate_selection = document.querySelector("#bitrate-selection");
 var fullscreen_toggle_btn = document.querySelector("#fullscren-toggle-btn");
 var load_subtitles_url_btn = document.querySelector("#load-subtitles-url-btn");
 var loader = document.querySelector('#loader');
+var time = document.querySelector('#time');
+var duration = document.querySelector('#duration');
 
 var progress_range = new Range({
     target: document.querySelector('#progress'),
-    target_classlist: 'col s8 collapsed',
+    target_classlist: 'col s5 collapsed',
     type: 'horizontal',
     min_value: 0,
     max_value: 100,
