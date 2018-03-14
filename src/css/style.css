@@ -87,6 +87,9 @@
     width: 220px;
     background-color: white;
 }
+#settings-form col {
+    padding-left: 10px;
+}
 
 #la-url {
     border-bottom: 1px solid #ff7777;
@@ -216,10 +219,6 @@
 
 #settings {
     height: 60px;
-}
-
-#playback-speed-wrapper, #bitrate-selection-wrapper {
-    width: 80%;
 }
 
 #volume-control-container {
