@@ -17,6 +17,8 @@ state_machine.addTransitions('controls', [
     }}
 ], 'visible');
 
+state_machine.lock('controls', 'visible');
+
 state_machine.addTransitions('play_pause', [
     {from: "playing", to: "paused", object: play_pause, handle: function(transition) {
         transition.object.querySelector('i').innerText = "play_arrow";

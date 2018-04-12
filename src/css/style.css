@@ -45,11 +45,77 @@
 	left:0px;
 	right:0px;
     bottom: 0px;
-    height:60px;
+    height:30px;
     margin: 0;
     -webkit-animation-duration: 5s;
     -moz-animation-duration: .3s;
     animation-duration: .3s;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+#controls a{
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+}
+
+#controls .control {
+    height: 30px;
+}
+
+#controls-left {
+    float: left;
+    width: 80%;
+}
+
+#controls-right {
+    float: right;
+    width: 20%;
+}
+
+#controls-left div {
+    float: left;
+}
+
+#controls-right div {
+    float: left;
+}
+
+#duration {
+    color: white;
+    padding-top: 5px;
+    width: 25%;
+    text-align: center;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+#time {
+    color: white;
+    padding-top: 5px;
+    width: 5%;
+    text-align: center;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+#volume {
+    height: 30px;
+    width: 25%;
+}
+
+#settings {
+    width: 25%;
+}
+
+#fullscreen {
+    width: 25%;
+}
+
+#playback {
+    width: 5%;
 }
 
 .animation-delay {
@@ -59,9 +125,10 @@
 }
 
 .material-icons.control {
-    font-size: 45pt;
+    font-size: 22pt;
     cursor: pointer;
-    color: #ff7777;
+    /* color: #ff7777; */
+    color: white;
 }
 
 .collapsed {
@@ -126,43 +193,10 @@
 }
 
 #progress {
-    height: 60px;
-    margin-top: 25px;
-}
-
-#line {
-    border: 1px solid #ff7777;
-    height: 8px;
-    margin-top: 25px;
-    cursor: pointer;
-}
-
-#path {
-    height: 6px;
-    background-color: #ff7777;
-    float: left;
-}
-
-#thumb {
-    border-radius: 100%;
-    border: 5px solid #ff7777;
-    background-color: white;
-    height: 20px;
-    width: 20px;
-    float: left;
-    margin-top: -6px;
-    margin-left: -2px;
-    cursor: pointer;
-}
-
-#controls a{
-    height: 60px;
-    text-align: center;
-    line-height: 60px;
-}
-
-#controls .control {
-    height: 60px;
+    height: 30px;
+    width: 85%;
+    margin-left: 2%;
+    margin-top: 12px;
 }
 
 #volume-popup {
@@ -170,9 +204,10 @@
     display: block;
     width: 50px;
     height: 200px;
-    background-color: white;
-    top: -277px;
-    left: 35px;
+    /* background-color: white; */
+    background: rgba(0, 0, 0, 0.5);
+    top: -247px;
+    left: 20px;
     -webkit-animation-duration: .3s;
     -moz-animation-duration: .3s;
     animation-duration: .3s;
@@ -199,9 +234,10 @@
 
 .material-icons.tooltip-arrow-vol {
     position: absolute;
-    top: 168px;
+    top: 169px;
     left: -11px;
-    color: white;
+    /*color: white;*/
+    color: rgba(0, 0, 0, 0.5);
     font-size: 56pt;
 }
 
@@ -214,11 +250,11 @@
 }
 
 #volume {
-    height: 60px;
+    height: 30px;
 }
 
 #settings {
-    height: 60px;
+    height: 30px;
 }
 
 #volume-control-container {

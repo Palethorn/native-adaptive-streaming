@@ -163,10 +163,10 @@ var HlsTech = function(options) {
     var self = this;
 
     this.player = new Hls({
-        // {% if config['target'] == 'chrome' %}
+        // {% if env['target'] == 'chrome' %}
         
         enableWorker: true,
-        // {% elif config['target'] == 'firefox' %}
+        // {% elif env['target'] == 'firefox' %}
 
         enableWorker: false,
         // {% endif %}

@@ -29,7 +29,7 @@ var duration = document.querySelector('#duration');
 
 var progress_range = new Range({
     target: document.querySelector('#progress'),
-    target_classlist: 'col s5 collapsed',
+    target_classlist: 'collapsed',
     type: 'horizontal',
     min_value: 0,
     max_value: 100,

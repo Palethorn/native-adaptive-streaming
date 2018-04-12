@@ -16,15 +16,16 @@ var Range = function(options) {
     this.type = options.type;
 
     this.path = document.createElement('div');
-    this.path.style.border = '1px solid #ff7777';
+    this.path.style.border = '1px solid white';
     this.path.style.cursor = 'pointer';
 
     this.fill = document.createElement('div');
 
     this.thumb = document.createElement('div');
     this.thumb.style.borderRadius = '100%';
-    this.thumb.style.border = '5px solid #ff7777';
-    this.thumb.style.backgroundColor = 'white';
+    this.thumb.style.border = '5px solid white';
+    // this.thumb.style.backgroundColor = '#ff7777';
+    this.thumb.style.backgroundColor = 'red';
     this.thumb.style.width = '20px';
     this.thumb.style.height = '20px';
 
@@ -32,25 +33,26 @@ var Range = function(options) {
 
     if(this.options.type == 'horizontal') {
         this.path.style.height = '8px';
+        this.path.style.width = '100%';
         this.fill.style.height = '8px';
         this.fill.style.float = 'left';
         this.fill.borderRadius = '0 100%';
         this.thumb.style.float = 'left';
-        this.thumb.style.marginLeft = '-20px';
-        this.thumb.style.marginTop = '-6px';
-        this.fill.style.backgroundColor = '#ff7777';
+        this.thumb.style.marginLeft = '-19px';
+        this.thumb.style.marginTop = '-7px';
+        this.fill.style.backgroundColor = 'white';
     }
 
     if(this.options.type == 'vertical') {
         this.path.style.width = '8px';
         this.path.style.height = '80%';
-        this.path.style.backgroundColor = '#ff7777';
+        /* this.path.style.backgroundColor = 'black'; */
         this.fill.style.width = '6px';
         this.fill.style.height = '50%';
         this.fill.borderRadius = '100% 100% 0 0';
         this.thumb.style.marginLeft = '-7px';
         this.thumb.style.marginTop = '-2px';
-        this.fill.style.backgroundColor = 'white';
+        /* this.fill.style.backgroundColor = 'white';*/
     }
 
     this.path.appendChild(this.fill);

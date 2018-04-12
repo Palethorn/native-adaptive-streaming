@@ -4,7 +4,7 @@
     "description": "Allow the browser to play HLS (m3u8) or MPEG-Dash (mpd) video urls 'natively'",
     "manifest_version": 2,
     
-    {% if config['target'] == 'firefox' %}
+    {% if env['target'] == 'firefox' %}
     "applications": {
         "gecko": {
             "id": "native-dash-hls@cavar.net"
@@ -15,7 +15,7 @@
     "icons": { "128": "assets/icon128.png" },
     "background": { "scripts": [ "event.js"] },
 
-    {% if config['target'] == 'chrome' %}
+    {% if env['target'] == 'chrome' %}
     "content_security_policy": "script-src 'self' https://cdn.jsdelivr.net blob:; object-src 'self'",
     {% endif %}
     
@@ -38,6 +38,6 @@
         "default_popup": "popup.html"
     },
     "web_accessible_resources": [
-        {{ config['web_accessible_resources'] }}
+        {{ env['web_accessible_resources'] }}
     ]
 }

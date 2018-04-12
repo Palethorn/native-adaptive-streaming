@@ -2,7 +2,7 @@
  * Modifications copyright (C) 2017 David Ćavar
  */
 
-// {% if config['target'] == 'chrome' %}
+// {% if env['target'] == 'chrome' %}
 
 var hlsjs_version = 0;
 var dashjs_version = 0;
@@ -36,7 +36,7 @@ function loadLibs(url) {
     document.querySelector('head').appendChild(s2);
 }
 
-// {% elif config['target'] == 'firefox' %}
+// {% elif env['target'] == 'firefox' %}
 
 // {% endif %}
 
@@ -61,7 +61,7 @@ function reset() {
 function restoreSettings() {
 
     chrome.storage.local.get({
-        // {% if config['target'] == 'chrome' %}
+        // {% if env['target'] == 'chrome' %}
 
         hlsjs_version: "0.8.9",
         dashjs_version: "2.6.5",
@@ -74,10 +74,10 @@ function restoreSettings() {
         native = settings.native;
         var url = window.location.href.split("#")[1];
         media_url_input.value = url;
-        // {% if config['target'] == 'firefox' %}
+        // {% if env['target'] == 'firefox' %}
 
         playUrl(url);
-        // {% elif config['target'] == 'chrome' %}
+        // {% elif env['target'] == 'chrome' %}
 
         hlsjs_version = settings.hlsjs_version;
         dashjs_version = settings.dashjs_version;

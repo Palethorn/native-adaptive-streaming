@@ -2,14 +2,14 @@
  * Modifications copyright (C) 2017 David Ćavar
  */
 
-// {% if config['target'] == 'chrome' %}
+// {% if env['target'] == 'chrome' %}
 
 var hlsjs_version = "0.8.9";
 var dashjs_version = "2.6.5";
 // {% endif %}
 
 function save_options() {
-  // {% if config['target'] == 'chrome' %}
+  // {% if env['target'] == 'chrome' %}
   
   hlsjs_version = document.getElementById('hlsjsSel').value;
   dashjs_version = document.getElementById('dashjsSel').value;
@@ -18,7 +18,7 @@ function save_options() {
   var dbg = document.getElementById('cbDebug').checked;
 
   chrome.storage.local.set({
-    // {% if config['target'] == 'chrome' %}
+    // {% if env['target'] == 'chrome' %}
     
     hlsjs_version: hlsjs_version,
     dashjs_version: dashjs_version,
@@ -36,7 +36,7 @@ function save_options() {
 
 function restore_options() {
   chrome.storage.local.get({
-    // {% if config['target'] == 'chrome' %}
+    // {% if env['target'] == 'chrome' %}
     
     hlsjs_version: hlsjs_version,
     dashjs_version: dashjs_version,
@@ -54,7 +54,7 @@ var loaded1 = false;
 var loaded2 = false;
 
 function attachEventListeners() {
-    // {% if config['target'] == 'chrome' %}
+    // {% if env['target'] == 'chrome' %}
     
     if(!loaded1 || !loaded2) {
         return;
@@ -65,7 +65,7 @@ function attachEventListeners() {
     document.getElementById('saveSettings').addEventListener('click', save_options);
 }
 
-// {% if config['target'] == 'chrome' %}
+// {% if env['target'] == 'chrome' %}
 
 var ajax1 = new Ajax();
 
@@ -109,7 +109,7 @@ ajax2.get({
     }
 });
 
-// {% elif config['target'] == 'firefox' %}
+// {% elif env['target'] == 'firefox' %}
 
 attachEventListeners();
 
