@@ -25,7 +25,7 @@
         <img id="loader" src="assets/loader.svg" alt="Loading...">
     </div>
 
-    <div id="media-url-form" class="row collapsed white-bg">
+    <div id="media-url-form" class="row collapsed input-popup">
         <form class="col s12">
             <div class="row">
                 <div class="input-field col s10">
@@ -45,7 +45,7 @@
         </form>
     </div>
 
-    <div id="subtitles-url-form" class="row collapsed white-bg">
+    <div id="subtitles-url-form" class="row collapsed input-popup">
         <form class="col s12">
             <div class="row">
                 <div class="input-field col s10">
@@ -65,7 +65,7 @@
         </form>
     </div>
 
-    <div id="la-url-form" class="row collapsed white-bg">
+    <div id="la-url-form" class="row collapsed input-popup">
         <form class="col s12">
             <div class="row">
                 <div class="input-field col s10">
@@ -85,35 +85,29 @@
         </form>
     </div>
     <div id="settings-form" class="animated collapsed white-bg">
-        <div class="row">
             <a id="media-url-toggle-btn" class="waves-effect waves-red btn-flat">Change Media URL</a>
-        </div>
-        <div class="row">
-            <a id="subtitles-toggle-btn" class="waves-effect waves-red btn-flat">Link Subtitles</a>
-        </div>            
-        <div class="row">
+            <a id="subtitles-toggle-btn" class="waves-effect waves-red btn-flat">Link Subtitles</a>         
             <a id="la-url-toggle-btn" class="waves-effect waves-red btn-flat">Change License URL</a>
-        </div>
-        <div id="playback-speed-wrapper" class="row">
-            <div for="playback-speed" class="col s6" style="padding-top: 12px;">SPEED</div>
-            <div class="col s6">
-                <select id="playback-speed" class="browser-default">
-                    <option value="0.25">x0.25</option>
-                    <option value="0.5">x0.5</option>
-                    <option value="0.75">x0.75</option>
-                    <option selected value="1">x1</option>
-                    <option value="1.25">x1.25</option>
-                    <option value="1.5">x1.5</option>
-                    <option value="1.75">x1.75</option>
-                    <option value="2.0">x2</option>
-                </select>
+        <div id="playback-speed-wrapper">
+            <a id="playback-speed-btn" class="waves-effect waves-red btn-flat">Speed ></a>
+            <div>
+                <div id="playback-speed" class="dropdown">
+                    <div><a class="waves-effect waves-red btn-flat dropdown-option" value="0.25">x0.25</a></div>
+                    <div><a class="waves-effect waves-red btn-flat dropdown-option" value="0.5">x0.5</a></div>
+                    <div><a class="waves-effect waves-red btn-flat dropdown-option" value="0.75">x0.75</a></div>
+                    <div><a class="waves-effect waves-red btn-flat dropdown-option" selected value="1">x1</a></div>
+                    <div><a class="waves-effect waves-red btn-flat dropdown-option" value="1.25">x1.25</a></div>
+                    <div><a class="waves-effect waves-red btn-flat dropdown-option" value="1.5">x1.5</a></div>
+                    <div><a class="waves-effect waves-red btn-flat dropdown-option" value="1.75">x1.75</a></div>
+                    <div><a class="waves-effect waves-red btn-flat dropdown-option" value="2.0">x2</a></div>
+                </div>
             </div>
         </div>
-        <div id="bitrate-selection-wrapper" class="row">
-            <div for="bitrate-selection" class="col s6" style="padding-top: 12px;">QUALITY</div>
-            <div class="col s6">
-                <select id="bitrate-selection" class="browser-default">
-                </select>
+        <div id="bitrate-selection-wrapper">
+            <a class="waves-effect waves-red btn-flat">Quality ></a>
+            <div>
+                <div id="bitrate-selection" class="dropdown">
+                </div>
             </div>
         </div>
         </div>

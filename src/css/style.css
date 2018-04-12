@@ -94,7 +94,7 @@
 #time {
     color: white;
     padding-top: 5px;
-    width: 5%;
+    width: 10%;
     text-align: center;
     user-select: none;
     -moz-user-select: none;
@@ -152,49 +152,63 @@
     right: 0;
     height: 100%;
     width: 220px;
-    background-color: white;
-}
-#settings-form col {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
     padding-left: 10px;
 }
 
+#settings-form a {
+    color: white;
+}
+
+#settings-form .btn-flat {
+    padding: 0;
+}
+
 #la-url {
-    border-bottom: 1px solid #ff7777;
+    border-bottom: 1px solid white;
 }
 
 #media-url {
-    border-bottom: 1px solid #ff7777;
+    border-bottom: 1px solid white;
+}
+
+.input-field {
+    color: white;
 }
 
 .input-field label {
-    color: #ff7777 !important;
+    color: white !important;
 }
 
 /* label focus color */
 .input-field input:focus + label {
-    color: #ff7777 !important;
+    color: white !important;
 }
 /* label underline focus color */
 .row .input-field input:focus {
-    border-bottom: 1px solid #ff7777 !important;
-    box-shadow: 0 1px 0 0 #ff7777 !important;
+    border-bottom: 1px solid white !important;
+    box-shadow: 0 1px 0 0 white !important;
 }
 
 .btn {
-    background-color: #ff7777 !important;
+    background-color: white !important;
+    color: black !important;
 }
+
 
 #settings-popup .btn-flat {
     width: 100% !important;
 }
 
 .btn:hover {
-    background-color: #ff7777 !important;
+    background-color: white !important;
+    color: black;
 }
 
 #progress {
     height: 30px;
-    width: 85%;
+    width: 80%;
     margin-left: 2%;
     margin-top: 12px;
 }
@@ -270,4 +284,38 @@
 
 .close-input {
     height: 60px;
+}
+
+.input-popup {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.btn, .btn-large, .btn-flat {
+    text-transform: none !important;
+}
+
+#bitrate-selection {
+    overflow: hidden;
+    height: 0;
+}
+
+#playback-speed {
+    overflow: hidden;
+    height: 0;
+}
+
+#bitrate-selection .dropdown-option {
+    padding-left: 20px;
+}
+
+#playback-speed .dropdown-option {
+    padding-left: 20px;
+}
+
+#bitrate-selection-wrapper a {
+    width: 100%;
+}
+
+#playback-speed-wrapper a {
+    width: 100%;
 }

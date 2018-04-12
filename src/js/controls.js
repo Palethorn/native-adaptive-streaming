@@ -98,17 +98,23 @@ timeout_id = setTimeout(function() {
 
 var fillBitrates = function(bitrates) {
     bitrate_selection.innerHTML = '';
-    var option = document.createElement('option');
+    var div = document.createElement('div');
+    var option = document.createElement('a');
     option.value = -1;
-    option.innerText = "Auto"
-    bitrate_selection.appendChild(option);
+    option.innerText = "Auto";
+    option.classList.add('waves-effect', 'waves-red', 'btn-flat', 'dropdown-option')
+    div.appendChild(option);
+    bitrate_selection.appendChild(div);
     option.selected = "selected";
 
     for(var i = 0; i < bitrates.length; i++) {
-        var option = document.createElement('option');
+        var div = document.createElement('div');
+        var option = document.createElement('a');
         option.value = bitrates[i].index;
         option.innerText = bitrates[i].height;
-        bitrate_selection.appendChild(option);
+        option.classList.add('waves-effect', 'waves-red', 'btn-flat', 'dropdown-option')
+        div.appendChild(option);
+        bitrate_selection.appendChild(div);
     }
 }
 
@@ -305,4 +311,19 @@ window.addEventListener('keypress', function(e) {
 }, false);
 
 settings_btn.addEventListener('click', toggleSettings);
-// state_machine.lock('controls', 'visible');
+
+state_machine.addTransitions('playback-speed-dropdown', [
+    {from: "collapsed", to: "expanded", object: document.getElementById('playback-speed'), handle: function(transition) {
+        transition.object.style.overflow = "visible";
+    }},
+    {from: "expanded", to: "collapsed", object: null, handle: function(transition) {
+        transition.object.style.overflow = "hidden";
+    }}
+], 'collapsed');
+
+console.log(document.getElementById('playback-speed'));
+
+document.getElementById('playback-speed-btn').addEventListener('click', function() {
+    console.log(document.getElementById('playback-speed-btn'));
+    state_machine.transition('playback-speed-dropdown', 'expanded');
+});
