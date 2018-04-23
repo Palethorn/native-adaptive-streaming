@@ -45,7 +45,7 @@
 	left:0px;
 	right:0px;
     bottom: 0px;
-    height:30px;
+    height:48px;
     margin: 0;
     -webkit-animation-duration: 5s;
     -moz-animation-duration: .3s;
@@ -54,13 +54,13 @@
 }
 
 #controls a{
-    height: 30px;
+    height: 48px;
     text-align: center;
-    line-height: 30px;
+    line-height: 48px;
 }
 
 #controls .control {
-    height: 30px;
+    height: 48px;
 }
 
 #controls-left {
@@ -83,7 +83,7 @@
 
 #duration {
     color: white;
-    padding-top: 5px;
+    padding-top: 14px;
     width: 25%;
     text-align: center;
     user-select: none;
@@ -93,7 +93,7 @@
 
 #time {
     color: white;
-    padding-top: 5px;
+    padding-top: 14px;
     width: 10%;
     text-align: center;
     user-select: none;
@@ -154,15 +154,15 @@
     width: 220px;
     background: rgba(0, 0, 0, 0.5);
     color: white;
+}
+
+#media-url-toggle-btn, #subtitles-toggle-btn, #la-url-toggle-btn {
+    width: 220px;
     padding-left: 10px;
 }
 
 #settings-form a {
     color: white;
-}
-
-#settings-form .btn-flat {
-    padding: 0;
 }
 
 #la-url {
@@ -196,9 +196,10 @@
     color: black !important;
 }
 
-
-#settings-popup .btn-flat {
-    width: 100% !important;
+#playback-speed-btn, #bitrate-btn {
+    width: 100%;
+    padding-left: 10px;
+    margin: 0;
 }
 
 .btn:hover {
@@ -207,10 +208,10 @@
 }
 
 #progress {
-    height: 30px;
+    height: 48px;
     width: 80%;
     margin-left: 2%;
-    margin-top: 12px;
+    margin-top: 20px;
 }
 
 #volume-popup {
@@ -220,7 +221,7 @@
     height: 200px;
     /* background-color: white; */
     background: rgba(0, 0, 0, 0.5);
-    top: -247px;
+    top: -248px;
     left: 20px;
     -webkit-animation-duration: .3s;
     -moz-animation-duration: .3s;
@@ -278,12 +279,13 @@
     margin-top: 25px;
 }
 
-#reload-source-la-url-btn, #reload-source-media-url-btn, #reload-source-subtitles-url-btn {
+#reload-source-la-url-btn, #reload-source-media-url-btn, #load-subtitles-url-btn {
     margin-top: 8px;
 }
 
 .close-input {
     height: 60px;
+    margin-top: 8px;
 }
 
 .input-popup {
@@ -294,28 +296,8 @@
     text-transform: none !important;
 }
 
-#bitrate-selection {
-    overflow: hidden;
-    height: 0;
-}
-
-#playback-speed {
-    overflow: hidden;
-    height: 0;
-}
-
-#bitrate-selection .dropdown-option {
-    padding-left: 20px;
-}
-
-#playback-speed .dropdown-option {
-    padding-left: 20px;
-}
-
-#bitrate-selection-wrapper a {
-    width: 100%;
-}
-
-#playback-speed-wrapper a {
+.dropdown-label, .dropdown-option {
+    padding-left: 10px !important;
+    margin: 0 !important;
     width: 100%;
 }

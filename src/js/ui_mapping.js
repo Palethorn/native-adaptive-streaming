@@ -19,8 +19,6 @@ var media_url_toggle_btn = document.querySelector("#media-url-toggle-btn");
 var subtitles_toggle_btn = document.querySelector("#subtitles-toggle-btn");
 var media_url_input = document.querySelector("#media-url-input");
 var subtitles_url_input = document.querySelector("#subtitles-url-input");
-var playback_speed = document.querySelector("#playback-speed");
-var bitrate_selection = document.querySelector("#bitrate-selection");
 var fullscreen_toggle_btn = document.querySelector("#fullscren-toggle-btn");
 var load_subtitles_url_btn = document.querySelector("#load-subtitles-url-btn");
 var loader = document.querySelector('#loader');
@@ -49,4 +47,40 @@ var volume_range = new Range({
     valueChanged: function(value) {
         video_element.volume = value / 100;
     }
+});
+
+var bitrate_selection = new Dropdown({
+    target: document.querySelector('#bitrate-selection'),
+    label: "Bitrate"
+});
+
+var playback_speed_selection = new Dropdown({
+    target: document.querySelector('#playback-speed-selection'),
+    label: "Playback speed",
+    options: [
+        {
+            label: "x0.25",
+            value: 0.25
+        },
+        {
+            label: "x0.5",
+            value: 0.5
+        },
+        {
+            label: "x1",
+            value: 1
+        },
+        {
+            label: "x1.25",
+            value: 1.25
+        },
+        {
+            label: "x1.5",
+            value: 1.5
+        },
+        {
+            label: "x2",
+            value: 2
+        },
+    ]
 });

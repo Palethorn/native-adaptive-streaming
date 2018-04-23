@@ -46,8 +46,6 @@ state_machine.addTransitions('settings_form', [
         var o = transition.object;
         o.classList.remove('fadeInRight');
         o.classList.add('fadeOutRight');
-        playback_speed.blur();
-        bitrate_selection.blur();
     }},
     {from: "invisible", to: "visible", object: settings_form, handle: function(transition) {
         var o = transition.object;
@@ -97,24 +95,11 @@ timeout_id = setTimeout(function() {
 }, 3000);
 
 var fillBitrates = function(bitrates) {
-    bitrate_selection.innerHTML = '';
-    var div = document.createElement('div');
-    var option = document.createElement('a');
-    option.value = -1;
-    option.innerText = "Auto";
-    option.classList.add('waves-effect', 'waves-red', 'btn-flat', 'dropdown-option')
-    div.appendChild(option);
-    bitrate_selection.appendChild(div);
-    option.selected = "selected";
-
+    bitrate_selection.clear();
+    bitrate_selection.addOption({label: "Auto", value: -1});
+    
     for(var i = 0; i < bitrates.length; i++) {
-        var div = document.createElement('div');
-        var option = document.createElement('a');
-        option.value = bitrates[i].index;
-        option.innerText = bitrates[i].height;
-        option.classList.add('waves-effect', 'waves-red', 'btn-flat', 'dropdown-option')
-        div.appendChild(option);
-        bitrate_selection.appendChild(div);
+        bitrate_selection.addOption({label: bitrates[i].height, value: bitrates[i].index});
     }
 }
 
@@ -173,22 +158,17 @@ state_machine.addTransitions('subtitles_url_form', [
 
 la_url_toggle_btn.addEventListener('click', function() {
     state_machine.transition('la_url_form', 'visible');
+    state_machine.transition('settings_form', 'invisible');
 });
 
 subtitles_toggle_btn.addEventListener('click', function() {
     state_machine.transition('subtitles_url_form', 'visible');
+    state_machine.transition('settings_form', 'invisible');
 });
 
 media_url_toggle_btn.addEventListener('click', function() {
     state_machine.transition('media_url_form', 'visible');
-});
-
-playback_speed.addEventListener('change', function() {
-    video_element.playbackRate = playback_speed.value;
-});
-
-bitrate_selection.addEventListener('change', function() {
-    player.setQuality(bitrate_selection.value);
+    state_machine.transition('settings_form', 'invisible');
 });
 
 var volumePopupTransitionEnd = function() {
@@ -311,19 +291,3 @@ window.addEventListener('keypress', function(e) {
 }, false);
 
 settings_btn.addEventListener('click', toggleSettings);
-
-state_machine.addTransitions('playback-speed-dropdown', [
-    {from: "collapsed", to: "expanded", object: document.getElementById('playback-speed'), handle: function(transition) {
-        transition.object.style.overflow = "visible";
-    }},
-    {from: "expanded", to: "collapsed", object: null, handle: function(transition) {
-        transition.object.style.overflow = "hidden";
-    }}
-], 'collapsed');
-
-console.log(document.getElementById('playback-speed'));
-
-document.getElementById('playback-speed-btn').addEventListener('click', function() {
-    console.log(document.getElementById('playback-speed-btn'));
-    state_machine.transition('playback-speed-dropdown', 'expanded');
-});

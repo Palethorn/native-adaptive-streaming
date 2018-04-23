@@ -13,6 +13,7 @@
     <script src="libs/hasplayer.min.js"></script>
     <script src="libs/materialize/js/materialize.min.js"></script>
     <script src="range.js"></script>
+    <script src="dropdown.js"></script>
     <script src="globals.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="libs/animate.min.css">
@@ -39,7 +40,7 @@
                     </button>
                 </div>
                 <div class="input-field col s1">
-                    <a data-target="media_url_form" class="close-input waves-effect waves-red btn-flat"><i data-target="media_url_form" class="material-icons right control">keyboard_arrow_up</i></a>
+                    <a data-target="media_url_form" class="close-input waves-effect waves-red btn-flat"><i data-target="media_url_form" class="material-icons control">keyboard_arrow_up</i></a>
                 </div>
             </div>
         </form>
@@ -59,7 +60,7 @@
                     </button>
                 </div>
                 <div class="input-field col s1">
-                    <a data-target="subtitles_url_form" class="close-input waves-effect waves-red btn-flat"><i data-target="subtitles_url_form" class="material-icons right control">keyboard_arrow_up</i></a>
+                    <a data-target="subtitles_url_form" class="close-input waves-effect waves-red btn-flat"><i data-target="subtitles_url_form" class="material-icons control">keyboard_arrow_up</i></a>
                 </div>
             </div>
         </form>
@@ -79,37 +80,21 @@
                     </button>
                 </div>
                 <div class="input-field col s1">
-                    <a data-target="la_url_form" class="close-input waves-effect waves-red btn-flat"><i data-target="la_url_form" class="material-icons right control">keyboard_arrow_up</i></a>
+                    <a data-target="la_url_form" class="close-input waves-effect waves-red btn-flat"><i data-target="la_url_form" class="material-icons control">keyboard_arrow_up</i></a>
                 </div>
             </div>
         </form>
     </div>
     <div id="settings-form" class="animated collapsed white-bg">
-            <a id="media-url-toggle-btn" class="waves-effect waves-red btn-flat">Change Media URL</a>
-            <a id="subtitles-toggle-btn" class="waves-effect waves-red btn-flat">Link Subtitles</a>         
-            <a id="la-url-toggle-btn" class="waves-effect waves-red btn-flat">Change License URL</a>
-        <div id="playback-speed-wrapper">
-            <a id="playback-speed-btn" class="waves-effect waves-red btn-flat">Speed ></a>
             <div>
-                <div id="playback-speed" class="dropdown">
-                    <div><a class="waves-effect waves-red btn-flat dropdown-option" value="0.25">x0.25</a></div>
-                    <div><a class="waves-effect waves-red btn-flat dropdown-option" value="0.5">x0.5</a></div>
-                    <div><a class="waves-effect waves-red btn-flat dropdown-option" value="0.75">x0.75</a></div>
-                    <div><a class="waves-effect waves-red btn-flat dropdown-option" selected value="1">x1</a></div>
-                    <div><a class="waves-effect waves-red btn-flat dropdown-option" value="1.25">x1.25</a></div>
-                    <div><a class="waves-effect waves-red btn-flat dropdown-option" value="1.5">x1.5</a></div>
-                    <div><a class="waves-effect waves-red btn-flat dropdown-option" value="1.75">x1.75</a></div>
-                    <div><a class="waves-effect waves-red btn-flat dropdown-option" value="2.0">x2</a></div>
-                </div>
+                <a id="media-url-toggle-btn" class="waves-effect waves-red btn-flat">Change Media URL</a>
+                <a id="subtitles-toggle-btn" class="waves-effect waves-red btn-flat">Link Subtitles</a>         
+                <a id="la-url-toggle-btn" class="waves-effect waves-red btn-flat">Change License URL</a>
             </div>
-        </div>
-        <div id="bitrate-selection-wrapper">
-            <a class="waves-effect waves-red btn-flat">Quality ></a>
-            <div>
-                <div id="bitrate-selection" class="dropdown">
-                </div>
+            <div id="playback-speed-selection">
             </div>
-        </div>
+            <div id="bitrate-selection">
+            </div>
         </div>
     </div>
     <div id="controls" class="animated">
@@ -124,7 +109,7 @@
             <div id="duration" class="collapsed"></div>
             <div id="volume">
                 <a id="volume-btn" class="waves-effect waves-red btn-flat"><i class="material-icons control">volume_mute</i></a>
-                <div id="volume-popup" class="collapsed"><div id="volume-control-container"></div><i class="material-icons tooltip-arrow-vol">arrow_drop_down</i></div>
+                <div id="volume-popup" class="collapsed"><div id="volume-control-container"></div></div>
             </div>
             <div id="settings">
                 <a id="settings-btn" class="waves-effect waves-red btn-flat"><i class="material-icons control">settings</i></a>
