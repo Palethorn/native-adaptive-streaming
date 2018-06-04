@@ -71,6 +71,13 @@ var Dropdown = function(settings) {
         // _self.toggle();
     }
 
+    this.addEventListener = function(type, callback) {
+        switch(type) {
+            case 'change':
+                this.settings.onChange = callback;
+        }
+    }
+
     this.toggle = function() {
         if(_self.state == 0) {
             _self.open();

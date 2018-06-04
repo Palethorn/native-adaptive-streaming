@@ -101,6 +101,10 @@ var fillBitrates = function(bitrates) {
     for(var i = 0; i < bitrates.length; i++) {
         bitrate_selection.addOption({label: bitrates[i].height, value: bitrates[i].index, selected: false});
     }
+
+    bitrate_selection.addEventListener('change', function(e) {
+        player.setQuality(parseInt(e.value));
+    });
 }
 
 play_pause.addEventListener('click', playPause);

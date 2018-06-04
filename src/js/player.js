@@ -378,6 +378,10 @@ var Player = function(options) {
         this.getTech().setQuality(index);
     }
 
+    this.setPlaybackRate = function(value) {
+        this.options.video_element.playbackRate = value;
+    }
+
     this.setVolume = function(volume) {
         this.options.video_element.volume = volume;
     }

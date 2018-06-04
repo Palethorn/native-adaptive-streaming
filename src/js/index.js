@@ -200,6 +200,12 @@ function playUrl(url) {
                     state_machine.transition('play_pause', 'playing');
                     player.setVolume(.5);
                     state_machine.transition('loader', 'invisible');
+
+                    playback_speed_selection.addEventListener('change', function(e) {
+                        console.log(e.value);
+                        player.setPlaybackRate(e.value);
+                    });
+                    
                     break;
                 case 'pause':
                     state_machine.transition('play_pause', 'paused');
