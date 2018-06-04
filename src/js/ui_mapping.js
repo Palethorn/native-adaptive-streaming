@@ -60,27 +60,33 @@ var playback_speed_selection = new Dropdown({
     options: [
         {
             label: "x0.25",
-            value: 0.25
+            value: 0.25,
+            selected: false
         },
         {
             label: "x0.5",
-            value: 0.5
+            value: 0.5,
+            selected: false
         },
         {
             label: "x1",
-            value: 1
+            value: 1,
+            selected: true
         },
         {
             label: "x1.25",
-            value: 1.25
+            value: 1.25,
+            selected: false
         },
         {
             label: "x1.5",
-            value: 1.5
+            value: 1.5,
+            selected: false
         },
         {
             label: "x2",
-            value: 2
+            value: 2,
+            selected: false
         },
     ]
 });

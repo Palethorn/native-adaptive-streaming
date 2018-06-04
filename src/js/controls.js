@@ -96,10 +96,10 @@ timeout_id = setTimeout(function() {
 
 var fillBitrates = function(bitrates) {
     bitrate_selection.clear();
-    bitrate_selection.addOption({label: "Auto", value: -1});
+    bitrate_selection.addOption({label: "Auto", value: -1, selected: true});
     
     for(var i = 0; i < bitrates.length; i++) {
-        bitrate_selection.addOption({label: bitrates[i].height, value: bitrates[i].index});
+        bitrate_selection.addOption({label: bitrates[i].height, value: bitrates[i].index, selected: false});
     }
 }
 

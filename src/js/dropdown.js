@@ -6,6 +6,7 @@ var Dropdown = function(settings) {
     this.target.style.overflow = 'hidden';
     this.target.style.height = 36 + 'px';
     this.state = 0;
+    this.mainElement = null;
 
     this.init = function() {
         if(this.settings.options == undefined) {
@@ -20,6 +21,8 @@ var Dropdown = function(settings) {
         this.target.appendChild(div);
         a.addEventListener('click', this.toggle);
     
+        this.mainElement = div;
+
         for(var i = 0; i < this.settings.options.length; i++) {
             this.initOption(this.settings.options[i]);
         }
@@ -30,9 +33,18 @@ var Dropdown = function(settings) {
         var a = document.createElement('a');
         a.classList.add('waves-effect', 'waves-red', 'btn-flat', 'dropdown-option');
         a.setAttribute('data-value', opt.value);
+        a.setAttribute('data-label', opt.label);
         a.innerText = opt.label;
         div.appendChild(a);
         this.target.appendChild(div);
+
+        if(opt.selected === true) {
+            this.selected_element = div;
+            div.classList.add('selected');
+            _self.mainElement.firstChild.innerText = _self.settings.label + ': ' + opt.label;
+        }
+
+        a.addEventListener('click', this.clicked);
     }
 
     this.addOption = function(opt) {
@@ -41,6 +53,23 @@ var Dropdown = function(settings) {
     }
 
     var _self = this;
+
+    this.clicked = function(e) {
+        var el = e.target.parentNode;
+        _self.selected_element.classList.remove('selected');
+        _self.selected_element = el;
+        _self.selected_element.classList.add('selected');
+
+        if(_self.settings.onChange !== undefined) {
+            _self.settings.onChange({
+                selected_element: el,
+                value: e.target.getAttribute('data-value')
+            });
+        }
+
+        _self.mainElement.firstChild.innerText = _self.settings.label + ': ' + e.target.getAttribute('data-label')
+        // _self.toggle();
+    }
 
     this.toggle = function() {
         if(_self.state == 0) {
