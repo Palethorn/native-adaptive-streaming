@@ -30,6 +30,7 @@ var Dropdown = function(settings) {
 
     this.initOption = function(opt) {
         var div = document.createElement('div');
+        div.style.paddingLeft = '20px';
         var a = document.createElement('a');
         a.classList.add('waves-effect', 'waves-red', 'btn-flat', 'dropdown-option');
         a.setAttribute('data-value', opt.value);
