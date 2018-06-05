@@ -396,7 +396,8 @@ var Player = function(options) {
     }
 
     this.clearVideoElement = function() {
-        this.options.video_element.innerHTML = '';
+        // this.options.video_element.innerHTML = '';
+        clearNode(this.options.video_element);
     }
 
     this.destroy = function() {

@@ -158,7 +158,7 @@ function playUrl(url) {
                         progress.classList.remove('collapsed');
                         time.classList.remove('collapsed');
                         duration.classList.remove('collapsed');
-                        duration.innerHTML = formatTimeFromSeconds(video_element.duration);
+                        duration.innerText = formatTimeFromSeconds(video_element.duration);
                     }
 
                     break;
@@ -173,7 +173,7 @@ function playUrl(url) {
                         progress.classList.remove('collapsed');
                         time.classList.remove('collapsed');
                         duration.classList.remove('collapsed');
-                        duration.innerHTML = formatTimeFromSeconds(video_element.duration);
+                        duration.innerText = formatTimeFromSeconds(video_element.duration);
                     }
 
                     fillBitrates(player.getQualities());
@@ -183,7 +183,7 @@ function playUrl(url) {
                         progress.classList.remove('collapsed');
                         time.classList.remove('collapsed');
                         duration.classList.remove('collapsed');
-                        duration.innerHTML = formatTimeFromSeconds(video_element.duration);
+                        duration.innerText = formatTimeFromSeconds(video_element.duration);
                     }
 
                     fillBitrates(player.getQualities());
@@ -194,7 +194,10 @@ function playUrl(url) {
                         progress_range.setValue(val);
                     }
                     
-                    time.innerHTML = '<span>' + formatTimeFromSeconds(video_element.currentTime) + '</span>';
+                    var span = document.createElement('span');
+                    span.innerText = formatTimeFromSeconds(video_element.currentTime);
+                    clearNode(time);
+                    time.appendChild(span);
                     break;
                 case 'playing':
                     state_machine.transition('play_pause', 'playing');

@@ -99,7 +99,7 @@ var Dropdown = function(settings) {
     }
 
     this.clear = function() {
-        this.target.innerHTML = '';
+        clearNode(this.target);
         this.settings.options = [];
         this.init();
     }

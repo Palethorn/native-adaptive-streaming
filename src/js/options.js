@@ -74,7 +74,8 @@ ajax1.get({
     success: function(data) {
         loaded1 = true;
         data = JSON.parse(data);
-        document.querySelector('#dashjsSel').innerHTML = '';
+        // document.querySelector('#dashjsSel').innerHTML = '';
+        clearNode(document.querySelector('#dashjsSel'));
 
         for(var i = 0; i < data.versions.length; i++) {
             var option = document.createElement('option');
@@ -95,8 +96,9 @@ ajax2.get({
     success: function(data) {
         loaded2 = true;
         data = JSON.parse(data);
-        document.querySelector('#hlsjsSel').innerHTML = '';
-
+        // document.querySelector('#hlsjsSel').innerHTML = '';
+        clearNode(document.querySelector('#dashjsSel'));
+        
         for(var i = 0; i < data.versions.length; i++) {
             var option = document.createElement('option');
             option.value = data.versions[i];
