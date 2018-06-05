@@ -241,7 +241,6 @@ var HlsTech = function(options) {
     }
 
     this.getQualities = function() {
-        console.log("Levels", this.player.levels);
         var u = this.player.levels;
         var bitrates = [];
 
@@ -410,4 +409,3 @@ var Player = function(options) {
     this.addEventHandler()
     this.guess();
 }
-

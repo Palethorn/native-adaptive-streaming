@@ -202,7 +202,6 @@ function playUrl(url) {
                     state_machine.transition('loader', 'invisible');
 
                     playback_speed_selection.addEventListener('change', function(e) {
-                        console.log(e.value);
                         player.setPlaybackRate(e.value);
                     });
                     
@@ -223,7 +222,6 @@ var close_input = document.getElementsByClassName('close-input');
 
 for(var i = 0; i < close_input.length; i++) {
     close_input[i].addEventListener('click', function(e) {
-        console.log(e.target.getAttribute('data-target'));
         state_machine.transition(e.target.getAttribute('data-target'), 'invisible');
     }, false);
 }
@@ -231,7 +229,6 @@ for(var i = 0; i < close_input.length; i++) {
 restoreSettings();
 
 window.addEventListener('resize', function() {
-    console.log(window.innerWidth);
     player_container.style.width = window.innerWidth + 'px';
     video_element.style.width = window.innerWidth + 'px';
 });

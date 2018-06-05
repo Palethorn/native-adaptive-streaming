@@ -15,9 +15,7 @@ state_machine.addTransitions('controls', [
     }},
     {from: "frozen", to: "visible", object: controls, handle: function(transition) {
     }}
-], 'visible');
-
-state_machine.lock('controls', 'visible');
+], 'visible'); 
 
 state_machine.addTransitions('play_pause', [
     {from: "playing", to: "paused", object: play_pause, handle: function(transition) {
