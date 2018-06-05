@@ -7,16 +7,16 @@ var btnUpdate = document.getElementById('btnUpdate');
 btnUpdate.addEventListener('click', updateState);
 
 chrome.runtime.sendMessage("getState", function(enabled){
-    btnUpdate.innerText = enabled ? "Disable" :  "Enable";
+    btnUpdate.innerText = enabled ? 'DISABLE' :  'ENABLE';
 });
 
 function updateState() {
     chrome.runtime.sendMessage(btnUpdate.innerText);
-
-    if (btnUpdate.innerText == "Enable") {
-        btnUpdate.innerText = "Disable";
+    
+    if (btnUpdate.innerText == 'ENABLE') {
+        btnUpdate.innerText = 'DISABLE';
     } else {
-        btnUpdate.innerText = "Enable";
+        btnUpdate.innerText = 'ENABLE';
     }
 
     window.close();
