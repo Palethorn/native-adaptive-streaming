@@ -9,7 +9,7 @@ Allows HLS and MPEG-Dash native playback in chrome and firefox browsers
 
 # Usage
 
-1. Install extension from [chrome webstore][]/[mozilla addons][]
+1. Install extension from [chrome webstore](https://chrome.google.com/webstore/detail/native-mpeg-dash-%2B-hls-pl/cjfbmleiaobegagekpmlhmaadepdeedn)/[mozilla addons]()
 2. Click on any m3u8 or mpd link inside chrome/firefox to play it directly in a new tab
 
 The extension can be disabled by clicking on the icon if the request filter on m3u8 links is too disruptive.
