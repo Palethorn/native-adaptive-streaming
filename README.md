@@ -14,8 +14,40 @@ Allows HLS and MPEG-Dash native playback in chrome and firefox browsers
 
 The extension can be disabled by clicking on the icon if the request filter on m3u8 links is too disruptive.
 
-[chrome webstore]: not yet available
-[mozilla addons]: not yet available
+# Build instructions
+Requirements:
+ - python2
+ - jinja2
+ - pyyaml
+
+Build targets
+ - chrome_debug - Full version including console logs
+ - chrome_prod - Full version without console logs
+ - firefox_debug - Stripped down version with console logs
+ - firefox_prod - Stripped down version without console logs
+
+ AMO(addons.mozilla.org) has some restrictions for publishing the extension on store which requires disabling some functionality 
+ such as version selection on extension config. 
+ You can still build and use full unpacked chrome version of the extension on Firefox.
+
+Build for Firefox
+python build.py -e firefox_debug
+
+Build for Chrome
+python build.py -e chrome_debug
+
+Load unpacked extension to Firefox:
+ - Type in about:debugging into address bar
+ - Click Load Temporary Add-on
+ - Navigate to /project_path/dist/debug/firefox/manifest.json
+
+Load unpacked extension to Chrome:
+ - Type chrome://extensions/ into address bar
+ - Click Load Unpacked
+ - Navigate to /project_path/dist/debug/chrome
+ - Click Open
+
+build.py is the simple pre-processing script using jinja2 for code inclusion or exclusion based on target. 
 
 # Some Developer Notes
 
