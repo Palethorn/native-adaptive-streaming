@@ -104,6 +104,19 @@ var DashTech = function(options) {
         self.destroy();
     });
 
+    this.player.extend("RequestModifier", () => {
+            return {
+                modifyRequestHeader: xhr => {
+                    return xhr;
+                },
+                modifyRequestURL: url => {
+                    return url;
+                }
+            };
+        },
+        true
+    );
+
     this.player.initialize();
     this.player.label = "dash";
     this.player.attachView(options.video_element);
