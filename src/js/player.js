@@ -104,6 +104,7 @@ var DashTech = function(options) {
         self.destroy();
     });
 
+    // TODO: Add header override
     this.player.extend("RequestModifier", () => {
             return {
                 modifyRequestHeader: xhr => {
@@ -184,7 +185,12 @@ var HlsTech = function(options) {
         enableWorker: false,
         // {% endif %}
         
-        debug: options.debug
+        debug: options.debug,
+
+        // TODO: Add header override
+        xhrSetup: function(xhr, url) {
+            
+        }
     });
 
     this.player.on(Hls.Events.MANIFEST_PARSED, function(event, data) {
