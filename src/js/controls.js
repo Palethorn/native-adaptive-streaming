@@ -93,11 +93,28 @@ timeout_id = setTimeout(function() {
 }, 3000);
 
 var fillBitrates = function(bitrates) {
+    if(bitrates.length == 0) {
+        return;
+    }
+
+    if(state_machine.getState('load_qualities') === false) {
+        return;
+    }
+
+    state_machine.setState('load_qualities', false);
     bitrate_selection.clear();
     bitrate_selection.addOption({label: "Auto", value: -1, selected: true});
     
     for(var i = 0; i < bitrates.length; i++) {
-        bitrate_selection.addOption({label: bitrates[i].height, value: bitrates[i].index, selected: false});
+        if(bitrates[i].name != undefined) {
+            label = bitrates[i].name;
+        } else if(bitrates[i].height != undefined) {
+            label = bitrates[i].height;
+        } else {
+            label = bitrates[i].bitrate;
+        }
+
+        bitrate_selection.addOption({label: label, value: bitrates[i].index, selected: false});
     }
 
     bitrate_selection.addEventListener('change', function(e) {

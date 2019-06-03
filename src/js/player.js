@@ -268,6 +268,7 @@ var HlsTech = function(options) {
             b.index = u[i].level != undefined ? u[i].level : i;
             b.bitrate = u[i].bitrate;
             b.height = u[i].height;
+            b.bane = u[i].name;
             bitrates.push(b);
         }
 

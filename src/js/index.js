@@ -49,6 +49,13 @@ state_machine.addTransitions('loader', [
     }}
 ], 'visible');
 
+state_machine.addTransitions('load_qualities', [
+    {from: false, to: true, object: undefined, handle: function(transition) {
+    }},
+    {from: true, to: false, object: undefined, handle: function(transition) {
+    }}
+], false);
+
 function reset() {
     if(player != null) {
         player.destroy();
@@ -128,6 +135,7 @@ var formatTimeFromSeconds = function(val) {
 
 function playUrl(url) {
     reset();
+    state_machine.setState('load_qualities', true);
 
     player = new Player({
         "url": url,
