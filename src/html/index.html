@@ -1,123 +1,17 @@
 <!DOCTYPE html>
 <!-- Copyright (C) 2017 David Ćavar -->
 <html>
-<head>
-    <meta charset="UTF-8"> 
-    <script src="state_machine.js"></script>
-    <script src="libs/jquery-3.3.1.min.js"></script>
-    <!-- {% if env['target'] == 'firefox' %} -->
-    <script src="libs/dash.all.min.js"></script>
-    <script src="libs/hls.min.js"></script>
-
-    <!-- {% endif %} -->
-    <script src="libs/hasplayer.min.js"></script>
-    <script src="libs/materialize/js/materialize.min.js"></script>
-    <script src="range.js"></script>
-    <script src="dropdown.js"></script>
-    <script src="globals.js"></script>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="libs/animate.min.css">
-    <link rel="stylesheet" href="libs/materialize/css/materialize.min.css">
-    <link rel="stylesheet" href="libs/materialize/css/icons.css">
-</head>
+{% include 'src/html/templates/head.html' %}
 <body>
     <div id="player-container">
         <video id="player"></video>
     </div>
-
-    <div id="media-url-form" class="row collapsed input-popup">
-        <form class="col s12">
-            <div class="row">
-                <div class="input-field col s10">
-                    <input type="text" id="media-url-input">
-                    <label for="media-url-input">Media url</label>
-                </div>
-                <div class="input-field col s1">
-                    <button id="reload-source-media-url-btn" class="waves-effect waves-light btn" type="submit">
-                        Load
-                      <i class="material-icons right">send</i>
-                    </button>
-                </div>
-                <div class="input-field col s1">
-                    <a data-target="media_url_form" class="close-input waves-effect waves-red btn-flat"><i data-target="media_url_form" class="material-icons control">keyboard_arrow_up</i></a>
-                </div>
-            </div>
-        </form>
-    </div>
-
-    <div id="subtitles-url-form" class="row collapsed input-popup">
-        <form class="col s12">
-            <div class="row">
-                <div class="input-field col s10">
-                    <input type="text" id="subtitles-url-input">
-                    <label for="subtitles-url-input">Subtitles url</label>
-                </div>
-                <div class="input-field col s1">
-                    <button id="load-subtitles-url-btn" class="waves-effect waves-light btn" type="submit">
-                        Load
-                      <i class="material-icons right">send</i>
-                    </button>
-                </div>
-                <div class="input-field col s1">
-                    <a data-target="subtitles_url_form" class="close-input waves-effect waves-red btn-flat"><i data-target="subtitles_url_form" class="material-icons control">keyboard_arrow_up</i></a>
-                </div>
-            </div>
-        </form>
-    </div>
-
-    <div id="la-url-form" class="row collapsed input-popup">
-        <form class="col s12">
-            <div class="row">
-                <div class="input-field col s10">
-                    <input type="text" id="la-url">
-                    <label for="la-url">License url</label>
-                </div>
-                <div class="input-field col s1">
-                    <button id="reload-source-la-url-btn" class="waves-effect waves-light btn" type="submit">
-                        Load
-                      <i class="material-icons right">send</i>
-                    </button>
-                </div>
-                <div class="input-field col s1">
-                    <a data-target="la_url_form" class="close-input waves-effect waves-red btn-flat"><i data-target="la_url_form" class="material-icons control">keyboard_arrow_up</i></a>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div id="settings-form" class="animated collapsed white-bg">
-            <div>
-                <a id="media-url-toggle-btn" class="waves-effect waves-red btn-flat">Change Media URL</a>
-                <a id="subtitles-toggle-btn" class="waves-effect waves-red btn-flat">Link Subtitles</a>         
-                <a id="la-url-toggle-btn" class="waves-effect waves-red btn-flat">Change License URL</a>
-            </div>
-            <div id="playback-speed-selection">
-            </div>
-            <div id="bitrate-selection">
-            </div>
-        </div>
-    </div>
-    <div id="controls" class="animated">
-        <div id="controls-left">
-            <div id="playback">
-                <a id="play-pause" class="waves-effect waves-red btn-flat"><i class="material-icons control">play_arrow</i></a>
-            </div>
-            <div id="time" class="collapsed"></div>
-            <div id="progress"></div>
-        </div>
-        <div id="controls-right">
-            <div id="duration" class="collapsed"></div>
-            <div id="volume">
-                <a id="volume-btn" class="waves-effect waves-red btn-flat"><i class="material-icons control">volume_mute</i></a>
-                <div id="volume-popup" class="collapsed"><div id="volume-control-container"></div></div>
-            </div>
-            <div id="settings">
-                <a id="settings-btn" class="waves-effect waves-red btn-flat"><i class="material-icons control">settings</i></a>
-            </div>
-            <div id="fullscreen">
-                <a id="fullscren-toggle-btn" class="waves-effect waves-red btn-flat"><i class="material-icons control">fullscreen</i></a>
-            </div>
-        </div>
-    </div>
+    {% include 'src/html/templates/media_url_form.html' %}
+    {% include 'src/html/templates/subtitles_url_form.html' %}
+    {% include 'src/html/templates/la_url_form.html' %}
+    {% include 'src/html/templates/headers_form.html' %}
+    {% include 'src/html/templates/settings_form.html' %}
+    {% include 'src/html/templates/controls.html' %}
     <img id="loader" src="assets/loader.svg" alt="Loading...">
     <script src="ui_mapping.js"></script>
     <script src="controls.js"></script>

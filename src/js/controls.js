@@ -146,6 +146,19 @@ state_machine.addTransitions('la_url_form', [
     }}
 ], 'invisible');
 
+state_machine.addTransitions('headers_form', [
+    {from: "visible", to: "invisible", object: la_url_toggle_btn, handle: function(transition) {
+        headers_form.classList.add('fadeOutUp');
+        headers_form.classList.remove('fadeInDown');
+        add_header_btn.removeEventListener('click', addHeader);
+    }},
+    {from: "invisible", to: "visible", object: la_url_toggle_btn, handle: function(transition) {
+        headers_form.classList.remove('collapsed');
+        headers_form.classList.remove('fadeOutUp');
+        headers_form.classList.add('animated', 'fadeInDown');
+        add_header_btn.addEventListener('click', addHeader);
+    }}
+], 'invisible');
 
 state_machine.addTransitions('media_url_form', [
     {from: "visible", to: "invisible", object: media_url_form, handle: function(transition) {
@@ -177,6 +190,11 @@ state_machine.addTransitions('subtitles_url_form', [
 
 la_url_toggle_btn.addEventListener('click', function() {
     state_machine.transition('la_url_form', 'visible');
+    state_machine.transition('settings_form', 'invisible');
+});
+
+headers_toggle_btn.addEventListener('click', function() {
+    state_machine.transition('headers_form', 'visible');
     state_machine.transition('settings_form', 'invisible');
 });
 

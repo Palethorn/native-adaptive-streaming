@@ -147,6 +147,16 @@
     height: 70px;
 }
 
+#headers-form {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    min-height: 70px;
+    overflow: visible;
+    color: white;
+}
+
 #settings-form {
     position: absolute;
     right: 0;
@@ -156,7 +166,7 @@
     color: white;
 }
 
-#media-url-toggle-btn, #subtitles-toggle-btn, #la-url-toggle-btn {
+#media-url-toggle-btn, #subtitles-toggle-btn, #la-url-toggle-btn, #headers-toggle-btn {
     width: 220px;
     padding-left: 10px;
 }
@@ -304,4 +314,8 @@
 
 .selected {
     background-color: red;
+}
+
+#header-list-view {
+    list-style-type: none;
 }

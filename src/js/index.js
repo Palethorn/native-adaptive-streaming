@@ -229,6 +229,48 @@ function playUrl(url) {
     });
 }
 
+var addHeader = function() {
+    var header_name = header_name_input.value;
+    var header_value = header_value_input.value;
+    var list_item = header_list_view.querySelector('#' + header_name);
+
+    if(list_item != undefined) {
+        list_item.childNodes[1].innerText = header_value;
+    } else {
+        var list_item = document.createElement('li');
+        list_item.id = header_name;
+        var header_name_div = document.createElement('div');
+        var header_value_div = document.createElement('div');
+        var remove_div = document.createElement('div');
+        var icon = document.createElement('i');
+        icon.className = 'material-icons control';
+        icon.innerText = 'delete_outline';
+        header_name_div.className = 'col s5';
+        header_value_div.className = 'col s5';
+        remove_div.className = 'col s1';
+        header_name_div.innerText = header_name;
+        header_value_div.innerText = header_value;
+        remove_div.appendChild(icon);
+        remove_div.setAttribute('data-header', header_name);
+        icon.setAttribute('data-header', header_name);
+        remove_div.addEventListener('click', removeHeader, false);
+        list_item.appendChild(header_name_div);
+        list_item.appendChild(header_value_div);
+        list_item.appendChild(remove_div);
+        header_list_view.appendChild(list_item);
+    }
+
+    headers[header_name] = header_value;
+}
+
+var removeHeader = function(event) {
+    var btn = event.target;
+    var header = btn.getAttribute('data-header');
+    var item = document.querySelector('#' + header);
+    item.parentElement.removeChild(item);
+    delete headers[header];
+}
+
 var close_input = document.getElementsByClassName('close-input');
 
 for(var i = 0; i < close_input.length; i++) {

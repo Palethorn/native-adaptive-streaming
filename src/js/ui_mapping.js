@@ -6,6 +6,8 @@ var play_pause = document.querySelector('#play-pause');
 var volume = document.querySelector('#volume');
 var settings = document.querySelector('#settings');
 var la_url_toggle_btn = document.querySelector('#la-url-toggle-btn');
+var headers_toggle_btn = document.querySelector('#headers-toggle-btn');
+var add_header_btn = document.querySelector('#add-header-btn');
 var la_url = document.querySelector('#la-url');
 var reload_source_media_url_btn = document.querySelector('#reload-source-media-url-btn');
 var reload_source_la_url_btn = document.querySelector('#reload-source-la-url-btn');
@@ -13,6 +15,7 @@ var volume_popup = document.querySelector("#volume-popup");
 var settings_form = document.querySelector("#settings-form");
 var settings_btn = document.querySelector("#settings-btn");
 var la_url_form = document.querySelector("#la-url-form");
+var headers_form = document.querySelector("#headers-form");
 var media_url_form = document.querySelector("#media-url-form");
 var subtitles_url_form = document.querySelector("#subtitles-url-form");
 var media_url_toggle_btn = document.querySelector("#media-url-toggle-btn");
@@ -24,6 +27,9 @@ var load_subtitles_url_btn = document.querySelector("#load-subtitles-url-btn");
 var loader = document.querySelector('#loader');
 var time = document.querySelector('#time');
 var duration = document.querySelector('#duration');
+var header_name_input = document.querySelector('#header-name');
+var header_value_input = document.querySelector('#header-value');
+var header_list_view = document.querySelector('#header-list-view');
 
 var progress_range = new Range({
     target: document.querySelector('#progress'),

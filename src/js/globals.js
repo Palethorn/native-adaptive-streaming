@@ -9,3 +9,5 @@ function clearNode(target) {
         target.removeChild(target.lastChild);
     }
 }
+
+var headers = {};
