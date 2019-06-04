@@ -108,6 +108,11 @@ var DashTech = function(options) {
     this.player.extend("RequestModifier", () => {
             return {
                 modifyRequestHeader: xhr => {
+                    console.log(self.options.headers);
+                    for(var header_name in self.options.headers) {
+                        xhr.setRequestHeader(header_name, self.options.headers[header_name]);
+                    }
+
                     return xhr;
                 },
                 modifyRequestURL: url => {
@@ -189,7 +194,9 @@ var HlsTech = function(options) {
 
         // TODO: Add header override
         xhrSetup: function(xhr, url) {
-            
+            for(var header_name in self.options.headers) {
+                xhr.setRequestHeader(header_name, self.options.headers[header_name]);
+            }
         }
     });
 

@@ -24,12 +24,14 @@ var media_url_input = document.querySelector("#media-url-input");
 var subtitles_url_input = document.querySelector("#subtitles-url-input");
 var fullscreen_toggle_btn = document.querySelector("#fullscren-toggle-btn");
 var load_subtitles_url_btn = document.querySelector("#load-subtitles-url-btn");
+var headers_reload_player_btn = document.querySelector("#headers-reload-player-btn");
 var loader = document.querySelector('#loader');
 var time = document.querySelector('#time');
 var duration = document.querySelector('#duration');
 var header_name_input = document.querySelector('#header-name');
 var header_value_input = document.querySelector('#header-value');
 var header_list_view = document.querySelector('#header-list-view');
+var headers_reload_player_btn = document.querySelector("#headers-reload-player-btn");
 
 var progress_range = new Range({
     target: document.querySelector('#progress'),

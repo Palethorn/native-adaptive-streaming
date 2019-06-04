@@ -149,6 +149,7 @@ function playUrl(url) {
         "onLicenseError": function() {
             prepareLaUrlInput();
         },
+        "headers": headers,
         "event_handler": function(event) {
 
             var regex1 = /^(seeking)|(waiting)$/g;

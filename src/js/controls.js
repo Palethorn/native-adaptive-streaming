@@ -151,12 +151,14 @@ state_machine.addTransitions('headers_form', [
         headers_form.classList.add('fadeOutUp');
         headers_form.classList.remove('fadeInDown');
         add_header_btn.removeEventListener('click', addHeader);
+        headers_reload_player_btn.removeEventListener('click', reloadPlayer);
     }},
     {from: "invisible", to: "visible", object: la_url_toggle_btn, handle: function(transition) {
         headers_form.classList.remove('collapsed');
         headers_form.classList.remove('fadeOutUp');
         headers_form.classList.add('animated', 'fadeInDown');
         add_header_btn.addEventListener('click', addHeader);
+        headers_reload_player_btn.addEventListener('click', reloadPlayer);
     }}
 ], 'invisible');
 

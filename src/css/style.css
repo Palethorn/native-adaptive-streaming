@@ -319,3 +319,7 @@
 #header-list-view {
     list-style-type: none;
 }
+
+#headers-reload-player-btn {
+    margin-bottom: 10px;
+}
