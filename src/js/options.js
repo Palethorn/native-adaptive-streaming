@@ -4,8 +4,8 @@
 
 // {% if env['target'] == 'chrome' %}
 
-var hlsjs_version = "0.8.9";
-var dashjs_version = "2.6.5";
+var hlsjs_version = "0.13.2";
+var dashjs_version = "3.0.3";
 // {% endif %}
 
 function save_options() {
@@ -74,17 +74,9 @@ ajax1.get({
     success: function(data) {
         loaded1 = true;
         data = JSON.parse(data);
-        // document.querySelector('#dashjsSel').innerHTML = '';
-        clearNode(document.querySelector('#dashjsSel'));
-
-        for(var i = 0; i < data.versions.length; i++) {
-            var option = document.createElement('option');
-            option.value = data.versions[i];
-            option.innerText = data.versions[i];
-            document.querySelector('#dashjsSel').appendChild(option);
-        }
-
-        document.querySelector('#dashjsSel').value = dashjs_version;
+        var target = document.querySelector('#dashjsSel');
+        clearNode(target);
+        populateSelection(data, target)
         attachEventListeners();
     }
 });
@@ -95,21 +87,24 @@ ajax2.get({
     url: 'https://data.jsdelivr.com/v1/package/npm/hls.js',
     success: function(data) {
         loaded2 = true;
+        var target = document.querySelector('#hlsjsSel');
         data = JSON.parse(data);
-        // document.querySelector('#hlsjsSel').innerHTML = '';
-        clearNode(document.querySelector('#dashjsSel'));
-        
-        for(var i = 0; i < data.versions.length; i++) {
-            var option = document.createElement('option');
-            option.value = data.versions[i];
-            option.innerText = data.versions[i];
-            document.querySelector('#hlsjsSel').appendChild(option);
-        }
-
-        document.querySelector('#hlsjsSel').value = hlsjs_version;
+        clearNode(target);
+        populateSelection(data, target);
         attachEventListeners();
     }
 });
+
+function populateSelection(data, target) {
+    for(var i = 0; i < data.versions.length; i++) {
+        var option = document.createElement('option');
+        option.value = data.versions[i];
+        option.innerText = data.versions[i];
+        target.appendChild(option);
+    }
+
+    target.value = hlsjs_version;
+}
 
 // {% elif env['target'] == 'firefox' %}
 
