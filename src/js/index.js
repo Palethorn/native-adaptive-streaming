@@ -10,6 +10,8 @@ var dashjs_version = 0;
 var hlsjs_loaded = false;
 var dashjs_loaded = false;
 
+var maxQuality = false;
+
 function loadLibs(url) {
     var s1 = document.createElement('script');
     var s2 = document.createElement('script');
@@ -75,10 +77,12 @@ function restoreSettings() {
         // {% endif %}
 
         debug: false,
-        native: false
+        native: false,
+        maxQuality: false
     }, function(settings) {
         debug = settings.debug;
         native = settings.native;
+        maxQuality = settings.maxQuality;
         var url = window.location.href.split("#")[1];
         media_url_input.value = url;
         // {% if env['target'] == 'firefox' %}
@@ -226,7 +230,8 @@ function playUrl(url) {
                     break;
             }
         },
-        "debug": false
+        "debug": false,
+        "maxQuality": maxQuality
     });
 }
 

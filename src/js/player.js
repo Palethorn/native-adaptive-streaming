@@ -72,7 +72,10 @@ var DashTech = function(options) {
         this.player.setFastSwitchEnabled(true);
     }
     
-    this.player.getDebug().setLogToBrowserConsole(options.debug);
+    if(typeof this.player.getDebug().setLogToBrowserConsole !== 'undefined') {
+        this.player.getDebug().setLogToBrowserConsole(options.debug);
+    }
+
     this.is_live = false;
 
     if(options.protData != undefined) {
@@ -162,12 +165,54 @@ var DashTech = function(options) {
         index = parseInt(index);
 
         if(index == -1) {
-            this.player.setAutoSwitchQuality(true);
+            if(typeof this.player.setAutoSwitchQuality !== 'undefined') {
+                this.player.setAutoSwitchQuality(true);
+            } else if(typeof this.player.setAutoSwitchQualityFor !== 'undefined') {
+                this.player.setAutoSwitchQualityFor('video', true);
+            } else if(typeof this.player.updateSettings !== 'undefined') {
+                this.player.updateSettings({
+                    'streaming': {
+                        'abr': {
+                            'autoSwitchBitrate': {
+                                'video': true
+                            }
+                        }
+                    }
+                });
+            }
+
             return;
         }
 
-        this.player.setAutoSwitchQuality(false);
+        if(typeof this.player.setAutoSwitchQuality !== 'undefined') {
+            this.player.setAutoSwitchQuality(false);
+        } else if(typeof this.player.setAutoSwitchQualityFor !== 'undefined') {
+            this.player.setAutoSwitchQualityFor('video', false);
+        } else if(typeof this.player.updateSettings !== 'undefined') {
+            this.player.updateSettings({
+                'streaming': {
+                    'abr': {
+                        'autoSwitchBitrate': {
+                            'video': false
+                        }
+                    }
+                }
+            });
+        }
+
         this.player.setQualityFor("video", index);
+    }
+
+    this.setMaxQuality = function() {
+        this.player.updateSettings({
+            'streaming': {
+                'abr': {
+                    'maxBitrate': {
+                        'video': true
+                    }
+                }
+            }
+        });
     }
 
     this.destroy = function() {
@@ -289,6 +334,21 @@ var HlsTech = function(options) {
         this.player.currentLevel = index;
     }
 
+    this.setMaxQuality = function() {
+        var qualities = this.getQualities();
+        maxQualityIndex = -1;
+        bitrate = 0;
+
+        for(var i = 0; i < qualities.length; i++) {
+            if(qualities[i].bitrate > bitrate) {
+                bitrate = qualities[i].bitrate;
+                maxQualityIndex = i;
+            }
+        }
+
+        this.setQuality(maxQualityIndex);
+    }
+
     this.destroy = function() {
         if(this.player != null) {
             this.player.destroy();
@@ -308,6 +368,10 @@ var Player = function(options) {
 
     if(options.debug == undefined) {
         options.debug = false;
+    }
+
+    this.getOptions = function() {
+        return this.options;
     }
 
     this.getUrl = function() {
@@ -334,46 +398,31 @@ var Player = function(options) {
         if(this.options.tech != undefined) {
             if(this.options.tech = 'dash') {
                 this.tech = new DashTech(this.options);
-                return;
-            }
-
-            if(this.options.tech = 'smooth') {
+            } else if(this.options.tech = 'smooth') {
                 this.tech = new SmoothTech(this.options);
-                return;
-            }
-
-            if(this.options.tech = 'hls') {
+            } else if(this.options.tech = 'hls') {
                 this.tech = new HlsTech(this.options);
-                return;
-            }
-
-            if(this.options.tech = 'smooth') {
+            } else if(this.options.tech = 'smooth') {
                 this.tech = new SmoothTech(this.options);
-                return;
+            }
+        } else {
+            var url = this.getUrl();
+
+            if(url.indexOf('.mpd') > -1) {
+                console.log("Selecting DASH tech...");
+                this.tech = new DashTech(this.options);
+            } else if(url.indexOf('.m3u8') > -1) {
+                console.log("Selecting HLS tech...");
+                this.tech = new HlsTech(this.options);
+            } else if(url.indexOf('Manifest') > -1) {
+                console.log("Selecting Smooth tech...");
+                this.tech = new SmoothTech(this.options);
             }
         }
 
-        var url = this.getUrl();
-
-        if(url.indexOf('.mpd') > -1) {
-            console.log("Selecting DASH tech...");
-            this.tech = new DashTech(this.options);
-            return;
-        } 
-        
-        if(url.indexOf('.m3u8') > -1) {
-            console.log("Selecting HLS tech...");
-            this.tech = new HlsTech(this.options);
-            return;
-        } 
-        
-        if(url.indexOf('Manifest') > -1) {
-            console.log("Selecting Smooth tech...");
-            this.tech = new SmoothTech(this.options);
-            return;
+        if(this.tech == undefined) {
+            throw 'Url ' + url + ' not recognized.';
         }
-
-        throw 'Url ' + url + ' not recognized.';
     }
 
     this.play = function() {
@@ -403,6 +452,10 @@ var Player = function(options) {
 
     this.setQuality = function(index) {
         this.getTech().setQuality(index);
+    }
+
+    this.setMaxQuality = function() {
+        this.tech.setMaxQuality();
     }
 
     this.setPlaybackRate = function(value) {

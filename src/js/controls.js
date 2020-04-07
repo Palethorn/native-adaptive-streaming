@@ -120,6 +120,10 @@ var fillBitrates = function(bitrates) {
     bitrate_selection.addEventListener('change', function(e) {
         player.setQuality(parseInt(e.value));
     });
+
+    if(player.getOptions().maxQuality === true) {
+        player.setMaxQuality();
+    }
 }
 
 play_pause.addEventListener('click', playPause);

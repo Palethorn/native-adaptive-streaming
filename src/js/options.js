@@ -8,6 +8,8 @@ var hlsjs_version = "0.13.2";
 var dashjs_version = "3.0.3";
 // {% endif %}
 
+var maxQuality = false;
+
 function save_options() {
   // {% if env['target'] == 'chrome' %}
   
@@ -16,6 +18,7 @@ function save_options() {
   // {% endif %}
 
   var dbg = document.getElementById('cbDebug').checked;
+  var maxQuality = document.getElementById('maxQuality').checked;
 
   chrome.storage.local.set({
     // {% if env['target'] == 'chrome' %}
@@ -24,7 +27,8 @@ function save_options() {
     dashjs_version: dashjs_version,
     // {% endif %}
 
-    debug: dbg
+    debug: dbg,
+    maxQuality: maxQuality
   }, function() {
     var status = document.getElementById('status');
     status.textContent = 'Options saved.';
@@ -43,10 +47,12 @@ function restore_options() {
     // {% endif %}
 
     debug: false,
+    maxQuality: false
   }, function(items) {
     document.getElementById('hlsjsSel').value = items.hlsjs_version;
     document.getElementById('dashjsSel').value = items.dashjs_version;
     document.getElementById('cbDebug').checked = items.debug;
+    document.getElementById('maxQuality').checked = items.maxQuality;
   });
 }
 
