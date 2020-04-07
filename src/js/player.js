@@ -67,9 +67,13 @@ var SmoothTech = function(options) {
 var DashTech = function(options) {
     this.options = options;
     this.player = dashjs.MediaPlayer().create();
-    this.player.setFastSwitchEnabled(true);
+
+    if(typeof this.player.setFastSwitchEnabled != 'undefined') {
+        this.player.setFastSwitchEnabled(true);
+    }
+    
     this.player.getDebug().setLogToBrowserConsole(options.debug);
-    this.is_live = undefined;
+    this.is_live = false;
 
     if(options.protData != undefined) {
         this.player.setProtectionData(options.protData);
@@ -86,7 +90,7 @@ var DashTech = function(options) {
     });
 
     this.player.on(dashjs.MediaPlayer.events.MANIFEST_LOADED, function(e) {
-        if(e.data.type == 'dynamic') {
+        if(e.data.type == 'dynamic') { console.log(e.data.type);
             self.is_live = true;
         }
 
@@ -104,11 +108,9 @@ var DashTech = function(options) {
         self.destroy();
     });
 
-    // TODO: Add header override
     this.player.extend("RequestModifier", () => {
             return {
                 modifyRequestHeader: xhr => {
-                    console.log(self.options.headers);
                     for(var header_name in self.options.headers) {
                         xhr.setRequestHeader(header_name, self.options.headers[header_name]);
                     }
@@ -180,6 +182,7 @@ var HlsTech = function(options) {
     this.options = options;
     this.recover_take = 0;
     var self = this;
+    this.is_live = false;
 
     this.player = new Hls({
         // {% if env['target'] == 'chrome' %}
@@ -192,7 +195,6 @@ var HlsTech = function(options) {
         
         debug: options.debug,
 
-        // TODO: Add header override
         xhrSetup: function(xhr, url) {
             for(var header_name in self.options.headers) {
                 xhr.setRequestHeader(header_name, self.options.headers[header_name]);
@@ -210,7 +212,7 @@ var HlsTech = function(options) {
     });
 
     this.player.on(Hls.Events.LEVEL_LOADED, function(event, data) {
-        if(data.details != undefined && data.details.type == 'VOD') {
+        if(data.details != undefined && data.details.type !== 'VOD') { console.log(data.details);
             self.is_live = true;
         }
 
@@ -298,7 +300,6 @@ var HlsTech = function(options) {
 var Player = function(options) {
     this.tech = null;
     this.options = options;
-    this.is_live = false;
     var self = this;
 
     this.available_events = ["abort", "canplay", "canplaythrough", "durationchange", "emptied", "encrypted", "ended", "error", "interruptbegin", "loadeddata", 

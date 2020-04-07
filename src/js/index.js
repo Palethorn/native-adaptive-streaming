@@ -160,9 +160,9 @@ function playUrl(url) {
             }
 
             switch(event.type) {
-                case "loadeddata":
+                case "loadeddata": 
                     fillBitrates(player.getQualities());
-
+                    
                     if(!player.isLive()) {
                         progress.classList.remove('collapsed');
                         time.classList.remove('collapsed');
