@@ -67,7 +67,7 @@ var SmoothTech = function(options) {
 var DashTech = function(options) {
     this.options = options;
     this.player = dashjs.MediaPlayer().create();
-
+    
     if(typeof this.player.setFastSwitchEnabled != 'undefined') {
         this.player.setFastSwitchEnabled(true);
     }
@@ -266,7 +266,6 @@ var HlsTech = function(options) {
     });
 
     this.player.on(Hls.Events.ERROR, function(event, data) {
-        var  msg = "Player error: " + data.type + " - " + data.details;
         data.type = event;
         console.error(event, data);
 
@@ -477,7 +476,6 @@ var Player = function(options) {
     }
 
     this.clearVideoElement = function() {
-        // this.options.video_element.innerHTML = '';
         clearNode(this.options.video_element);
     }
 
