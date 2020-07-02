@@ -14,7 +14,7 @@ parser.add_argument('-f', '--file', help="Process only a single file")
 parser.add_argument('-e', '--env', help="Provide environment")
 args = parser.parse_args()
 
-yml = open(os.path.join(PATH, 'deployment', args.env + '.yml'), "r") 
+yml = open(os.path.join(PATH, 'build_config', args.env + '.yml'), "r") 
 env = yaml.load(yml.read())
 yml.close()
 
@@ -34,13 +34,13 @@ def build_file(env, f):
         if env['environment'] == 'release':
             output = re.sub('console.log\(.*\);', '', output)
 
-        target_file.write(output)
+        target_file.write(output.decode('utf-8'))
         target_file.close()
 
 
 def build_manifest(env):
     target_file = open(os.path.join(env['path'], 'dist', env['environment'], env['target'], 'manifest.json'), "w")
-    target_file.write(j2_env.get_template('manifest.json').render(env=env).encode("utf-8"))
+    target_file.write(j2_env.get_template('manifest.json').render(env=env).encode("utf-8").decode('utf8'))
     target_file.close()
 
 
