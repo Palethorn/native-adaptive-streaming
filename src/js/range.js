@@ -23,36 +23,36 @@ var Range = function(options) {
 
     this.thumb = document.createElement('div');
     this.thumb.style.borderRadius = '100%';
-    this.thumb.style.border = '5px solid white';
+    // this.thumb.style.border = '5px solid white';
     // this.thumb.style.backgroundColor = '#ff7777';
     this.thumb.style.backgroundColor = 'red';
-    this.thumb.style.width = '20px';
-    this.thumb.style.height = '20px';
+    this.thumb.style.width = '15px';
+    this.thumb.style.height = '15px';
 
     this.thumb.style.cursor = 'pointer';
 
     if(this.options.type == 'horizontal') {
-        this.path.style.height = '8px';
+        this.path.style.height = '4px';
         this.path.style.width = '100%';
-        this.fill.style.height = '8px';
+        this.fill.style.height = '4px';
         this.fill.style.float = 'left';
         this.fill.borderRadius = '0 100%';
         this.thumb.style.float = 'left';
-        this.thumb.style.marginLeft = '-19px';
-        this.thumb.style.marginTop = '-7px';
+        this.thumb.style.marginLeft = '-10px';
+        this.thumb.style.marginTop = '-6px';
         this.fill.style.backgroundColor = 'white';
     }
 
     if(this.options.type == 'vertical') {
-        this.path.style.width = '8px';
-        this.path.style.height = '80%';
-        /* this.path.style.backgroundColor = 'black'; */
-        this.fill.style.width = '6px';
+        this.path.style.width = '4px';
+        this.path.style.height = '100%';
+        this.path.style.backgroundColor = 'white';
+        this.fill.style.width = '2px';
         this.fill.style.height = '50%';
         this.fill.borderRadius = '100% 100% 0 0';
-        this.thumb.style.marginLeft = '-7px';
-        this.thumb.style.marginTop = '-2px';
-        /* this.fill.style.backgroundColor = 'white';*/
+        this.thumb.style.marginLeft = '-6px';
+        this.thumb.style.marginTop = '-10px';
+        this.fill.style.backgroundColor = 'black';
     }
 
     this.path.appendChild(this.fill);
