@@ -138,7 +138,16 @@ var DashTech = function(options) {
     }
 
     this.setMaxQuality = function() {
+        var qualities = this.getQualities();
+        var quality = qualities[0];
         
+        for(var i = 1; i < qualities.length; i++) {
+            if(qualities[i].bitrate > quality.bitrate) {
+                quality = qualities[i];
+            }
+        }
+
+        this.setQuality(quality.index);
     }
 
     this.destroy = function() {
