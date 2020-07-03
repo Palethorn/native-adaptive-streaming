@@ -2,23 +2,16 @@
  * Modifications copyright (C) 2017 David Ćavar
  */
 
-// {% if env['target'] == 'chrome' %}
-
-var hlsjs_version = "0.13.2";
-var dashjs_version = "3.0.3";
-// {% endif %}
-
-var maxQuality = false;
-
 function save_options() {
   // {% if env['target'] == 'chrome' %}
   
-  hlsjs_version = document.getElementById('hlsjsSel').value;
-  dashjs_version = document.getElementById('dashjsSel').value;
+  var hlsjs_version = document.getElementById('hlsjsSel').value;
+  var dashjs_version = document.getElementById('dashjsSel').value;
   // {% endif %}
 
   var dbg = document.getElementById('cbDebug').checked;
   var maxQuality = document.getElementById('maxQuality').checked;
+  var video_native_mode = document.getElementById('video-native-mode').checked;
 
   chrome.storage.local.set({
     // {% if env['target'] == 'chrome' %}
@@ -28,7 +21,8 @@ function save_options() {
     // {% endif %}
 
     debug: dbg,
-    maxQuality: maxQuality
+    maxQuality: maxQuality,
+    video_native_mode: video_native_mode
   }, function() {
     var status = document.getElementById('status');
     status.textContent = 'Options saved.';
@@ -42,17 +36,19 @@ function restore_options() {
   chrome.storage.local.get({
     // {% if env['target'] == 'chrome' %}
     
-    hlsjs_version: hlsjs_version,
-    dashjs_version: dashjs_version,
+    hlsjs_version: '0.14.0',
+    dashjs_version: '3.1.1',
     // {% endif %}
 
     debug: false,
-    maxQuality: false
+    maxQuality: false,
+    video_native_mode: false
   }, function(items) {
     document.getElementById('hlsjsSel').value = items.hlsjs_version;
     document.getElementById('dashjsSel').value = items.dashjs_version;
     document.getElementById('cbDebug').checked = items.debug;
     document.getElementById('maxQuality').checked = items.maxQuality;
+    document.getElementById('video-native-mode').checked = items.video_native_mode
   });
 }
 
@@ -108,8 +104,6 @@ function populateSelection(data, target) {
         option.innerText = data.versions[i];
         target.appendChild(option);
     }
-
-    target.value = hlsjs_version;
 }
 
 // {% elif env['target'] == 'firefox' %}

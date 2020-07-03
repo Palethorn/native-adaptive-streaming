@@ -12,6 +12,16 @@ var dashjs_loaded = false;
 
 var maxQuality = false;
 
+var video_native_mode = false;
+
+function resize() {
+    player_container.style.width = window.innerWidth + 'px';
+    
+    if(!video_native_mode) {
+        video_element.style.width = window.innerWidth + 'px';
+    }
+}
+
 function loadLibs(url) {
     var s1 = document.createElement('script');
     var s2 = document.createElement('script');
@@ -28,8 +38,6 @@ function loadLibs(url) {
         if (dashjs_loaded && hlsjs_loaded) {
             playUrl(url); 
         }
-
-        
     }
 
     s1.src = 'https://cdn.jsdelivr.net/npm/hls.js@' + hlsjs_version + '/dist/hls.min.js';
@@ -77,12 +85,12 @@ function restoreSettings() {
         // {% endif %}
 
         debug: false,
-        native: false,
+        video_native_mode: false,
         maxQuality: false
     }, function(settings) {
         debug = settings.debug;
-        native = settings.native;
         maxQuality = settings.maxQuality;
+        video_native_mode = settings.video_native_mode;
         var url = window.location.href.split("#")[1];
         media_url_input.value = url;
         // {% if env['target'] == 'firefox' %}
@@ -94,7 +102,13 @@ function restoreSettings() {
         dashjs_version = settings.dashjs_version;
         loadLibs(url);
         // {% endif %}
-    
+
+        if(video_native_mode) {
+            video_element.classList.remove('responsive');
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
     });
 }
 
@@ -221,6 +235,8 @@ function playUrl(url) {
                         player.setPlaybackRate(e.value);
                     });
                     
+                    resize();
+
                     break;
                 case 'pause':
                     state_machine.transition('play_pause', 'paused');
@@ -286,11 +302,3 @@ for(var i = 0; i < close_input.length; i++) {
 }
 
 restoreSettings();
-
-window.addEventListener('resize', function() {
-    player_container.style.width = window.innerWidth + 'px';
-    video_element.style.width = window.innerWidth + 'px';
-});
-
-player_container.style.width = window.innerWidth -  + 'px';
-video_element.style.width = window.innerWidth + 'px';
