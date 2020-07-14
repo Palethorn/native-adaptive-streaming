@@ -37,6 +37,10 @@ var DashTech = function(options) {
     this.player.on(dashjs.MediaPlayer.events.ERROR, function(e) {
         self.options.event_handler(e);
 
+        if(e.error.code == 111) {
+            self.options.onLicenseError();
+        }
+
         if(e.error == 'key_session') {
             self.options.onLicenseError();
             return;
