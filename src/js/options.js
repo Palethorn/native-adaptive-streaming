@@ -3,7 +3,7 @@
  */
 
 function save_options() {
-  // {% if env['target'] == 'chrome' %}
+  // {% if (env['target'] == 'chrome') or  (env['target'] == 'self_hosted') %}
   
   var hlsjs_version = document.getElementById('hlsjsSel').value;
   var dashjs_version = document.getElementById('dashjsSel').value;
@@ -14,7 +14,7 @@ function save_options() {
   var video_native_mode = document.getElementById('video-native-mode').checked;
 
   chrome.storage.local.set({
-    // {% if env['target'] == 'chrome' %}
+    // {% if (env['target'] == 'chrome') or  (env['target'] == 'self_hosted') %}
     
     hlsjs_version: hlsjs_version,
     dashjs_version: dashjs_version,
@@ -34,7 +34,7 @@ function save_options() {
 
 function restore_options() {
   chrome.storage.local.get({
-    // {% if env['target'] == 'chrome' %}
+    // {% if (env['target'] == 'chrome') or  (env['target'] == 'self_hosted') %}
     
     hlsjs_version: '0.14.0',
     dashjs_version: '3.1.1',
@@ -56,7 +56,7 @@ var loaded1 = false;
 var loaded2 = false;
 
 function attachEventListeners() {
-    // {% if env['target'] == 'chrome' %}
+    // {% if (env['target'] == 'chrome') or  (env['target'] == 'self_hosted') %}
     
     if(!loaded1 || !loaded2) {
         return;
@@ -67,7 +67,7 @@ function attachEventListeners() {
     document.getElementById('saveSettings').addEventListener('click', save_options);
 }
 
-// {% if env['target'] == 'chrome' %}
+// {% if (env['target'] == 'chrome') or  (env['target'] == 'self_hosted') %}
 
 var ajax1 = new Ajax();
 

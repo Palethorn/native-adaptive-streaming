@@ -15,7 +15,7 @@
     "icons": { "128": "assets/icon128.png" },
     "background": { "scripts": [ "event.js"] },
 
-    {% if env['target'] == 'chrome' %}
+    {% if (env['target'] == 'chrome') or  (env['target'] == 'self_hosted') %}
     "content_security_policy": "script-src 'self' https://cdn.jsdelivr.net blob:; object-src 'self'",
     {% endif %}
     

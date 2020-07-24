@@ -5,7 +5,7 @@ var HlsTech = function(options) {
     this.is_live = false;
 
     this.player = new Hls({
-        // {% if env['target'] == 'chrome' %}
+        // {% if (env['target'] == 'chrome') or  (env['target'] == 'self_hosted') %}
         
         enableWorker: true,
         // {% elif env['target'] == 'firefox' %}

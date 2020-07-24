@@ -2,7 +2,9 @@
  * Modifications copyright (C) 2017 David Ćavar
  */
 
-// {% if env['target'] == 'chrome' %}
+var maxQuality = false;
+
+// {% if (env['target'] == 'chrome') or  (env['target'] == 'self_hosted') %}
 
 var hlsjs_version = 0;
 var dashjs_version = 0;
@@ -73,43 +75,6 @@ function reset() {
 
     player = null;
     state_machine.transition('la_url_form', 'invisible');
-}
-
-function restoreSettings() {
-
-    chrome.storage.local.get({
-        // {% if env['target'] == 'chrome' %}
-
-        hlsjs_version: "0.8.9",
-        dashjs_version: "2.6.5",
-        // {% endif %}
-
-        debug: false,
-        video_native_mode: false,
-        maxQuality: false
-    }, function(settings) {
-        debug = settings.debug;
-        maxQuality = settings.maxQuality;
-        video_native_mode = settings.video_native_mode;
-        var url = window.location.href.split("#")[1];
-        media_url_input.value = url;
-        // {% if env['target'] == 'firefox' %}
-
-        playUrl(url);
-        // {% elif env['target'] == 'chrome' %}
-
-        hlsjs_version = settings.hlsjs_version;
-        dashjs_version = settings.dashjs_version;
-        loadLibs(url);
-        // {% endif %}
-
-        if(video_native_mode) {
-            video_element.classList.remove('responsive');
-        }
-
-        window.addEventListener('resize', resize);
-        resize();
-    });
 }
 
 function reloadPlayer(e) {
@@ -301,4 +266,45 @@ for(var i = 0; i < close_input.length; i++) {
     }, false);
 }
 
+// {% if env['target'] != 'self_hosted' %}
+
+function restoreSettings() {
+
+    chrome.storage.local.get({
+        // {% if (env['target'] == 'chrome') or  (env['target'] == 'self_hosted') %}
+
+        hlsjs_version: "0.8.9",
+        dashjs_version: "2.6.5",
+        // {% endif %}
+
+        debug: false,
+        video_native_mode: false,
+        maxQuality: false
+    }, function(settings) {
+        debug = settings.debug;
+        maxQuality = settings.maxQuality;
+        video_native_mode = settings.video_native_mode;
+        var url = window.location.href.split("#")[1];
+        media_url_input.value = url;
+        // {% if env['target'] == 'firefox' %}
+
+        playUrl(url);
+        // {% elif env['target'] == 'chrome' %}
+
+        hlsjs_version = settings.hlsjs_version;
+        dashjs_version = settings.dashjs_version;
+        loadLibs(url);
+        // {% endif %}
+
+        if(video_native_mode) {
+            video_element.classList.remove('responsive');
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+    });
+}
+
 restoreSettings();
+
+// {% endif %}
