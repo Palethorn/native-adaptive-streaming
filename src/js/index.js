@@ -145,7 +145,7 @@ function playUrl(url) {
             switch(event.type) {
                 case "loadeddata": 
                     fillBitrates(player.getQualities());
-                    
+
                     if(!player.isLive()) {
                         progress.classList.remove('collapsed');
                         time.classList.remove('collapsed');
@@ -193,13 +193,12 @@ function playUrl(url) {
                     break;
                 case 'playing':
                     state_machine.transition('play_pause', 'playing');
-                    player.setVolume(.5);
-                    state_machine.transition('loader', 'invisible');
 
-                    playback_speed_selection.addEventListener('change', function(e) {
-                        player.setPlaybackRate(e.value);
-                    });
+                    if(!player.isMuted()) {
+                        player.setVolume(user_volume);
+                    }
                     
+                    state_machine.transition('loader', 'invisible');
                     resize();
 
                     break;
@@ -207,7 +206,25 @@ function playUrl(url) {
                     state_machine.transition('play_pause', 'paused');
                     break;
                 case 'volumechange':
-                    volume_range.setValue(video_element.volume * 100);
+                    if(!player.isMuted()) {
+                        volume_range.setValue(player.getVolume() * 100);
+                        user_volume = player.getVolume();
+                        
+                        chrome.storage.local.set({ user_volume: player.getVolume() }, function() {
+                        });
+
+                        if(player.getVolume() == 0) {
+                            volume_btn.childNodes[0].innerText = 'volume_mute';
+                        } else if(player.getVolume() > 0 && player.getVolume() < .5) {
+                            volume_btn.childNodes[0].innerText = 'volume_down';
+                        } else if(player.getVolume() > .5) {
+                            volume_btn.childNodes[0].innerText = 'volume_up';
+                        }
+                    } else {
+                        volume_range.setValue(0);
+                        volume_btn.childNodes[0].innerText = 'volume_off';
+                    }
+
                     break;
             }
         },
@@ -279,13 +296,16 @@ function restoreSettings() {
 
         debug: false,
         video_native_mode: false,
-        maxQuality: false
+        maxQuality: false,
+        user_volume: .5,
     }, function(settings) {
         debug = settings.debug;
         maxQuality = settings.maxQuality;
         video_native_mode = settings.video_native_mode;
         var url = window.location.href.split("#")[1];
         media_url_input.value = url;
+        user_volume = settings.user_volume;
+        
         // {% if env['target'] == 'firefox' %}
 
         playUrl(url);

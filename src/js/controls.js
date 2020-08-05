@@ -77,6 +77,16 @@ function toggleSettings() {
     state_machine.transition('settings_form', 'visible');
 }
 
+function toggleMute() {
+    if(player != null) {
+        if(player.isMuted()) {
+            player.unmute()
+        } else {
+            player.mute()
+        }
+    }
+}
+
 video_element.addEventListener('mousemove', playerMouseMove);
 video_element.addEventListener('click', playerClick);
 
@@ -295,22 +305,22 @@ window.addEventListener('keypress', function(e) {
     }
 
     if(e.key == 'ArrowUp') {
-        if(video_element.volume + .1 > 1) {
-            video_element.volume = 1;
+        if(player.getVolume() + .1 > 1) {
+            player.setVolume(1);
             return;
         }
 
-        video_element.volume += .1;
+        player.setVolume(player.getVolume() + .1);
         return;
     }
 
     if(e.key == 'ArrowDown') {
-        if(video_element.volume - .1 < 0) {
-            video_element.volume = 0;
+        if(player.getVolume() - .1 < 0) {
+            player.setVolume(0);
             return;
         }
 
-        video_element.volume -= .1;
+        player.setVolume(player.getVolume() - .1);
     }
 
     if(e.key == 'ArrowLeft') {
@@ -334,3 +344,4 @@ window.addEventListener('keypress', function(e) {
 }, false);
 
 settings_btn.addEventListener('click', toggleSettings);
+volume_btn.addEventListener('click', toggleMute);

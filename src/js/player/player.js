@@ -2,7 +2,6 @@
  * Modifications copyright (C) 2017 David Ćavar
  */
 
-var player = null;
 var debug = false;
 var hlsjsCurrentVersion = "0";
 var dashjsCurrentVersion = "0";
@@ -14,6 +13,8 @@ var loaded1 = loaded2 = false;
  */
 var Player = function(options) {
     this.tech = null;
+    this.volume = .5;
+    this.muted = false;
     this.options = options;
     var self = this;
 
@@ -118,7 +119,27 @@ var Player = function(options) {
     }
 
     this.setVolume = function(volume) {
+        this.muted = false;
         this.options.video_element.volume = volume;
+        this.volume = volume;
+    }
+
+    this.getVolume = function() {
+        return this.volume;
+    }
+
+    this.mute = function() {
+        this.muted = true;
+        this.options.video_element.volume = 0;
+    }
+
+    this.unmute = function() {
+        this.muted = false;
+        this.options.video_element.volume = this.volume;
+    }
+
+    this.isMuted = function() {
+        return this.muted;
     }
 
     this.loadSubtitles = function(url) {

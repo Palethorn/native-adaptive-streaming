@@ -14,6 +14,7 @@ var reload_source_la_url_btn = document.querySelector('#reload-source-la-url-btn
 var volume_popup = document.querySelector("#volume-popup");
 var settings_form = document.querySelector("#settings-form");
 var settings_btn = document.querySelector("#settings-btn");
+var volume_btn = document.querySelector("#volume-btn");
 var la_url_form = document.querySelector("#la-url-form");
 var headers_form = document.querySelector("#headers-form");
 var media_url_form = document.querySelector("#media-url-form");
@@ -53,7 +54,7 @@ var volume_range = new Range({
     max_value: 100,
     value: 0,
     valueChanged: function(value) {
-        video_element.volume = value / 100;
+        player.setVolume(value / 100);
     }
 });
 
@@ -97,4 +98,10 @@ var playback_speed_selection = new Dropdown({
             selected: false
         },
     ]
+});
+
+playback_speed_selection.addEventListener('change', function(e) {
+    if(player != null) {
+        player.setPlaybackRate(e.value);
+    }
 });
