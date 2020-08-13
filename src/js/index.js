@@ -181,6 +181,7 @@ function playUrl(url) {
                     fillBitrates(player.getQualities());
                     break;
                 case 'timeupdate':
+
                     if(!seek_lock) {
                         var val = (video_element.currentTime / video_element.duration) * 100;
                         progress_range.setValue(val);
