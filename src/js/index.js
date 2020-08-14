@@ -132,7 +132,8 @@ function playUrl(url) {
         "video_element": video_element,
         "protData": {
             "com.widevine.alpha": {
-                "serverURL": la_url.value
+                "serverURL": la_url.value,
+                "httpRequestHeaders": headers
             }
         },
         "onLicenseError": function() {
