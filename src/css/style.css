@@ -2,6 +2,19 @@
  * Modifications copyright (C) 2017 David Ćavar
  */
 
+@keyframes click_animation {
+  0% {
+    background-color: #FF4136;
+  }
+  100% {
+    background-color: #ff000000;
+  }
+}
+
+* {
+    font-family: "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
  body{
     margin-top: 0px; 
     margin-bottom: 0px; 
@@ -57,24 +70,20 @@
     background: rgba(0, 0, 0, 0.5);
 }
 
-#controls a{
-    height: 48px;
-    text-align: center;
-    line-height: 48px;
-}
-
-#controls .control {
-    height: 48px;
-}
-
 #controls-left {
     float: left;
-    width: 80%;
+    min-width: 118px;
+}
+
+#controls-center {
+    margin-left: 1%;
+    margin-right: 1%;
+    float: left;
 }
 
 #controls-right {
     float: right;
-    width: 20%;
+    min-width: 214px;
 }
 
 #controls-left div {
@@ -87,39 +96,35 @@
 
 #duration {
     color: white;
-    padding-top: 14px;
+    padding-top: 16px;
     width: 25%;
     text-align: center;
     user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
+    min-width: 70px;
 }
 
 #time {
     color: white;
-    padding-top: 14px;
+    padding-top: 16px;
     width: 10%;
     text-align: center;
     user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
+    min-width: 70px;
 }
 
-#volume {
-    height: 30px;
-    width: 25%;
-}
-
-#settings {
-    width: 25%;
-}
-
-#fullscreen {
-    width: 25%;
+#settings, #fullscreen, #volume {
+    height: 48px;
+    float: right;
+    min-width: 48px;
 }
 
 #playback {
     width: 5%;
+    min-width: 48px;
 }
 
 .animation-delay {
@@ -133,6 +138,11 @@
     cursor: pointer;
     /* color: #ff7777; */
     color: white;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding-top: 11px;
+    min-width: 48px;
 }
 
 .collapsed {
@@ -148,7 +158,7 @@
     width: 100%;
     top: 0;
     left: 0;
-    height: 70px;
+    height: 110px;
 }
 
 #headers-form {
@@ -170,11 +180,12 @@
     color: white;
 }
 
+/*
 #media-url-toggle-btn, #subtitles-toggle-btn, #la-url-toggle-btn, #headers-toggle-btn {
     width: 220px;
     padding-left: 10px;
 }
-
+*/
 #settings-form a {
     color: white;
 }
@@ -222,21 +233,21 @@
 }
 
 #progress {
+    width: 98%;
     height: 48px;
-    width: 80%;
-    margin-left: 2%;
     margin-top: 23px;
+    margin-left: 1%;
+    margin-right: 1%;
 }
 
 #volume-popup {
     position: relative;
     display: block;
-    width: 50px;
+    width: 100%;
     height: 200px;
     /* background-color: white; */
     background: rgba(0, 0, 0, 0.5);
     top: -248px;
-    left: 20px;
     -webkit-animation-duration: .3s;
     -moz-animation-duration: .3s;
     animation-duration: .3s;
@@ -278,28 +289,11 @@
     font-size: 56pt;
 }
 
-#volume {
-    height: 30px;
-}
-
-#settings {
-    height: 30px;
-}
-
 #volume-control-container {
     position: absolute;
     height: 80%;
-    margin-left: 24px;
+    margin-left: 48%;
     margin-top: 25px;
-}
-
-#reload-source-la-url-btn, #reload-source-media-url-btn, #load-subtitles-url-btn {
-    margin-top: 8px;
-}
-
-.close-input {
-    height: 60px;
-    margin-top: 8px;
 }
 
 .input-popup {
@@ -326,4 +320,97 @@
 
 #headers-reload-player-btn {
     margin-bottom: 10px;
+}
+
+#playback {
+    height: 48px;
+}
+
+#play-pause, #volume-btn, #settings-btn, #fullscren-toggle-btn {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+}
+
+#settings-form-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#settings-form-list li {
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+}
+
+#settings-form-list .btn-flat {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.btn {
+    border: 0;
+    border-radius: 10px;
+    width: 60px;
+    padding-top: 5px;
+    display: block;
+}
+
+.col {
+    display: inline-block;
+    margin-left: 1%;
+}
+
+.s1 {
+    width: 5%;
+}
+
+.s2 {
+    width: 8%;
+}
+
+.s5 {
+    width: 40%;
+}
+
+.s10 {
+    width: 80%;
+}
+
+.s12 {
+    width: 100%;
+}
+
+input[type="text"] {
+    background: none;
+    border: none;
+    border-bottom: 1px solid gray;
+    width: 100%;
+    color: white;
+}
+
+.row {
+    padding-top: 10px;
+}
+
+.row .btn-flat {
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.btn-flat-animate {
+    animation: click_animation 400ms 1;
+}
+
+.btn-flat {
+    display: inline-block;
+}
+
+.close-input {
+    width: 100%;
 }

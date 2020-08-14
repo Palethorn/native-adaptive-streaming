@@ -17,6 +17,8 @@ state_machine.addTransitions('controls', [
     }}
 ], 'visible'); 
 
+state_machine.lock('controls', 'visible');
+
 state_machine.addTransitions('play_pause', [
     {from: "playing", to: "paused", object: play_pause, handle: function(transition) {
         transition.object.querySelector('i').innerText = "play_arrow";
@@ -342,6 +344,15 @@ window.addEventListener('keypress', function(e) {
     }
 
 }, false);
+
+window.addEventListener('resize', progress_resize);
+
+function progress_resize() {
+    var controls_center = document.querySelector('#controls-center');
+    controls_center.style.width = (window.innerWidth - 332 - (window.innerWidth * .02)) + 'px';
+}
+
+progress_resize();
 
 settings_btn.addEventListener('click', toggleSettings);
 volume_btn.addEventListener('click', toggleMute);

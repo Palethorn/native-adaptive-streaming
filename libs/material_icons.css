@@ -1,9 +1,8 @@
-/* fallback */
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: url('../fonts/materialize-icons.woff2') format('woff2');
+  src: url(material_icons.ttf) format('truetype');
 }
 
 .material-icons {
@@ -18,6 +17,4 @@
   white-space: nowrap;
   word-wrap: normal;
   direction: ltr;
-  -moz-font-feature-settings: 'liga';
-  -moz-osx-font-smoothing: grayscale;
 }

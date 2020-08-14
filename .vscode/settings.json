@@ -3,7 +3,7 @@
         "commands": [
             {
                 "match": "src/*",
-                "cmd": "python3 ${workspaceRoot}/build.py -f ${file} -e chrome_debug"
+                "cmd": "python3 ${workspaceRoot}/build.py -e chrome_debug"
             }
         ]
     }
