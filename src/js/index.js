@@ -87,7 +87,13 @@ function prepareLaUrlInput() {
 }
 
 window.addEventListener("hashchange", function() {
-    var url = window.location.href.split("#")[1];
+    var urls = window.location.href.split("#");
+    var url = urls[1];
+    
+    if(urls.length > 1) {
+        la_url.value = urls[2];
+    }
+
     playUrl(url);
     
 }, false);
@@ -303,7 +309,13 @@ function restoreSettings() {
         debug = settings.debug;
         maxQuality = settings.maxQuality;
         video_native_mode = settings.video_native_mode;
-        var url = window.location.href.split("#")[1];
+        var urls = window.location.href.split("#");
+        var url = urls[1];
+
+        if(urls.length > 1) {
+            la_url.value = urls[2];
+        }
+
         media_url_input.value = url;
         user_volume = settings.user_volume;
         

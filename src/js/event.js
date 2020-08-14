@@ -14,9 +14,15 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 });
 
 chrome.webRequest.onBeforeRequest.addListener(function(info) { 
-    if(!enabled || (!info.url.split("?")[0].split("#")[0].endsWith(".m3u8") 
-        && !info.url.split("?")[0].split("#")[0].endsWith(".mpd") 
-        && !info.url.split("?")[0].split("#")[0].endsWith("Manifest"))) {
+    if(
+        !enabled 
+        || (
+            !info.url.split("?")[0].split("#")[0].endsWith(".m3u8") 
+            && !info.url.split("?")[0].split("#")[0].endsWith(".mpd") 
+            && !info.url.split("?")[0].split("#")[0].endsWith("Manifest")
+            )
+        ) {
+            
         return null;
     }
 
