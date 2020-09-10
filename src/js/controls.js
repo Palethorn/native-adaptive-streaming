@@ -3,11 +3,13 @@ state_machine.addTransitions('controls', [
         var o = transition.object;
         o.classList.remove('fadeIn');
         o.classList.add('fadeOut');
+        video_element.style.cursor = 'none';
     }},
     {from: "invisible", to: "visible", object: controls, handle: function(transition) {
         var o = transition.object;
         o.classList.remove('fadeOut');
         o.classList.add('fadeIn');
+        video_element.style.cursor = 'initial';
     }},
     {from: "visible", to: "frozen", object: controls, handle: function(transition) {
         var o = transition.object;
