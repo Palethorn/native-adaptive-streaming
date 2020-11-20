@@ -4,6 +4,14 @@
 
 var maxQuality = false;
 
+function resize() {
+    player_container.style.width = window.innerWidth + 'px';
+    
+    if(!video_native_mode) {
+        video_element.style.width = window.innerWidth + 'px';
+    }
+}
+
 // {% if (env['target'] == 'chrome') or  (env['target'] == 'self_hosted') %}
 
 var hlsjs_version = 0;
@@ -15,14 +23,6 @@ var dashjs_loaded = false;
 var maxQuality = false;
 
 var video_native_mode = false;
-
-function resize() {
-    player_container.style.width = window.innerWidth + 'px';
-    
-    if(!video_native_mode) {
-        video_element.style.width = window.innerWidth + 'px';
-    }
-}
 
 function loadLibs(url) {
     var s1 = document.createElement('script');
@@ -89,8 +89,8 @@ function prepareLaUrlInput() {
 window.addEventListener("hashchange", function() {
     var urls = window.location.href.split("#");
     var url = urls[1];
-    
-    if(urls.length > 1) {
+
+    if(urls.length > 2) {
         la_url.value = urls[2];
     }
 
@@ -313,7 +313,7 @@ function restoreSettings() {
         var urls = window.location.href.split("#");
         var url = urls[1];
 
-        if(urls.length > 1) {
+        if(urls.length > 2) {
             la_url.value = urls[2];
         }
 
