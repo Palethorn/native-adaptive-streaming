@@ -1,6 +1,8 @@
 <!--
     Modifications copyright (C) 2017 David Ćavar
  -->
+# This has became a legacy project now. New project is at https://github.com/Palethorn/nas-extension
+
 Forked from https://github.com/gramk/chrome-hls and added additional features.
 
 # Native HLS + MPEG-Dash Extension
